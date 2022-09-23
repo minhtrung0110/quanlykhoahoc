@@ -34,13 +34,13 @@ public class OfficeAssignmentDAO extends MyDatabaseManager {
             
 
     }
-//    public static void main(String[] args) {
-//        try {
-//            new OfficeAssignmentDAO().readOfficeAssignment();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(OfficeAssignmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+    public static void main(String[] args) {
+        try {
+            new OfficeAssignmentDAO().readOfficeAssignment();
+        } catch (SQLException ex) {
+            Logger.getLogger(OfficeAssignmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }

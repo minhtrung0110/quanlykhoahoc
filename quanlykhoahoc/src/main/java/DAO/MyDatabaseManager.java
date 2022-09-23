@@ -60,7 +60,7 @@ public class MyDatabaseManager {
         }
     }
     
-//    public static void main(String[] args) {
-//        new MyDatabaseManager().connectDB();
-//    }
+    public static void main(String[] args) {
+        new MyDatabaseManager().connectDB();
+    }
 }

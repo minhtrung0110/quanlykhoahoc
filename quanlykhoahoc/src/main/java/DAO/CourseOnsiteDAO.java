@@ -33,13 +33,13 @@ public class CourseOnsiteDAO extends MyDatabaseManager {
             
 
     }
-//    public static void main(String[] args) {
-//        try {
-//            new CourseOnsiteDAO().readCourseOnsite();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CourseOnsiteDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+    public static void main(String[] args) {
+        try {
+            new CourseOnsiteDAO().readCourseOnsite();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseOnsiteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }
