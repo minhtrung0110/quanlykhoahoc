@@ -33,13 +33,13 @@ public class CourseDAO extends MyDatabaseManager {
             
 
     }
-//    public static void main(String[] args) {
-//        try {
-//            new CourseDAO().readCourse();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+    public static void main(String[] args) {
+        try {
+            new CourseDAO().readCourse();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }

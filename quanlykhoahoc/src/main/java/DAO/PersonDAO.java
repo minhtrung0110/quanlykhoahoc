@@ -14,13 +14,13 @@ import java.util.logging.Logger;
  *
  * @author trankimphu0609
  */
-public class StudentDAO extends MyDatabaseManager {
-    public StudentDAO() {
+public class PersonDAO extends MyDatabaseManager {
+    public PersonDAO() {
         super();
         this.connectDB();
     }
     
-    public void readStudents() throws SQLException {
+    public void readPersons() throws SQLException {
         String query = "SELECT * FROM Person WHERE EnrollmentDate > 0";
         ResultSet rs = this.doReadQuery(query);
         if (rs != null) {
@@ -34,12 +34,12 @@ public class StudentDAO extends MyDatabaseManager {
             
 
     }
-//    public static void main(String[] args) {
-//        try {
-//            new StudentDAO().readStudents();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(StudentDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+    public static void main(String[] args) {
+        try {
+            new PersonDAO().readPersons();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }
