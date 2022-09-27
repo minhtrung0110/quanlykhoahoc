@@ -4,21 +4,20 @@
  */
 package DTO;
 
-import java.util.Date;
-
 /**
  *
  * @author trankimphu0609
  */
 public class PersonDTO {
+
     public int PersonID;
     public String Lastname, Firstname;
-    public Date HireDate, EnrollmentDate;
+    public String HireDate, EnrollmentDate;
 
     public PersonDTO() {
     }
 
-    public PersonDTO(int PersonID, String Lastname, String Firstname, Date HireDate, Date EnrollmentDate) {
+    public PersonDTO(int PersonID, String Lastname, String Firstname, String HireDate, String EnrollmentDate) {
         this.PersonID = PersonID;
         this.Lastname = Lastname;
         this.Firstname = Firstname;
@@ -50,26 +49,25 @@ public class PersonDTO {
         this.Firstname = Firstname;
     }
 
-    public Date getHireDate() {
+    public String getHireDate() {
         return HireDate;
     }
 
-    public void setHireDate(Date HireDate) {
+    public void setHireDate(String HireDate) {
         this.HireDate = HireDate;
     }
 
-    public Date getEnrollmentDate() {
+    public String getEnrollmentDate() {
         return EnrollmentDate;
     }
 
-    public void setEnrollmentDate(Date EnrollmentDate) {
+    public void setEnrollmentDate(String EnrollmentDate) {
         this.EnrollmentDate = EnrollmentDate;
     }
 
     @Override
     public String toString() {
-        return "PersonDTO{" + "PersonID=" + PersonID + ", Lastname=" + Lastname + ", Firstname=" + Firstname + ", HireDate=" + HireDate + ", EnrollmentDate=" + EnrollmentDate + '}';
+        return "\nPersonDTO{" + "PersonID=" + PersonID + ", Lastname=" + Lastname + ", Firstname=" + Firstname + ", HireDate=" + HireDate + ", EnrollmentDate=" + EnrollmentDate + '}';
     }
 
-    
 }

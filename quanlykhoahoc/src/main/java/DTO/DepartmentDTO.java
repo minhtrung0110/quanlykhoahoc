@@ -15,13 +15,13 @@ public class DepartmentDTO {
     public int DepartmentID;
     public String Name;
     public int Budget;
-    public Date StartDate;
+    public String StartDate;
     public int Administrator;
 
     public DepartmentDTO() {
     }
 
-    public DepartmentDTO(int DepartmentID, String Name, int Budget, Date StartDate, int Administrator) {
+    public DepartmentDTO(int DepartmentID, String Name, int Budget, String StartDate, int Administrator) {
         this.DepartmentID = DepartmentID;
         this.Name = Name;
         this.Budget = Budget;
@@ -53,11 +53,11 @@ public class DepartmentDTO {
         this.Budget = Budget;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return StartDate;
     }
 
-    public void setStartDate(Date StartDate) {
+    public void setStartDate(String StartDate) {
         this.StartDate = StartDate;
     }
 
