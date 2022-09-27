@@ -14,9 +14,8 @@ public class CourseOnlineDTO {
 
     public CourseOnlineDTO() {
     }
-
-    
     public CourseOnlineDTO(int CourseID, String url) {
+
         this.CourseID = CourseID;
         this.url = url;
     }
