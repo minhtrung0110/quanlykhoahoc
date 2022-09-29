@@ -4,8 +4,10 @@
  */
 package DAO;
 
+import DTO.CourseInstructorDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,12 +15,31 @@ import java.util.logging.Logger;
  *
  * @author trankimphu0609
  */
-public class CourseInstructorDAO extends MyDatabaseManager {
+public class CourseInstructorDAO extends MyConnectUnit {
     public CourseInstructorDAO() {
         super();
-        this.connectDB();
+      
     }
-    
+     public ArrayList<CourseInstructorDTO> loadDatabase() throws Exception
+    {
+        ArrayList<CourseInstructorDTO> dssach = new ArrayList<>();
+        try {
+            ResultSet rs = this.Select("courseinstructor");
+            while(rs.next())
+            {
+               CourseInstructorDTO csin = new  CourseInstructorDTO(rs.getInt("CourseID"),rs.getInt("PersonID"));       
+                dssach.add(csin);
+            }
+            rs.close();
+            this.Close();//dong ket noi;
+
+        } catch (SQLException ex) {
+            System.out.println("Khong the load database CourseInstructor: "+ex);
+        }
+
+        return dssach;
+    }
+    /*
     public void readCourseInstructor() throws SQLException {
         String query = "SELECT * FROM CourseInstructor";
         ResultSet rs = this.doReadQuery(query);
@@ -32,14 +53,11 @@ public class CourseInstructorDAO extends MyDatabaseManager {
         }
             
 
+    }*/
+ public static void main(String[] args) throws Exception {
+     CourseInstructorDAO cs=new CourseInstructorDAO();
+     cs.loadDatabase().forEach( (n) -> { System.out.println(n); } );
+       
     }
-//    public static void main(String[] args) {
-//        try {
-//            new CourseInstructorDAO().readCourseInstructor();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CourseInstructorDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
     
 }

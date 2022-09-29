@@ -35,7 +35,7 @@ public class MySQLConnect {
     public Connection getConnect() throws Exception  {
         if(this.connect==null){
             this.DriverTest();
-            String url ="jdbc:mysql://"+this.host+":3306/"+this.database;
+            String url ="jdbc:mysql://"+this.host+":3306/"+this.database+"?useUnicode=yes&characterEncoding=UTF-8";
             try{
                 this.connect=DriverManager.getConnection(url,username,password);
             }
