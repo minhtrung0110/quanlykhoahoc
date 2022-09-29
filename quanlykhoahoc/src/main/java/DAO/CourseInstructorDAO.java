@@ -24,10 +24,15 @@ public class CourseInstructorDAO extends MyConnectUnit {
     {
         ArrayList<CourseInstructorDTO> dssach = new ArrayList<>();
         try {
-            ResultSet rs = this.Select("courseinstructor");
+            //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
+            //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
+            ResultSet rs = this.SelectCustom("course as cs , person as ps, courseinstructor as csin","cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname","cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID");
             while(rs.next())
             {
-               CourseInstructorDTO csin = new  CourseInstructorDTO(rs.getInt("CourseID"),rs.getInt("PersonID"));       
+               CourseInstructorDTO csin = new  CourseInstructorDTO(
+                       rs.getInt("CourseID"),rs.getString("Title"),
+                       rs.getInt("PersonID"),rs.getString("Lastname")+rs.getString("Firstname")
+               );       
                 dssach.add(csin);
             }
             rs.close();

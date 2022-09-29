@@ -10,15 +10,12 @@ package DTO;
  */
 public class CourseInstructorDTO {
     
-    public int CourseID;
-    public int PersonID;
+    private int CourseID;
+    private int PersonID;
+    private String TitleCourse;
+    private String TeacherName;
 
     public CourseInstructorDTO() {
-    }
-
-    public CourseInstructorDTO(int CourseID, int PersonID) {
-        this.CourseID = CourseID;
-        this.PersonID = PersonID;
     }
 
     public int getCourseID() {
@@ -36,6 +33,31 @@ public class CourseInstructorDTO {
     public void setPersonID(int PersonID) {
         this.PersonID = PersonID;
     }
+
+    public String getTitleCourse() {
+        return TitleCourse;
+    }
+
+    public void setTitleCourse(String TitleCourse) {
+        this.TitleCourse = TitleCourse;
+    }
+
+    public String getTeacherName() {
+        return TeacherName;
+    }
+
+    public void setTeacherName(String TeacherName) {
+        this.TeacherName = TeacherName;
+    }
+
+    public CourseInstructorDTO(int CourseID,  String TitleCourse,int PersonID, String TeacherName) {
+        this.CourseID = CourseID;
+        this.TitleCourse = TitleCourse;
+        this.PersonID = PersonID;
+        this.TeacherName = TeacherName;
+    }
+
+   
 
     @Override
     public String toString() {

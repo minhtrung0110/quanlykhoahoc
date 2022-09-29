@@ -4,10 +4,14 @@
  */
 package GUI;
 
+import BUS.CourseBUS;
 import BUS.CourseInstructorBUS;
+import BUS.PersonBUS;
 import DTO.CourseInstructorDTO;
+import DTO.PersonDTO;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +23,8 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
    private int DEFALUT_WIDTH;
      private DefaultTableModel model;
+     private CourseBUS courseBUS;
+     private PersonBUS personBUS=new PersonBUS();
     public QuanLyPhanCongGiangDay(){
          this.setSize(1090, 750);
          initComponents();
@@ -34,6 +40,19 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }
     private void init() throws Exception{
         ShowDataBase();
+        loadComboBox();
+    }
+    private void loadComboBox() throws Exception{
+        loadComboBoxCourse(cbTeacher);
+    }
+     private void loadComboBoxCourse(JComboBox cmb) throws Exception
+    {
+       if(personBUS.getListPerson()== null) personBUS.loadDSPerson();
+        ArrayList<PersonDTO> ps = personBUS.getListPerson();
+        for(PersonDTO a : ps){
+            cmb.addItem(a.getFirstname() );
+        }
+      
     }
     private void ShowDataBase() throws Exception{       
         try {
@@ -48,8 +67,10 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }
     private void insertHeader(){
         Vector header = new Vector();
-        header.add("MÃ Khoá Học");
-        header.add("MÃ Giảng Viên");
+        header.add("Mã Khoá Học");
+         header.add("Khoá Học");
+        header.add("Mã Giảng Viên");
+         header.add("Tên Giảng Viên");
        
         //if (model.getRowCount()==0)
               model=new DefaultTableModel(header,0);
@@ -63,8 +84,10 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         for(CourseInstructorDTO cs: courseinstructor)
         {
             data = new Vector();
-            data.add(cs.CourseID);
-            data.add(cs.PersonID);
+            data.add(cs.getCourseID());
+            data.add(cs.getTitleCourse());
+            data.add(cs.getPersonID());
+            data.add(cs.getTeacherName());
            
             model.addRow(data);
         }
@@ -87,7 +110,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         tbCourseInstructor = new javax.swing.JTable();
         pInput = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cbStudent = new javax.swing.JComboBox<>();
+        cbCourse = new javax.swing.JComboBox<>();
         cbTeacher = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         pSearch = new javax.swing.JPanel();
@@ -95,8 +118,8 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         txtSearchTeachName = new javax.swing.JTextField();
         txtSearchTeacherID = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtSearchStudentName = new javax.swing.JTextField();
-        txtSearchStudentID = new javax.swing.JTextField();
+        txtSearchCourseName = new javax.swing.JTextField();
+        txtSearchCourseID = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -151,9 +174,10 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("KHOÁ HỌC");
 
-        cbStudent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cbTeacher.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTeacher.setForeground(new java.awt.Color(0, 0, 204));
+        cbTeacher.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "     " }));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -171,7 +195,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
         pInputLayout.setVerticalGroup(
@@ -183,7 +207,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -208,17 +232,17 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("TÊN GIẢNG VIÊN");
 
-        txtSearchStudentName.setText("jTextField1");
+        txtSearchCourseName.setText("jTextField1");
 
-        txtSearchStudentID.setText("jTextField1");
+        txtSearchCourseID.setText("jTextField1");
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("MÃ HỌC VIÊN");
+        jLabel7.setText("MÃ KHOÁ HỌC");
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("TÊN HỌC VIÊN");
+        jLabel8.setText("TÊN HOÁ HỌC");
 
         javax.swing.GroupLayout pSearchLayout = new javax.swing.GroupLayout(pSearch);
         pSearch.setLayout(pSearchLayout);
@@ -234,20 +258,19 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSearchTeachName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10))
+                            .addComponent(txtSearchTeachName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pSearchLayout.createSequentialGroup()
                         .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pSearchLayout.createSequentialGroup()
-                                .addComponent(txtSearchStudentID, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                .addComponent(txtSearchCourseID, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pSearchLayout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44)))
                         .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSearchStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10))))
+                            .addComponent(txtSearchCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(10, 10, 10))
         );
         pSearchLayout.setVerticalGroup(
             pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,9 +288,9 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addGap(9, 9, 9)
-                .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearchStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSearchCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -281,9 +304,9 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +324,18 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbCourseInstructorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCourseInstructorMouseClicked
-       
+       int i = tbCourseInstructor.getSelectedRow();
+        if(i>=0)
+        {
+             if(tbCourseInstructor.getRowSorter() != null)
+            {
+                i = tbCourseInstructor.getRowSorter().convertRowIndexToModel(i);
+            }
+             System.out.print(tbCourseInstructor.getModel().getValueAt(i, 0));
+             cbCourse.setSelectedItem(tbCourseInstructor.getModel().getValueAt(i, 0).toString());
+             cbTeacher.setSelectedItem(tbCourseInstructor.getModel().getValueAt(i, 1));
+             
+        }
     }//GEN-LAST:event_tbCourseInstructorMouseClicked
 
     private void txtSearchTeachNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchTeachNameActionPerformed
@@ -310,7 +344,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbStudent;
+    private javax.swing.JComboBox<String> cbCourse;
     private javax.swing.JComboBox<String> cbTeacher;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -324,8 +358,8 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     private javax.swing.JPanel pInput;
     private javax.swing.JPanel pSearch;
     private javax.swing.JTable tbCourseInstructor;
-    private javax.swing.JTextField txtSearchStudentID;
-    private javax.swing.JTextField txtSearchStudentName;
+    private javax.swing.JTextField txtSearchCourseID;
+    private javax.swing.JTextField txtSearchCourseName;
     private javax.swing.JTextField txtSearchTeachName;
     private javax.swing.JTextField txtSearchTeacherID;
     // End of variables declaration//GEN-END:variables
