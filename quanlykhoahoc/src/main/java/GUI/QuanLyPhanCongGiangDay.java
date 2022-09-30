@@ -7,6 +7,7 @@ package GUI;
 import BUS.CourseBUS;
 import BUS.CourseInstructorBUS;
 import BUS.PersonBUS;
+import DTO.CourseDTO;
 import DTO.CourseInstructorDTO;
 import DTO.PersonDTO;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
    private int DEFALUT_WIDTH;
      private DefaultTableModel model;
-     private CourseBUS courseBUS;
+     private CourseBUS courseBUS=new CourseBUS();
      private PersonBUS personBUS=new PersonBUS();
     public QuanLyPhanCongGiangDay(){
          this.setSize(1090, 750);
@@ -43,14 +44,24 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         loadComboBox();
     }
     private void loadComboBox() throws Exception{
-        loadComboBoxCourse(cbTeacher);
+        loadComboBoxCourse(cbCourse);
+        loadComboBoxTecher(cbTeacher);
     }
      private void loadComboBoxCourse(JComboBox cmb) throws Exception
+    {
+       if(courseBUS.getListCourse()== null) courseBUS.loadDSCourse();
+        ArrayList<CourseDTO> cs = courseBUS.getListCourse();
+        for(CourseDTO a : cs){
+            cmb.addItem(a.getTitle() );
+        }
+      
+    }
+     private void loadComboBoxTecher(JComboBox cmb) throws Exception
     {
        if(personBUS.getListPerson()== null) personBUS.loadDSPerson();
         ArrayList<PersonDTO> ps = personBUS.getListPerson();
         for(PersonDTO a : ps){
-            cmb.addItem(a.getFirstname() );
+            cmb.addItem(a.getFirstname()+" "+a.getLastname() );
         }
       
     }
@@ -174,7 +185,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("KHOÁ HỌC");
 
-        cbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  " }));
 
         cbTeacher.setForeground(new java.awt.Color(0, 0, 204));
         cbTeacher.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "     " }));
@@ -205,11 +216,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pSearch.setBackground(new java.awt.Color(255, 255, 255));

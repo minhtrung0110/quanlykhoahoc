@@ -26,7 +26,9 @@ public class CourseInstructorDAO extends MyConnectUnit {
         try {
             //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
             //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
-            ResultSet rs = this.SelectCustom("course as cs , person as ps, courseinstructor as csin","cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname","cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID");
+            ResultSet rs = this.SelectCustom("course as cs , person as ps, courseinstructor as csin",
+                    "cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
+                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID");
             while(rs.next())
             {
                CourseInstructorDTO csin = new  CourseInstructorDTO(
