@@ -7,6 +7,8 @@ package BUS;
 import DAO.CourseInstructorDAO;
 import java.util.ArrayList;
 import DTO.CourseInstructorDTO;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  *
@@ -23,7 +25,51 @@ public class CourseInstructorBUS {
         listCourseInstructor=data.loadDatabase();
     }
     
+    public void addCourseInstructor(CourseInstructorDTO csin) throws Exception{
+        // validate data
+        CourseInstructorDAO data =new CourseInstructorDAO();
+        data.addCourseInstructor(csin);
+        listCourseInstructor.add(csin);
+        
+    }
     
+    public void deleteCourseInstructor(int courseID,int teacherID) throws Exception{
+        
+        for(CourseInstructorDTO csin : listCourseInstructor )
+        {
+            if(csin.getCourseID()==courseID)
+            {   
+                try {
+                   listCourseInstructor.remove(csin);
+                    CourseInstructorDAO data =new CourseInstructorDAO();
+                    data.delete(courseID,teacherID);  
+                } catch (Exception e) {
+                    System.out.println("Khong the Xoa CourseInstructor vao database !!!");
+                } 
+                return;
+            }
+        }
+        
+    }
+    public void updateCourseInstructor(int courseID,int teacherID, CourseInstructorDTO csin) throws Exception{
+         for(int i = 0 ; i < listCourseInstructor.size() ; i++)
+        {
+            if(listCourseInstructor.get(i).getCourseID()==csin.getCourseID())
+            {
+                try {
+                    listCourseInstructor.set(i, csin);
+                CourseInstructorDAO data =new CourseInstructorDAO();
+                data.updateCourseInstructor(courseID,teacherID,csin);
+                } catch (Exception e) {
+                    System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
+                   
+                }
+                
+                return;
+            }
+        }
+    }
+   
     
     
     public static void setListCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {

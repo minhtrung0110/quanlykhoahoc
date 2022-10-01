@@ -8,6 +8,7 @@ import DTO.CourseInstructorDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +46,40 @@ public class CourseInstructorDAO extends MyConnectUnit {
         }
 
         return dssach;
+    }
+      public void addCourseInstructor(CourseInstructorDTO csin) throws Exception
+    {
+         HashMap<String,Object> Insertvalues =new  HashMap<String,Object>();
+         
+        Insertvalues.put("CourseID",csin.getCourseID());
+        Insertvalues.put("PersionID", csin.getPersonID());
+         try {
+             this.Insert("courseinstructor", Insertvalues);
+        } catch (SQLException ex) {
+            System.out.println("Khong the them CourseInstructor vao database !!!");
+        }
+    }
+         public void updateCourseInstructor(int courseID,int teacherID,CourseInstructorDTO csin) throws Exception
+    {
+        HashMap<String,Object> Updatevalues =new  HashMap<String,Object>();
+         
+        Updatevalues.put("CourseID",csin.getCourseID());
+        Updatevalues.put("PersionID", csin.getPersonID());
+       
+         try {
+           this.Update("courseinstructor", Updatevalues,"CourseID ='"+courseID+"AND PersonID ='"+teacherID+"'");
+        } catch (SQLException ex) {
+            System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
+        }
+    }
+    public void delete(int courseID,int teacherID)
+    {
+        try {
+                    this.Delete("courseinstructor","CourseID ='"+courseID+"AND PersonID ='"+teacherID+"'");
+                } catch (Exception e) {
+                    System.out.println("Lỗi không thể xóa courseinstructor item !!");
+                }
+        
     }
     /*
     public void readCourseInstructor() throws SQLException {

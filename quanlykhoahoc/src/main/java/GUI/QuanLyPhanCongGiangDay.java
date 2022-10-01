@@ -12,6 +12,8 @@ import DTO.CourseInstructorDTO;
 import DTO.PersonDTO;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +47,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }
     private void loadComboBox() throws Exception{
         loadComboBoxCourse(cbCourse);
-        loadComboBoxTecher(cbTeacher);
+//        loadComboBoxTecher(cbTeacher);
     }
      private void loadComboBoxCourse(JComboBox cmb) throws Exception
     {
@@ -122,8 +124,9 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         pInput = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbCourse = new javax.swing.JComboBox<>();
-        cbTeacher = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        cbTeacher = new javax.swing.JTextField();
+        btnSelectTeacher = new javax.swing.JButton();
         pSearch = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtSearchTeachName = new javax.swing.JTextField();
@@ -133,6 +136,9 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         txtSearchCourseID = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -187,12 +193,18 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
         cbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  " }));
 
-        cbTeacher.setForeground(new java.awt.Color(0, 0, 204));
-        cbTeacher.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "     " }));
-
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("GIẢNG VIÊN");
+
+        btnSelectTeacher.setBackground(new java.awt.Color(204, 204, 204));
+        btnSelectTeacher.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSelectTeacher.setText("...");
+        btnSelectTeacher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectTeacherActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pInputLayout = new javax.swing.GroupLayout(pInput);
         pInput.setLayout(pInputLayout);
@@ -202,8 +214,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pInputLayout.createSequentialGroup()
+                        .addComponent(cbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSelectTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,14 +227,19 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         pInputLayout.setVerticalGroup(
             pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pInputLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(8, 8, 8)
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pInputLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pInputLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(pInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSelectTeacher, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(cbTeacher))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -273,7 +293,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                     .addGroup(pSearchLayout.createSequentialGroup()
                         .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pSearchLayout.createSequentialGroup()
-                                .addComponent(txtSearchCourseID, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                .addComponent(txtSearchCourseID)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pSearchLayout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,19 +325,58 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
+        btnDelete.setBackground(new java.awt.Color(153, 0, 51));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("XOÁ");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setBackground(new java.awt.Color(0, 51, 204));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("THÊM");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setBackground(new java.awt.Color(0, 153, 0));
+        btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setText("SỬA");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLayeredPane1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(55, 55, 55))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,11 +385,18 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(38, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(pInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -340,11 +406,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         {
              if(tbCourseInstructor.getRowSorter() != null)
             {
-                i = tbCourseInstructor.getRowSorter().convertRowIndexToModel(i);
+                i = tbCourseInstructor.getRowSorter().convertRowIndexToModel(i);         
             }
-             System.out.print(tbCourseInstructor.getModel().getValueAt(i, 0));
-             cbCourse.setSelectedItem(tbCourseInstructor.getModel().getValueAt(i, 0).toString());
-             cbTeacher.setSelectedItem(tbCourseInstructor.getModel().getValueAt(i, 1));
+           cbCourse.setSelectedItem(tbCourseInstructor.getModel().getValueAt(i, 1));
+           cbTeacher.setText(tbCourseInstructor.getModel().getValueAt(i, 3).toString());
+          
              
         }
     }//GEN-LAST:event_tbCourseInstructorMouseClicked
@@ -353,10 +419,53 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchTeachNameActionPerformed
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        
+        try{
+            CourseInstructorDTO csin =new CourseInstructorDTO();
+            csin.setCourseID((int)cbCourse.getSelectedItem());
+            csin.setPersonID((int)Integer.parseInt(cbTeacher.getText()));
+           // System.out.println('Bat loi:'+);
+           //System.out.println('Bat loi:'+csin.toString());
+            CourseInstructorBUS bus=new CourseInstructorBUS();
+            bus.addCourseInstructor(csin);
+       
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,"Can't create CourseInstructor ", "Error Message",JOptionPane.ERROR_MESSAGE);
+        }
+         
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnSelectTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectTeacherActionPerformed
+       JPFormPerson tbps;
+       try {
+           tbps = new JPFormPerson();
+            tbps.setSize(950, 615);
+       tbps.setVisible(true);
+       int personID = tbps.getPersonID(); 
+       cbTeacher.setText(String.valueOf(personID));
+       } catch (Exception ex) {
+           Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
+       }
+      
+    }//GEN-LAST:event_btnSelectTeacherActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnSelectTeacher;
     private javax.swing.JComboBox<String> cbCourse;
-    private javax.swing.JComboBox<String> cbTeacher;
+    private javax.swing.JTextField cbTeacher;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
