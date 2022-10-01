@@ -58,6 +58,9 @@ public class MyConnectUnit  {
     public ResultSet SelectCustom(String tableName,String Custom, String condition) throws Exception {
         return SelectCustom(tableName,Custom,condition,null,null);
     }
+     public ResultSet SelectCustomOrderby(String tableName,String Custom, String condition,String orderby) throws Exception {
+        return SelectCustom(tableName,Custom,condition,null,orderby);
+    }
     public ResultSet SelectCustom(String tableName,String Custom) throws Exception {
         return SelectCustom(tableName,Custom,null,null,null);
     }

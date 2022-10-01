@@ -21,19 +21,19 @@ public class CourseInstructorDAO extends MyConnectUnit {
         super();
       
     }
-     public ArrayList<CourseInstructorDTO> loadDatabase() throws Exception
+        public ArrayList<CourseInstructorDTO> loadDatabase() throws Exception
     {
         ArrayList<CourseInstructorDTO> dssach = new ArrayList<>();
         try {
             //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
             //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
-            ResultSet rs = this.SelectCustom("course as cs , person as ps, courseinstructor as csin",
-                    "cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
-                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID");
+            ResultSet rs = this.SelectCustomOrderby("course as cs , person as ps, courseinstructor as csin",
+                    "csin.ID,cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
+                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID","csin.ID ASC");
             while(rs.next())
             {
                CourseInstructorDTO csin = new  CourseInstructorDTO(
-                       rs.getInt("CourseID"),rs.getString("Title"),
+                       rs.getInt("ID"),rs.getInt("CourseID"),rs.getString("Title"),
                        rs.getInt("PersonID"),rs.getString("Lastname")+rs.getString("Firstname")
                );       
                 dssach.add(csin);
@@ -52,22 +52,22 @@ public class CourseInstructorDAO extends MyConnectUnit {
          HashMap<String,Object> Insertvalues =new  HashMap<String,Object>();
          
         Insertvalues.put("CourseID",csin.getCourseID());
-        Insertvalues.put("PersionID", csin.getPersonID());
+        Insertvalues.put("PersonID", csin.getPersonID());
          try {
              this.Insert("courseinstructor", Insertvalues);
         } catch (SQLException ex) {
             System.out.println("Khong the them CourseInstructor vao database !!!");
         }
     }
-         public void updateCourseInstructor(int courseID,int teacherID,CourseInstructorDTO csin) throws Exception
+         public void updateCourseInstructor(int id,CourseInstructorDTO csin) throws Exception
     {
         HashMap<String,Object> Updatevalues =new  HashMap<String,Object>();
          
         Updatevalues.put("CourseID",csin.getCourseID());
-        Updatevalues.put("PersionID", csin.getPersonID());
+        Updatevalues.put("PersonID", csin.getPersonID());
        
          try {
-           this.Update("courseinstructor", Updatevalues,"CourseID ='"+courseID+"AND PersonID ='"+teacherID+"'");
+           this.Update("courseinstructor", Updatevalues,"ID ='"+id+"'");
         } catch (SQLException ex) {
             System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
         }
@@ -75,27 +75,13 @@ public class CourseInstructorDAO extends MyConnectUnit {
     public void delete(int courseID,int teacherID)
     {
         try {
-                    this.Delete("courseinstructor","CourseID ='"+courseID+"AND PersonID ='"+teacherID+"'");
+                    this.Delete("courseinstructor","CourseID ='"+courseID+"'AND PersonID ='"+teacherID+"'");
                 } catch (Exception e) {
                     System.out.println("Lỗi không thể xóa courseinstructor item !!");
                 }
         
     }
-    /*
-    public void readCourseInstructor() throws SQLException {
-        String query = "SELECT * FROM CourseInstructor";
-        ResultSet rs = this.doReadQuery(query);
-        if (rs != null) {
-            int i = 1;
-            while (rs.next()) {
-//                System.out.print(i + " - ");
-                System.out.println(rs.getString("CourseID") + " " + rs.getString("PersonID"));
-                i++;
-            }
-        }
-            
-
-    }*/
+     
  public static void main(String[] args) throws Exception {
      CourseInstructorDAO cs=new CourseInstructorDAO();
      cs.loadDatabase().forEach( (n) -> { System.out.println(n); } );

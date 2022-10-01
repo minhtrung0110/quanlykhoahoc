@@ -5,8 +5,8 @@
  */
 package GUI;
 
-import BUS.PersonBUS;
-import DTO.PersonDTO;
+import BUS.CourseBUS;
+import DTO.CourseDTO;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -17,14 +17,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Khôi
  */
-public class JPFormPerson extends javax.swing.JDialog {
+public class JPFormCourse extends javax.swing.JDialog {
 
     DefaultTableModel model=new DefaultTableModel();
-    public JPFormPerson(java.awt.Frame parent, boolean modal) {
+    public JPFormCourse(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    public JPFormPerson() throws Exception{
+    public JPFormCourse() throws Exception{
         setModal(true); 
         initComponents();
         txTim.requestFocus();
@@ -49,7 +49,7 @@ public class JPFormPerson extends javax.swing.JDialog {
         btXacNhan = new javax.swing.JButton();
         btDong = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txPersonID = new javax.swing.JTextField();
+        txCourseID = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btTim = new javax.swing.JButton();
         cbbTim = new javax.swing.JComboBox<>();
@@ -66,7 +66,7 @@ public class JPFormPerson extends javax.swing.JDialog {
         jLabel1.setBackground(new java.awt.Color(51, 0, 51));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel1.setText("LIST TEACHER");
+        jLabel1.setText("LIST COURSE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,9 +126,9 @@ public class JPFormPerson extends javax.swing.JDialog {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("PersonID :");
+        jLabel2.setText("CourseID :");
 
-        txPersonID.setEditable(false);
+        txCourseID.setEditable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "SEARCH", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -140,7 +140,7 @@ public class JPFormPerson extends javax.swing.JDialog {
             }
         });
 
-        cbbTim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PersonID", "FirstName", "LastName" }));
+        cbbTim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CourseID", "Title", "DepartmentID" }));
         cbbTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTimActionPerformed(evt);
@@ -192,7 +192,7 @@ public class JPFormPerson extends javax.swing.JDialog {
                                 .addGap(186, 186, 186)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -211,7 +211,7 @@ public class JPFormPerson extends javax.swing.JDialog {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -223,8 +223,8 @@ public class JPFormPerson extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public int getPersonID(){
-        int personID=Integer.parseInt(txPersonID.getText());
+    public int getCourseID(){
+        int personID=Integer.parseInt(txCourseID.getText());
         return personID;
     }
     private void btXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btXacNhanMouseClicked
@@ -258,11 +258,11 @@ public class JPFormPerson extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JPFormPerson dialog = null;
+                JPFormCourse dialog = null;
                 try {
-                    dialog = new JPFormPerson();
+                    dialog = new JPFormCourse();
                 } catch (Exception ex) {
-                    Logger.getLogger(JPFormPerson.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JPFormCourse.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
@@ -275,63 +275,61 @@ public class JPFormPerson extends javax.swing.JDialog {
         });
     }
 /***********************************ĐỌC DSKH******************************************/
-    public void outModel(DefaultTableModel model,ArrayList<PersonDTO> listPerson){
+    public void outModel(DefaultTableModel model,ArrayList<CourseDTO> listCourse){
         Vector row;
         model.setRowCount(0);
-        for(PersonDTO ps: listPerson){
+        for(CourseDTO cs: listCourse){
             row=new Vector();
-            row.add(ps.getPersonID());
-            row.add(ps.getFirstname());
-            row.add(ps.getLastname());
-            row.add(ps.getHireDate());
-            row.add(ps.getEnrollmentDate());
+            row.add(cs.getCourseID());
+            row.add(cs.getTitle());
+            row.add(cs.getCredits());
+            row.add(cs.getDepartmentID());
              model.addRow(row);
         }
         tbKH.setModel(model);
     }
     public void LoadDSKH() throws Exception{
-        PersonBUS psBUS=new PersonBUS();
+        CourseBUS csBUS=new CourseBUS();
         Vector header=new Vector();
-        header.add("TeacherID ");
-        header.add("FirstName");
-        header.add("LastName");
-        header.add("HireDate");
-        header.add("EnrollmentDate");
+        header.add("CourseID ");
+        header.add("Title");
+        header.add("Credits");
+        header.add("Department");
         if(model.getRowCount()==0)
             model=new DefaultTableModel(header,0);
-        if(psBUS.getListPerson()==null) psBUS.loadDSPerson();
-        ArrayList<PersonDTO> listPerson=new ArrayList<>();
-        listPerson=psBUS.getListPerson();
-        outModel(model,listPerson);
+        if(csBUS.getListCourse()==null) csBUS.loadDSCourse();
+        ArrayList<CourseDTO> listCourse=new ArrayList<>();
+        listCourse=csBUS.getListCourse();
+        outModel(model,listCourse);
     }
-/************************lấy mã ps*****************************************/
+/************************lấy mã cs*****************************************/
     public String maKH(){
         int i=tbKH.getSelectedRow();
-        String maps=txPersonID.getText();
-        return maps;
+        String macs=txCourseID.getText();
+        return macs;
     }
     public void Click(){
         int i=tbKH.getSelectedRow();
-        txPersonID.setText(tbKH.getModel().getValueAt(i,0).toString());
+        txCourseID.setText(tbKH.getModel().getValueAt(i,0).toString());
     }
 //tìm***********************************************************************
     public void Tim(){
-        PersonBUS ps=new PersonBUS();
+        CourseBUS cs=new CourseBUS();
         String a=cbbTim.getSelectedItem().toString();
-        ArrayList<PersonDTO> DSKH=new ArrayList<>();
-        ArrayList<PersonDTO> ps1=new ArrayList<>();
-        DSKH=ps.getListPerson();
-        if((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty())
+        ArrayList<CourseDTO> DSKH=new ArrayList<>();
+        ArrayList<CourseDTO> cs1=new ArrayList<>();
+        DSKH=cs.getListCourse();
+        if((a.equals("CourseID") || a.equals("Title") || a.equals("DepartmentID")) && txTim.getText().isEmpty())
             outModel(model,DSKH);
-        else if(a.equals("PersonID")){
-            ps1=ps.searchPersonWithID(Integer.parseInt(txTim.getText()));
-            outModel(model,ps1);
-        }else if(a.equals("FirstName")){
-          ps1=ps.searchPersonWithFirstName(txTim.getText());
-            outModel(model,ps1);
-        }else if(a.equals("LastName")){
-            ps1=ps.searchPersonWithLastName(txTim.getText());
-            outModel(model,ps1);
+        else if(a.equals("CourseID")){
+            cs1=cs.searchCourseWithID(Integer.parseInt(txTim.getText()));
+            outModel(model,cs1);
+        }else if(a.equals("Title")){
+          cs1=cs.searchCourseWithTitle(txTim.getText());
+            outModel(model,cs1);
+        }else if(a.equals("DepartmentID")){
+            cs1=cs.searchCourseWithDepartmentID(Integer.parseInt(txTim.getText()));
+            outModel(model,cs1);
         }     
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -346,7 +344,7 @@ public class JPFormPerson extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbKH;
-    private javax.swing.JTextField txPersonID;
+    private javax.swing.JTextField txCourseID;
     private javax.swing.JTextField txTim;
     // End of variables declaration//GEN-END:variables
 }

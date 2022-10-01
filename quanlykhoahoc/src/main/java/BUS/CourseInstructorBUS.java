@@ -51,7 +51,7 @@ public class CourseInstructorBUS {
         }
         
     }
-    public void updateCourseInstructor(int courseID,int teacherID, CourseInstructorDTO csin) throws Exception{
+    public void updateCourseInstructor(int id, CourseInstructorDTO csin) throws Exception{
          for(int i = 0 ; i < listCourseInstructor.size() ; i++)
         {
             if(listCourseInstructor.get(i).getCourseID()==csin.getCourseID())
@@ -59,7 +59,7 @@ public class CourseInstructorBUS {
                 try {
                     listCourseInstructor.set(i, csin);
                 CourseInstructorDAO data =new CourseInstructorDAO();
-                data.updateCourseInstructor(courseID,teacherID,csin);
+                data.updateCourseInstructor(id,csin);
                 } catch (Exception e) {
                     System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
                    
@@ -69,7 +69,32 @@ public class CourseInstructorBUS {
             }
         }
     }
-   
+     public ArrayList<CourseInstructorDTO> searchCourseInstructor(int courseID,String courseTitle, int teacherID, String teacherName)
+    {
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        
+         courseTitle= courseTitle.isEmpty()? courseTitle="": courseTitle;
+        teacherName=teacherName.isEmpty()?teacherName="":teacherName;
+
+        for(CourseInstructorDTO csin : listCourseInstructor)
+        {
+            //System.out.println(csin.getCourseID()+"--"+courseID );
+
+          //  System.out.println( csin.getPersonID()==teacherID);
+          
+            
+             if( csin.getTitleCourse().contains(courseTitle) &&
+                     csin.getTeacherName().contains(teacherName) &&
+                 csin.getPersonID()==teacherID &&
+                     csin.getCourseID()==courseID 
+                 )
+            {
+                
+                search.add(csin);
+            }
+        }
+        return search;
+    }
     
     
     public static void setListCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {

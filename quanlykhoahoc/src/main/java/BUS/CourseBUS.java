@@ -31,4 +31,51 @@ public class CourseBUS {
         if(listCourse==null) listCourse = new ArrayList<CourseDTO>();
         listCourse=data.loadDatabase();
     }
+    
+     public ArrayList<CourseDTO> searchCourseWithID(int courseID)
+    {
+        ArrayList<CourseDTO> search = new ArrayList<>();
+        //courseID=courseID.isEmpty()?courseID="":courseID;
+
+        for(CourseDTO ps : listCourse)
+        {
+          
+             if( ps.getCourseID()==courseID )
+            {
+                
+                search.add(ps);
+            }
+        }
+        return search;
+    }
+      public ArrayList<CourseDTO> searchCourseWithTitle(String title)
+    {
+        ArrayList<CourseDTO> search = new ArrayList<>();
+        //courseID=courseID.isEmpty()?courseID="":courseID;
+
+        for(CourseDTO ps : listCourse)
+        {
+          
+             if( ps.getTitle().contains(title) )
+            {
+                
+                search.add(ps);
+            }
+        }
+        return search;
+    }
+       public ArrayList<CourseDTO> searchCourseWithDepartmentID(int id)
+    {
+         ArrayList<CourseDTO> search = new ArrayList<>();
+        for(CourseDTO ps : listCourse)
+        {
+          
+             if( ps.getDepartmentID()==id)
+            {
+                
+                search.add(ps);
+            }
+        }
+        return search;
+    }
 }

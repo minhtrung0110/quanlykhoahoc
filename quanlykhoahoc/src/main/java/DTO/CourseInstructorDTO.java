@@ -9,7 +9,7 @@ package DTO;
  * @author trankimphu0609
  */
 public class CourseInstructorDTO {
-    
+    private int ID;
     private int CourseID;
     private int PersonID;
     private String TitleCourse;
@@ -21,7 +21,7 @@ public class CourseInstructorDTO {
     public int getCourseID() {
         return CourseID;
     }
-
+    
     public void setCourseID(int CourseID) {
         this.CourseID = CourseID;
     }
@@ -50,7 +50,16 @@ public class CourseInstructorDTO {
         this.TeacherName = TeacherName;
     }
 
-    public CourseInstructorDTO(int CourseID,  String TitleCourse,int PersonID, String TeacherName) {
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
+    public CourseInstructorDTO(int ID,int CourseID,  String TitleCourse,int PersonID, String TeacherName) {
+        this.ID=ID;
         this.CourseID = CourseID;
         this.TitleCourse = TitleCourse;
         this.PersonID = PersonID;
