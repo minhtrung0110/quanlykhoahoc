@@ -60,8 +60,8 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }
      private void loadComboBoxTecher(JComboBox cmb) throws Exception
     {
-       if(personBUS.getListPerson()== null) personBUS.loadDSPerson();
-        ArrayList<PersonDTO> ps = personBUS.getListPerson();
+       if(personBUS.getListPersonLecturers()== null) personBUS.loadDSPersonLecturers();
+        ArrayList<PersonDTO> ps = personBUS.getListPersonLecturers();
         for(PersonDTO a : ps){
             cmb.addItem(a.getFirstname()+" "+a.getLastname() );
         }
@@ -217,6 +217,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         jLabel3.setText("GIẢNG VIÊN");
 
         txTeacher.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txTeacher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txTeacherActionPerformed(evt);
+            }
+        });
 
         btnSelectTeacher.setBackground(new java.awt.Color(153, 153, 153));
         btnSelectTeacher.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -388,7 +393,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(txtSearchCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnDelete.setBackground(new java.awt.Color(153, 0, 51));
@@ -617,6 +622,10 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
        refeshData();
     }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void txTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTeacherActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txTeacherActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

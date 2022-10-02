@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class PersonBUS {
       static ArrayList<PersonDTO> listPerson;
+      static ArrayList<PersonDTO> listPersonStudent;
+      static ArrayList<PersonDTO> listPersonLecturers;
     public PersonBUS() {
     }
 
@@ -112,5 +114,99 @@ public class PersonBUS {
         }
         return search;
     }
+    // Thuan
+    public ArrayList<PersonDTO>  getALLPerson() throws Exception{
+        PersonDAO data =new PersonDAO();
+         ArrayList<PersonDTO> listAllPerson = new ArrayList<PersonDTO>();
+        listAllPerson=data.getALLPerson();
+        return listAllPerson;
+    }
     
+    //    Giang vien
+    public void  loadDSPersonLecturers() throws Exception{
+        PersonDAO data =new PersonDAO();
+        if(listPersonLecturers==null) listPersonLecturers = new ArrayList<PersonDTO>();
+        listPersonLecturers=data.getAllLecturers();
+    }
+
+    public static  ArrayList<PersonDTO> getListPersonLecturers() {
+        return listPersonLecturers;
+    }
+
+    public void addLectures(PersonDTO ps) throws Exception{
+        // validate data
+        PersonDAO data =new PersonDAO();
+        data.addLecturesDAO(ps);
+        listPersonLecturers.add(ps);
+        
+    }
+     public void editLectures(PersonDTO ps) throws Exception{
+        // validate data
+        PersonDAO data =new PersonDAO();
+        data.editLecturesDAO(ps);
+        listPersonLecturers.add(ps);
+        
+    }
+     public void deleteLectures(int PersonID) throws Exception{
+        
+        for(PersonDTO ps : listPersonLecturers )
+        {
+            if(ps.getPersonID()==PersonID)
+            {   
+                try {
+                   listPersonLecturers.remove(ps);
+                    PersonDAO data =new PersonDAO();
+                    data.deleteLecturesDAO(PersonID);  
+                } catch (Exception e) {
+                    System.out.println("Khong the Xoa giảng viên !!!");
+                } 
+                return;
+            }
+        }
+        
+    }
+    
+     //    Hoc vien
+    public void  loadDSPersonStudent() throws Exception{
+        PersonDAO data =new PersonDAO();
+        if(listPersonStudent==null) listPersonStudent = new ArrayList<PersonDTO>();
+        listPersonStudent=data.getAllStudent();
+    }
+
+    public static  ArrayList<PersonDTO> getListPersonStudent() {
+        return listPersonStudent;
+    }
+
+    public void addStudent(PersonDTO ps) throws Exception{
+        // validate data
+        PersonDAO data =new PersonDAO();
+        data.addStudentDAO(ps);
+        listPersonStudent.add(ps);
+        
+    }
+     public void editStudent(PersonDTO ps) throws Exception{
+        // validate data
+        PersonDAO data =new PersonDAO();
+        data.editStudentDAO(ps);
+        listPersonStudent.add(ps);
+        
+    }
+     public void deleteStudent(int PersonID) throws Exception{
+        
+        for(PersonDTO ps : listPersonStudent )
+        {
+            if(ps.getPersonID()==PersonID)
+            {   
+                try {
+                   listPersonStudent.remove(ps);
+                    PersonDAO data =new PersonDAO();
+                    data.deleteStudentDAO(PersonID);  
+                } catch (Exception e) {
+                    System.out.println("Không the xóa học viên !!!");
+                } 
+                return;
+            }
+        }
+        
+    }
 }
