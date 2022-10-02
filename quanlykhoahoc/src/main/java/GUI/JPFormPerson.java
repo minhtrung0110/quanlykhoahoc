@@ -299,9 +299,9 @@ public class JPFormPerson extends javax.swing.JDialog {
         header.add("EnrollmentDate");
         if(model.getRowCount()==0)
             model=new DefaultTableModel(header,0);
-        if(psBUS.getListPerson()==null) psBUS.loadDSPerson();
+        if(psBUS.getListPersonLecturers()==null) psBUS.loadDSPersonLecturers();
         ArrayList<PersonDTO> listPerson=new ArrayList<>();
-        listPerson=psBUS.getListPerson();
+        listPerson=psBUS.getListPersonLecturers();
         outModel(model,listPerson);
     }
 /************************lấy mã ps*****************************************/

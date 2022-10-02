@@ -119,7 +119,7 @@ public class ManageCourses extends JFrame implements MouseListener{
         //Thêm item vào thanh menu (Tên item : icon : icon hover)
         navItem = new ArrayList<>();  //Chứa thông tin có button cho menu gồm ( Tên btn : icon : icon hover )
             navItem.add("Quản Lý Khoá Học:manage-course.png:manage-course.png");
-            navItem.add("Quản Lý Giáo Viên:KhachHang_20px.png:KhachHang_20px_active.png");
+            navItem.add("Quản Lý Giảng Viên:KhachHang_20px.png:KhachHang_20px_active.png");
             navItem.add("Quản Lý Học Viên:manage-student.png:manage-student.png");
             navItem.add("Phân Công Giảng Dạy:QLSP_20px.png:QLSP_20px_active.png");
              navItem.add("Kết Quả Khoá Học:manage-result.png:manage-result.png");
@@ -161,7 +161,7 @@ public class ManageCourses extends JFrame implements MouseListener{
             break;
             case 2: // Course
                 main.removeAll();
-                main.add(new QuanLyHocSinh(DEFALUT_WIDTH));
+                main.add(new QuanLyHocVien(DEFALUT_WIDTH));
                 main.repaint();
                 main.revalidate();
             break;

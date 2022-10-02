@@ -28,12 +28,12 @@ public class CourseInstructorDAO extends MyConnectUnit {
             //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
             //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
             ResultSet rs = this.SelectCustomOrderby("course as cs , person as ps, courseinstructor as csin",
-                    "csin.ID,cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
-                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID","csin.ID ASC");
+                    "csin.CourseID,cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
+                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID","csin.CourseID ASC");
             while(rs.next())
             {
                CourseInstructorDTO csin = new  CourseInstructorDTO(
-                       rs.getInt("ID"),rs.getInt("CourseID"),rs.getString("Title"),
+                       rs.getInt("CourseID"),rs.getInt("CourseID"),rs.getString("Title"),
                        rs.getInt("PersonID"),rs.getString("Lastname")+rs.getString("Firstname")
                );       
                 dssach.add(csin);
