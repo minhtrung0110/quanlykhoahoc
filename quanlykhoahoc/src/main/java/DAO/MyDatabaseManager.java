@@ -42,6 +42,18 @@ public class MyDatabaseManager {
         }
     }
     
+    public static Connection getConnection() {
+        Connection cons = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cons = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/school2", "root", "");
+        } catch (Exception e) {
+            System.out.print("ko ket noi duoc");
+        }
+        return cons;
+    }
+    
     public ResultSet doReadQuery(String sql) {
         ResultSet rs = null;
         try {

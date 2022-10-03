@@ -11,7 +11,7 @@ package DTO;
 public class CourseDTO {
     
     public int CourseID;
-    public String title;
+    public String Title;
     public int Credits;
     public int DepartmentID;
 
@@ -20,7 +20,7 @@ public class CourseDTO {
 
     public CourseDTO(int CourseID, String title, int Credits, int DepartmentID) {
         this.CourseID = CourseID;
-        this.title = title;
+        this.Title = title;
         this.Credits = Credits;
         this.DepartmentID = DepartmentID;
     }
@@ -34,11 +34,11 @@ public class CourseDTO {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public int getCredits() {
@@ -57,10 +57,7 @@ public class CourseDTO {
         this.DepartmentID = DepartmentID;
     }
 
-    @Override
-    public String toString() {
-        return "CourseDTO{" + "CourseID=" + CourseID + ", title=" + title + ", Credits=" + Credits + ", DepartmentID=" + DepartmentID + '}';
-    }
+    
     
     
     
