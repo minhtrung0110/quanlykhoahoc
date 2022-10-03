@@ -141,6 +141,11 @@ public class JPFormPerson extends javax.swing.JDialog {
         });
 
         cbbTim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PersonID", "FirstName", "LastName" }));
+        cbbTim.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbTimMouseClicked(evt);
+            }
+        });
         cbbTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTimActionPerformed(evt);
@@ -247,6 +252,10 @@ public class JPFormPerson extends javax.swing.JDialog {
     private void cbbTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTimActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbTimActionPerformed
+
+    private void cbbTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbTimMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbTimMouseClicked
 
     /**
      * @param args the command line arguments

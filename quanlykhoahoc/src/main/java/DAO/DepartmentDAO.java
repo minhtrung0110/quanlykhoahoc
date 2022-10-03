@@ -13,25 +13,13 @@ import java.util.logging.Logger;
  *
  * @author trankimphu0609
  */
-public class DepartmentDAO extends MyDatabaseManager {
+public class DepartmentDAO extends MyConnectUnit {
     public DepartmentDAO() {
         super();
-        this.connectDB();
     }
     
-    public void readDepartments() throws SQLException {
-        String query = "SELECT * FROM Department";
-        ResultSet rs = this.doReadQuery(query);
-        if (rs != null) {
-            int i = 1;
-            while (rs.next()) {
-//                System.out.print(i + " - ");
-                System.out.println(rs.getString("Name") + " " + rs.getInt("Budget"));
-                i++;
-            }
-        }
-            
-    }
+    
+    
     
 //    public static void main(String[] args) {
 //        try {
