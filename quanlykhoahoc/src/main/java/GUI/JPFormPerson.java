@@ -264,7 +264,7 @@ public class JPFormPerson extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         
 
-        /* Create and display the dialog */
+        /* Create and display the dialog 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JPFormPerson dialog = null;
@@ -281,7 +281,7 @@ public class JPFormPerson extends javax.swing.JDialog {
                 });
                 
             }
-        });
+        });*/
     }
 /***********************************ĐỌC DSKH******************************************/
     public void outModel(DefaultTableModel model,ArrayList<PersonDTO> listPerson){
