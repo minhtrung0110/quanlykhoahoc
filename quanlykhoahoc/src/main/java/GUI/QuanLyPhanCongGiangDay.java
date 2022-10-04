@@ -43,29 +43,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }
     private void init() throws Exception{
         ShowDataBase();
-        loadComboBox();
     }
-    private void loadComboBox() throws Exception{
-       // loadComboBoxCourse(txCourse);
-//        loadComboBoxTecher(txTeacher);
-    }
-     private void loadComboBoxCourse(JComboBox cmb) throws Exception
-    {
-       if(courseBUS.getListCourse()== null) courseBUS.loadDSCourse();
-        ArrayList<CourseDTO> cs = courseBUS.getListCourse();
-        for(CourseDTO a : cs){
-            cmb.addItem(a.getTitle() );
-        }
-      
-    }
-     private void loadComboBoxTecher(JComboBox cmb) throws Exception
-    {
-       if(personBUS.getListPersonLecturers()== null) personBUS.loadDSPersonLecturers();
-        ArrayList<PersonDTO> ps = personBUS.getListPersonLecturers();
-        for(PersonDTO a : ps){
-            cmb.addItem(a.getFirstname()+" "+a.getLastname() );
-        }
-      
+    private void clearInput(){
+        txID.setText("");
+        txCourse.setText("");
+        txTeacher.setText("");
     }
     private void ShowDataBase() throws Exception{       
         try {
@@ -545,16 +527,20 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchTeacherNameActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn Thực Sự Muốn Xóa Phân Công Này ?","Thông Báo",JOptionPane.YES_NO_OPTION);
+        if(confirm==0)
         try{
             int teacherID=Integer.parseInt(txTeacher.getText());
            int courseID=Integer.parseInt(txCourse.getText());
             CourseInstructorBUS bus=new CourseInstructorBUS();
             bus.deleteCourseInstructor(courseID, teacherID);
+            clearInput();
             refeshData();
        
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,"Can't delete CourseInstructor ", "Error Message",JOptionPane.ERROR_MESSAGE);
         }
+        else return;
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -566,6 +552,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
            // System.out.println('Bat loi:'+);
             CourseInstructorBUS bus=new CourseInstructorBUS();
             bus.addCourseInstructor(csin);
+            clearInput();
             refeshData();
        
         } catch (Exception ex) {
@@ -585,6 +572,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
            // System.out.println('Bat loi:'+);
             CourseInstructorBUS bus=new CourseInstructorBUS();
             bus.updateCourseInstructor(id, csin);
+            clearInput();
             refeshData();
        
         } catch (Exception ex) {

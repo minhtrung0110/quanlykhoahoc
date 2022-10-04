@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAL;
+package DAO;
 
 import DTO.CourseInstructorDTO;
 import java.sql.ResultSet;
@@ -16,8 +16,8 @@ import java.util.logging.Logger;
  *
  * @author trankimphu0609
  */
-public class CourseInstructorDAL extends MyConnectUnit {
-    public CourseInstructorDAL() {
+public class CourseInstructorDAO extends MyConnectUnit {
+    public CourseInstructorDAO() {
         super();
       
     }
