@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import BUS.PersonBUS;
+import BLL.PersonBLL;
 import DTO.PersonDTO;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,28 +26,29 @@ import javax.swing.table.TableRowSorter;
  */
 public class QuanLyGiaoVien extends javax.swing.JPanel {
 
-    private int DEFALUT_WIDTH;   
-   private PersonBUS personBUS=new PersonBUS();
-   DefaultTableModel model;
-   static ArrayList<PersonDTO> listLecturers = new PersonBUS().getListPerson();
-   String formatTime = "yyyy-MM-dd     ";
-   DateFormat fm = new SimpleDateFormat(formatTime);
-    public QuanLyGiaoVien() throws Exception{
-         this.setSize(1090, 750);
-         
-         initComponents();
-       
+    private int DEFALUT_WIDTH;
+    private PersonBLL personBUS = new PersonBLL();
+    DefaultTableModel model;
+    static ArrayList<PersonDTO> listLecturers = new PersonBLL().getListPerson();
+    String formatTime = "yyyy-MM-dd     ";
+    DateFormat fm = new SimpleDateFormat(formatTime);
+
+    public QuanLyGiaoVien() throws Exception {
+        this.setSize(1090, 750);
+
+        initComponents();
+
     }
- 
-    public QuanLyGiaoVien (int width) throws Exception
-    {
+
+    public QuanLyGiaoVien(int width) throws Exception {
         DEFALUT_WIDTH = width;
         initComponents();
-       this.setSize(this.DEFALUT_WIDTH - 200, 750);
-       init();
-  
+        this.setSize(this.DEFALUT_WIDTH - 200, 750);
+        init();
+
     }
-    private void init() throws Exception{
+
+    private void init() throws Exception {
         ShowLecturers();
 //        Show dialog
         add_Lecturers.pack();
@@ -55,20 +56,23 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
         edit_Lecturers.pack();
         edit_Lecturers.setLocationRelativeTo(null);
     }
-    private void ShowLecturers() throws Exception{       
-       
-        
+
+    private void ShowLecturers() throws Exception {
+
         try {
-             PersonBUS bus =new PersonBUS();
-        if(PersonBUS.getListPersonLecturers()==null) bus.loadDSPersonLecturers();
-        insertHeader();
-        outModel(model,PersonBUS.getListPersonLecturers());
+            PersonBLL bus = new PersonBLL();
+            if (PersonBLL.getListPersonLecturers() == null) {
+                bus.loadDSPersonLecturers();
+            }
+            insertHeader();
+            outModel(model, PersonBLL.getListPersonLecturers());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Không Thể Load Database ", "Thông Báo Lỗi",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    private void insertHeader(){
+
+    private void insertHeader() {
         Vector header = new Vector();
         header.add("STT");
         header.add("Mã giáo viên");
@@ -76,33 +80,30 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
         header.add("Tên");
         header.add("Ngày thuê");
 
-       
         //if (model.getRowCount()==0)
-              model=new DefaultTableModel(header,0);
-             
-                   
+        model = new DefaultTableModel(header, 0);
+
     }
-      private void outModel(DefaultTableModel model,ArrayList<PersonDTO> personDTO ) // Xuất ra Table từ ArrayList
+
+    private void outModel(DefaultTableModel model, ArrayList<PersonDTO> personDTO) // Xuất ra Table từ ArrayList
     {
         Vector data;
         model.setRowCount(0);
-          
-        int i=1;
-        for(PersonDTO cs: personDTO)
-        {
+
+        int i = 1;
+        for (PersonDTO cs : personDTO) {
             data = new Vector();
             data.add(i);
-            data.add(cs.getPersonID());     
+            data.add(cs.getPersonID());
             data.add(cs.getFirstname());
             data.add(cs.getLastname());
             data.add(fm.format(cs.getHireDate()));
-           
+
             model.addRow(data);
             i++;
         }
         tbl_giangvien.setModel(model);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -529,14 +530,14 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 
     private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
         // TODO add your handling code here:
-   
+
         try {
 
             PersonDTO lecturerDTO = new PersonDTO();
-            PersonBUS lePersonBUS =new PersonBUS();
+            PersonBLL lePersonBUS = new PersonBLL();
 
-            if (txtId_Lecturers.getText().length() != 0 && txtHireDateGV.getDate()!= null && txtLastNameGV.getText().length() != 0
-                && txtFirstNameGV.getText().length() != 0 )//xem thử đã nhập hay chưa(textflied)
+            if (txtId_Lecturers.getText().length() != 0 && txtHireDateGV.getDate() != null && txtLastNameGV.getText().length() != 0
+                    && txtFirstNameGV.getText().length() != 0)//xem thử đã nhập hay chưa(textflied)
             {
                 lecturerDTO.setPersonID(Integer.valueOf(txtId_Lecturers.getText()));
                 lecturerDTO.setFirstname(txtFirstNameGV.getText());
@@ -549,7 +550,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
                 txtFirstNameGV.setText("");
                 txtLastNameGV.setText("");
                 txtHireDateGV.setDate(null);
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "vui lòng nhập đầy đủ thông tin");
             }
@@ -561,9 +562,9 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 
     private void btnExitThemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitThemNVActionPerformed
         // TODO add your handling code here:
-         txtFirstNameGV.setText("");
-         txtLastNameGV.setText("");
-         txtHireDateGV.setDate(null);
+        txtFirstNameGV.setText("");
+        txtLastNameGV.setText("");
+        txtHireDateGV.setDate(null);
         add_Lecturers.dispose();
     }//GEN-LAST:event_btnExitThemNVActionPerformed
 
@@ -583,18 +584,18 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         String idPerson;
         try {
-            idPerson = String.valueOf(personBUS.getALLPerson().get(personBUS.getALLPerson().size() - 1).getPersonID()+ 1);
+            idPerson = String.valueOf(personBUS.getALLPerson().get(personBUS.getALLPerson().size() - 1).getPersonID() + 1);
             txtId_Lecturers.setText(idPerson);
             add_Lecturers.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(QuanLyGiaoVien.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_btn_addLecturersActionPerformed
 
     private void btn_editLecturersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editLecturersActionPerformed
         // TODO add your handling code here:
-           int i = tbl_giangvien.getSelectedRow();
+        int i = tbl_giangvien.getSelectedRow();
 //           System.out.println((Date) tbl_giangvien.getValueAt(i, 4));
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng cần sửa");
@@ -602,18 +603,17 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
             txtEditId_Lecturers.setText(String.valueOf(tbl_giangvien.getValueAt(i, 1)));
             txtEditFirstNameGV.setText(String.valueOf(tbl_giangvien.getValueAt(i, 2)));
             txtEditLastNameGV.setText(String.valueOf(tbl_giangvien.getValueAt(i, 3)));
-          
-             String date = (String) tbl_giangvien.getValueAt(i, 4);
-            
-               try {
-                   txtEditHireDateGV.setDate((Date) fm.parse(date));
-               } catch (ParseException ex) {
-                   Logger.getLogger(QuanLyGiaoVien.class.getName()).log(Level.SEVERE, null, ex);
-               }
-              
-           
+
+            String date = (String) tbl_giangvien.getValueAt(i, 4);
+
+            try {
+                txtEditHireDateGV.setDate((Date) fm.parse(date));
+            } catch (ParseException ex) {
+                Logger.getLogger(QuanLyGiaoVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             edit_Lecturers.setVisible(true);
-        
+
         }
     }//GEN-LAST:event_btn_editLecturersActionPerformed
 
@@ -623,7 +623,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 
     private void btnExitThemNV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitThemNV1ActionPerformed
         // TODO add your handling code here:
-         edit_Lecturers.dispose();
+        edit_Lecturers.dispose();
     }//GEN-LAST:event_btnExitThemNV1ActionPerformed
 
     private void btnSaveEditLecturersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveEditLecturersActionPerformed
@@ -631,10 +631,10 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
         try {
 
             PersonDTO lecturerDTO = new PersonDTO();
-            PersonBUS lePersonBUS =new PersonBUS();
+            PersonBLL lePersonBUS = new PersonBLL();
 
-            if (txtEditId_Lecturers.getText().length() != 0 && txtEditHireDateGV.getDate()!= null && txtEditLastNameGV.getText().length() != 0
-                && txtEditFirstNameGV.getText().length() != 0 )//xem thử đã nhập hay chưa(textflied)
+            if (txtEditId_Lecturers.getText().length() != 0 && txtEditHireDateGV.getDate() != null && txtEditLastNameGV.getText().length() != 0
+                    && txtEditFirstNameGV.getText().length() != 0)//xem thử đã nhập hay chưa(textflied)
             {
                 lecturerDTO.setPersonID(Integer.valueOf(txtEditId_Lecturers.getText()));
                 lecturerDTO.setFirstname(txtEditFirstNameGV.getText());
@@ -645,7 +645,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Sửa giảng viên thành công !");
                 edit_Lecturers.dispose();
                 ShowLecturers();
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
             }
@@ -657,17 +657,16 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 
     private void btn_deleteLecturersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteLecturersActionPerformed
         // TODO add your handling code here:
-         int i = tbl_giangvien.getSelectedRow();
+        int i = tbl_giangvien.getSelectedRow();
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng cần xóa");
 
-        } else if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa giảng viên này? ", "Confirm", 
-                JOptionPane.YES_OPTION, JOptionPane.NO_OPTION) == JOptionPane.YES_OPTION){
+        } else if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa giảng viên này? ", "Confirm",
+                JOptionPane.YES_OPTION, JOptionPane.NO_OPTION) == JOptionPane.YES_OPTION) {
             int select = (int) tbl_giangvien.getModel().getValueAt(i, 1);
-           
-            
+
             PersonDTO lecturerDTO = new PersonDTO();
-            PersonBUS lePersonBUS =new PersonBUS();
+            PersonBLL lePersonBUS = new PersonBLL();
             lecturerDTO.setPersonID(select);
             try {
 //                 modelnv.removeRow(i);
@@ -675,12 +674,12 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 //                listNV.remove(i);
                 lePersonBUS.deleteLectures(lecturerDTO.getPersonID());
                 showMessageDialog(null, "Xóa thành công");
-                 lePersonBUS.loadDSPersonLecturers();
+                lePersonBUS.loadDSPersonLecturers();
                 ShowLecturers();
             } catch (Exception e) {
                 showMessageDialog(null, "Xóa thất bại");
             }
-           
+
         }
     }//GEN-LAST:event_btn_deleteLecturersActionPerformed
 

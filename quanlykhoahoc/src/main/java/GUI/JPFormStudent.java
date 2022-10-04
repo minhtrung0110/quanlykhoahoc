@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import BUS.PersonBUS;
+import BLL.PersonBLL;
 import DTO.PersonDTO;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -19,13 +19,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPFormStudent extends javax.swing.JDialog {
 
-    DefaultTableModel model=new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel();
+
     public JPFormStudent(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    public JPFormStudent() throws Exception{
-        setModal(true); 
+
+    public JPFormStudent() throws Exception {
+        setModal(true);
         initComponents();
         txTim.requestFocus();
         this.LoadDSKH();
@@ -222,20 +224,20 @@ public class JPFormStudent extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public int getPersonID(){
-        int personID=Integer.parseInt(txPersonID.getText());
+    public int getPersonID() {
+        int personID = Integer.parseInt(txPersonID.getText());
         return personID;
     }
     private void btXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btXacNhanMouseClicked
-         dispose();
+        dispose();
     }//GEN-LAST:event_btXacNhanMouseClicked
 
     private void tbKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKHMouseClicked
-       Click();
+        Click();
     }//GEN-LAST:event_tbKHMouseClicked
 
     private void btTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTimMouseClicked
-       Tim();
+        Tim();
     }//GEN-LAST:event_btTimMouseClicked
 
     private void btDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btDongMouseClicked
@@ -252,9 +254,9 @@ public class JPFormStudent extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
 
-        /* Create and display the dialog */
+
+ /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JPFormPerson dialog = null;
@@ -269,67 +271,79 @@ public class JPFormStudent extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
-                
+
             }
         });
     }
-/***********************************ĐỌC DSKH******************************************/
-    public void outModel(DefaultTableModel model,ArrayList<PersonDTO> listPerson){
+
+    /**
+     * *********************************ĐỌC DSKH*****************************************
+     */
+    public void outModel(DefaultTableModel model, ArrayList<PersonDTO> listPerson) {
         Vector row;
         model.setRowCount(0);
-        for(PersonDTO ps: listPerson){
-            row=new Vector();
+        for (PersonDTO ps : listPerson) {
+            row = new Vector();
             row.add(ps.getPersonID());
             row.add(ps.getFirstname());
             row.add(ps.getLastname());
             row.add(ps.getEnrollmentDate());
-             model.addRow(row);
+            model.addRow(row);
         }
         tbKH.setModel(model);
     }
-    public void LoadDSKH() throws Exception{
-        PersonBUS psBUS=new PersonBUS();
-        Vector header=new Vector();
+
+    public void LoadDSKH() throws Exception {
+        PersonBLL psBUS = new PersonBLL();
+        Vector header = new Vector();
         header.add("StudentID ");
         header.add("FirstName");
         header.add("LastName");
         header.add("EnrollmentDate");
-        if(model.getRowCount()==0)
-            model=new DefaultTableModel(header,0);
-        if(psBUS.getListPersonStudent()==null) psBUS.loadDSPersonStudent();
-        ArrayList<PersonDTO> listPerson=new ArrayList<>();
-        listPerson=psBUS.getListPersonStudent();
-        outModel(model,listPerson);
+        if (model.getRowCount() == 0) {
+            model = new DefaultTableModel(header, 0);
+        }
+        if (psBUS.getListPersonStudent() == null) {
+            psBUS.loadDSPersonStudent();
+        }
+        ArrayList<PersonDTO> listPerson = new ArrayList<>();
+        listPerson = psBUS.getListPersonStudent();
+        outModel(model, listPerson);
     }
-/************************lấy mã ps*****************************************/
-    public String maKH(){
-        int i=tbKH.getSelectedRow();
-        String maps=txPersonID.getText();
+
+    /**
+     * **********************lấy mã ps****************************************
+     */
+    public String maKH() {
+        int i = tbKH.getSelectedRow();
+        String maps = txPersonID.getText();
         return maps;
     }
-    public void Click(){
-        int i=tbKH.getSelectedRow();
-        txPersonID.setText(tbKH.getModel().getValueAt(i,0).toString());
+
+    public void Click() {
+        int i = tbKH.getSelectedRow();
+        txPersonID.setText(tbKH.getModel().getValueAt(i, 0).toString());
     }
 //tìm***********************************************************************
-    public void Tim(){
-        PersonBUS ps=new PersonBUS();
-        String a=cbbTim.getSelectedItem().toString();
-        ArrayList<PersonDTO> DSKH=new ArrayList<>();
-        ArrayList<PersonDTO> ps1=new ArrayList<>();
-        DSKH=ps.getListPerson();
-        if((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty())
-            outModel(model,DSKH);
-        else if(a.equals("PersonID")){
-            ps1=ps.searchPersonWithID(Integer.parseInt(txTim.getText()));
-            outModel(model,ps1);
-        }else if(a.equals("FirstName")){
-          ps1=ps.searchPersonWithFirstName(txTim.getText());
-            outModel(model,ps1);
-        }else if(a.equals("LastName")){
-            ps1=ps.searchPersonWithLastName(txTim.getText());
-            outModel(model,ps1);
-        }     
+
+    public void Tim() {
+        PersonBLL ps = new PersonBLL();
+        String a = cbbTim.getSelectedItem().toString();
+        ArrayList<PersonDTO> DSKH = new ArrayList<>();
+        ArrayList<PersonDTO> ps1 = new ArrayList<>();
+        DSKH = ps.getListPerson();
+        if ((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty()) {
+            outModel(model, DSKH);
+        } else if (a.equals("PersonID")) {
+            ps1 = ps.searchPersonWithID(Integer.parseInt(txTim.getText()));
+            outModel(model, ps1);
+        } else if (a.equals("FirstName")) {
+            ps1 = ps.searchPersonWithFirstName(txTim.getText());
+            outModel(model, ps1);
+        } else if (a.equals("LastName")) {
+            ps1 = ps.searchPersonWithLastName(txTim.getText());
+            outModel(model, ps1);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDong;

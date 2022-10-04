@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import BUS.CourseBUS;
+import BLL.CourseBLL;
 import DTO.CourseDTO;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -19,13 +19,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPFormCourse extends javax.swing.JDialog {
 
-    DefaultTableModel model=new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel();
+
     public JPFormCourse(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    public JPFormCourse() throws Exception{
-        setModal(true); 
+
+    public JPFormCourse() throws Exception {
+        setModal(true);
         initComponents();
         txTim.requestFocus();
         this.LoadDSKH();
@@ -223,20 +225,20 @@ public class JPFormCourse extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public int getCourseID(){
-        int personID=Integer.parseInt(txCourseID.getText());
+    public int getCourseID() {
+        int personID = Integer.parseInt(txCourseID.getText());
         return personID;
     }
     private void btXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btXacNhanMouseClicked
-         dispose();
+        dispose();
     }//GEN-LAST:event_btXacNhanMouseClicked
 
     private void tbKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKHMouseClicked
-       Click();
+        Click();
     }//GEN-LAST:event_tbKHMouseClicked
 
     private void btTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTimMouseClicked
-       Tim();
+        Tim();
     }//GEN-LAST:event_btTimMouseClicked
 
     private void btDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btDongMouseClicked
@@ -253,9 +255,9 @@ public class JPFormCourse extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
 
-        /* Create and display the dialog */
+
+ /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JPFormCourse dialog = null;
@@ -270,67 +272,79 @@ public class JPFormCourse extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
-                
+
             }
         });
     }
-/***********************************ĐỌC DSKH******************************************/
-    public void outModel(DefaultTableModel model,ArrayList<CourseDTO> listCourse){
+
+    /**
+     * *********************************ĐỌC DSKH*****************************************
+     */
+    public void outModel(DefaultTableModel model, ArrayList<CourseDTO> listCourse) {
         Vector row;
         model.setRowCount(0);
-        for(CourseDTO cs: listCourse){
-            row=new Vector();
+        for (CourseDTO cs : listCourse) {
+            row = new Vector();
             row.add(cs.getCourseID());
             row.add(cs.getTitle());
             row.add(cs.getCredits());
             row.add(cs.getDepartmentID());
-             model.addRow(row);
+            model.addRow(row);
         }
         tbKH.setModel(model);
     }
-    public void LoadDSKH() throws Exception{
-        CourseBUS csBUS=new CourseBUS();
-        Vector header=new Vector();
+
+    public void LoadDSKH() throws Exception {
+        CourseBLL csBUS = new CourseBLL();
+        Vector header = new Vector();
         header.add("CourseID ");
         header.add("Title");
         header.add("Credits");
         header.add("Department");
-        if(model.getRowCount()==0)
-            model=new DefaultTableModel(header,0);
-        if(csBUS.getListCourse()==null) csBUS.loadDSCourse();
-        ArrayList<CourseDTO> listCourse=new ArrayList<>();
-        listCourse=csBUS.getListCourse();
-        outModel(model,listCourse);
+        if (model.getRowCount() == 0) {
+            model = new DefaultTableModel(header, 0);
+        }
+        if (csBUS.getListCourse() == null) {
+            csBUS.loadDSCourse();
+        }
+        ArrayList<CourseDTO> listCourse = new ArrayList<>();
+        listCourse = csBUS.getListCourse();
+        outModel(model, listCourse);
     }
-/************************lấy mã cs*****************************************/
-    public String maKH(){
-        int i=tbKH.getSelectedRow();
-        String macs=txCourseID.getText();
+
+    /**
+     * **********************lấy mã cs****************************************
+     */
+    public String maKH() {
+        int i = tbKH.getSelectedRow();
+        String macs = txCourseID.getText();
         return macs;
     }
-    public void Click(){
-        int i=tbKH.getSelectedRow();
-        txCourseID.setText(tbKH.getModel().getValueAt(i,0).toString());
+
+    public void Click() {
+        int i = tbKH.getSelectedRow();
+        txCourseID.setText(tbKH.getModel().getValueAt(i, 0).toString());
     }
 //tìm***********************************************************************
-    public void Tim(){
-        CourseBUS cs=new CourseBUS();
-        String a=cbbTim.getSelectedItem().toString();
-        ArrayList<CourseDTO> DSKH=new ArrayList<>();
-        ArrayList<CourseDTO> cs1=new ArrayList<>();
-        DSKH=cs.getListCourse();
-        if((a.equals("CourseID") || a.equals("Title") || a.equals("DepartmentID")) && txTim.getText().isEmpty())
-            outModel(model,DSKH);
-        else if(a.equals("CourseID")){
-            cs1=cs.searchCourseWithID(Integer.parseInt(txTim.getText()));
-            outModel(model,cs1);
-        }else if(a.equals("Title")){
-          cs1=cs.searchCourseWithTitle(txTim.getText());
-            outModel(model,cs1);
-        }else if(a.equals("DepartmentID")){
-            cs1=cs.searchCourseWithDepartmentID(Integer.parseInt(txTim.getText()));
-            outModel(model,cs1);
-        }     
+
+    public void Tim() {
+        CourseBLL cs = new CourseBLL();
+        String a = cbbTim.getSelectedItem().toString();
+        ArrayList<CourseDTO> DSKH = new ArrayList<>();
+        ArrayList<CourseDTO> cs1 = new ArrayList<>();
+        DSKH = cs.getListCourse();
+        if ((a.equals("CourseID") || a.equals("Title") || a.equals("DepartmentID")) && txTim.getText().isEmpty()) {
+            outModel(model, DSKH);
+        } else if (a.equals("CourseID")) {
+            cs1 = cs.searchCourseWithID(Integer.parseInt(txTim.getText()));
+            outModel(model, cs1);
+        } else if (a.equals("Title")) {
+            cs1 = cs.searchCourseWithTitle(txTim.getText());
+            outModel(model, cs1);
+        } else if (a.equals("DepartmentID")) {
+            cs1 = cs.searchCourseWithDepartmentID(Integer.parseInt(txTim.getText()));
+            outModel(model, cs1);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDong;

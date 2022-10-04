@@ -4,9 +4,9 @@
  */
 package GUI;
 
-import BUS.CourseBUS;
-import BUS.CourseInstructorBUS;
-import BUS.PersonBUS;
+import BLL.CourseBLL;
+import BLL.CourseInstructorBLL;
+import BLL.PersonBLL;
 import DTO.CourseDTO;
 import DTO.CourseInstructorDTO;
 import DTO.PersonDTO;
@@ -24,85 +24,90 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
-   private int DEFALUT_WIDTH;
-     private DefaultTableModel model;
-     private CourseBUS courseBUS=new CourseBUS();
-     private PersonBUS personBUS=new PersonBUS();
-    public QuanLyPhanCongGiangDay(){
-         this.setSize(1090, 750);
-         initComponents();
+    private int DEFALUT_WIDTH;
+    private DefaultTableModel model;
+    private CourseBLL courseBUS = new CourseBLL();
+    private PersonBLL personBUS = new PersonBLL();
+
+    public QuanLyPhanCongGiangDay() {
+        this.setSize(1090, 750);
+        initComponents();
     }
-    public QuanLyPhanCongGiangDay (int width) throws Exception
-    {
+
+    public QuanLyPhanCongGiangDay(int width) throws Exception {
         DEFALUT_WIDTH = width;
         initComponents();
-       this.setSize(this.DEFALUT_WIDTH - 200, 750);
-       init();
-      
-  
+        this.setSize(this.DEFALUT_WIDTH - 200, 750);
+        init();
+
     }
-    private void init() throws Exception{
+
+    private void init() throws Exception {
         ShowDataBase();
     }
-    private void clearInput(){
+
+    private void clearInput() {
         txID.setText("");
         txCourse.setText("");
         txTeacher.setText("");
     }
-    private void ShowDataBase() throws Exception{       
+
+    private void ShowDataBase() throws Exception {
         try {
-            CourseInstructorBUS bus =new CourseInstructorBUS();
-        if(CourseInstructorBUS.getListCourseInstructor()==null) bus.loadDSCourseInstructor();
-        insertHeader();
-        outModel(model,CourseInstructorBUS.getListCourseInstructor());
+            CourseInstructorBLL bus = new CourseInstructorBLL();
+            if (CourseInstructorBLL.getListCourseInstructor() == null) {
+                bus.loadDSCourseInstructor();
+            }
+            insertHeader();
+            outModel(model, CourseInstructorBLL.getListCourseInstructor());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Không Thể Load Database ", "Thông Báo Lỗi",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    private void refeshData(){
-         try {
-         CourseInstructorBUS bus =new CourseInstructorBUS();
-         bus.loadDSCourseInstructor();
-        insertHeader();
-        outModel(model,CourseInstructorBUS.getListCourseInstructor());
+
+    private void refeshData() {
+        try {
+            CourseInstructorBLL bus = new CourseInstructorBLL();
+            bus.loadDSCourseInstructor();
+            insertHeader();
+            outModel(model, CourseInstructorBLL.getListCourseInstructor());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Không Thể Load Database ", "Thông Báo Lỗi",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    private void insertHeader(){
+
+    private void insertHeader() {
         Vector header = new Vector();
-         header.add("STT");
+        header.add("STT");
         header.add("Mã Khoá Học");
-         header.add("Khoá Học");
+        header.add("Khoá Học");
         header.add("Mã Giảng Viên");
-         header.add("Tên Giảng Viên");
-       
+        header.add("Tên Giảng Viên");
+
         //if (model.getRowCount()==0)
-              model=new DefaultTableModel(header,0);
-              
-           
+        model = new DefaultTableModel(header, 0);
+
     }
-    private void outModel(DefaultTableModel model ,ArrayList<CourseInstructorDTO> courseinstructor) // Xuất ra Table từ ArrayList
+
+    private void outModel(DefaultTableModel model, ArrayList<CourseInstructorDTO> courseinstructor) // Xuất ra Table từ ArrayList
     {
         Vector data;
         model.setRowCount(0);
-        for(CourseInstructorDTO cs: courseinstructor)
-        {
+        for (CourseInstructorDTO cs : courseinstructor) {
             data = new Vector();
             data.add(cs.getID());
             data.add(cs.getCourseID());
             data.add(cs.getTitleCourse());
             data.add(cs.getPersonID());
             data.add(cs.getTeacherName());
-           
+
             model.addRow(data);
         }
         tbCourseInstructor.setModel(model);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -466,149 +471,146 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbCourseInstructorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCourseInstructorMouseClicked
-       int i = tbCourseInstructor.getSelectedRow();
-        if(i>=0)
-        {
-             if(tbCourseInstructor.getRowSorter() != null)
-            {
-                i = tbCourseInstructor.getRowSorter().convertRowIndexToModel(i);         
+        int i = tbCourseInstructor.getSelectedRow();
+        if (i >= 0) {
+            if (tbCourseInstructor.getRowSorter() != null) {
+                i = tbCourseInstructor.getRowSorter().convertRowIndexToModel(i);
             }
-           txID.setText(tbCourseInstructor.getModel().getValueAt(i,0).toString());
-           txCourse.setText(tbCourseInstructor.getModel().getValueAt(i, 1).toString());
-           txTeacher.setText(tbCourseInstructor.getModel().getValueAt(i, 3).toString());
-          
-             
+            txID.setText(tbCourseInstructor.getModel().getValueAt(i, 0).toString());
+            txCourse.setText(tbCourseInstructor.getModel().getValueAt(i, 1).toString());
+            txTeacher.setText(tbCourseInstructor.getModel().getValueAt(i, 3).toString());
+
         }
     }//GEN-LAST:event_tbCourseInstructorMouseClicked
-     private void Search(){
-         DefaultTableModel temp=new DefaultTableModel();
-         ArrayList<CourseInstructorDTO> search=new ArrayList<>();
+    private void Search() {
+        DefaultTableModel temp = new DefaultTableModel();
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
         Vector header = new Vector();
-         header.add("STT");
+        header.add("STT");
         header.add("Mã Khoá Học");
-         header.add("Khoá Học");
+        header.add("Khoá Học");
         header.add("Mã Giảng Viên");
-         header.add("Tên Giảng Viên");
-       
+        header.add("Tên Giảng Viên");
+
         try {
-            
-            int courseID=Integer.parseInt(txtSearchCourseID.getText().equals("")?"5":txtSearchCourseID.getText());
-            int teacherID=Integer.parseInt(txtSearchTeacherID.getText().equals("")?"1045":txtSearchTeacherID.getText());
-            String courseTitle=txtSearchCourseName.getText().equals("")?"":txtSearchCourseName.getText();
-            String teacherName=txtSearchTeacherName.getText().equals("")?"":txtSearchTeacherName.getText();
-           // System.out.println(courseID+" "+teacherID+" "+courseTitle+ " "+teacherName);
-            CourseInstructorBUS bus =new CourseInstructorBUS();
-           search=   bus.searchCourseInstructor(courseID, courseTitle, teacherID, teacherName);
-          
- 
+
+            int courseID = Integer.parseInt(txtSearchCourseID.getText().equals("") ? "5" : txtSearchCourseID.getText());
+            int teacherID = Integer.parseInt(txtSearchTeacherID.getText().equals("") ? "1045" : txtSearchTeacherID.getText());
+            String courseTitle = txtSearchCourseName.getText().equals("") ? "" : txtSearchCourseName.getText();
+            String teacherName = txtSearchTeacherName.getText().equals("") ? "" : txtSearchTeacherName.getText();
+            // System.out.println(courseID+" "+teacherID+" "+courseTitle+ " "+teacherName);
+            CourseInstructorBLL bus = new CourseInstructorBLL();
+            search = bus.searchCourseInstructor(courseID, courseTitle, teacherID, teacherName);
+
         } catch (Exception e) {
-         JOptionPane.showMessageDialog(this,"Không Thể Tìm Kiếm ", e.getMessage(),JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Tìm Kiếm ", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
-        if(search != null && search.size() > 0) {
-           // outModel(temp,search);
-           if (temp.getRowCount()==0)
-                    {temp=new DefaultTableModel(header,0);}
-            for(int i=0;i<search.size();i++){
-                 Vector row=new Vector();
-                    row.add(search.get(i).getID());
-                    row.add(search.get(i).getCourseID());
-                    row.add(search.get(i).getTitleCourse());
-                    row.add(search.get(i).getPersonID());
-                    row.add(search.get(i).getTeacherName());     
-                 temp.addRow(row);
+        if (search != null && search.size() > 0) {
+            // outModel(temp,search);
+            if (temp.getRowCount() == 0) {
+                temp = new DefaultTableModel(header, 0);
+            }
+            for (int i = 0; i < search.size(); i++) {
+                Vector row = new Vector();
+                row.add(search.get(i).getID());
+                row.add(search.get(i).getCourseID());
+                row.add(search.get(i).getTitleCourse());
+                row.add(search.get(i).getPersonID());
+                row.add(search.get(i).getTeacherName());
+                temp.addRow(row);
             }
         }
-       
+
         tbCourseInstructor.setModel(temp);
-      
+
     }
     private void txtSearchTeacherNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchTeacherNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchTeacherNameActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn Thực Sự Muốn Xóa Phân Công Này ?","Thông Báo",JOptionPane.YES_NO_OPTION);
-        if(confirm==0)
-        try{
-            int teacherID=Integer.parseInt(txTeacher.getText());
-           int courseID=Integer.parseInt(txCourse.getText());
-            CourseInstructorBUS bus=new CourseInstructorBUS();
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn Thực Sự Muốn Xóa Phân Công Này ?", "Thông Báo", JOptionPane.YES_NO_OPTION);
+        if (confirm == 0)
+        try {
+            int teacherID = Integer.parseInt(txTeacher.getText());
+            int courseID = Integer.parseInt(txCourse.getText());
+            CourseInstructorBLL bus = new CourseInstructorBLL();
             bus.deleteCourseInstructor(courseID, teacherID);
             clearInput();
             refeshData();
-       
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,"Can't delete CourseInstructor ", "Error Message",JOptionPane.ERROR_MESSAGE);
-        }
-        else return;
+            JOptionPane.showMessageDialog(this, "Can't delete CourseInstructor ", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } else
+            return;
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
-        try{
-            CourseInstructorDTO csin =new CourseInstructorDTO();
-            csin.setCourseID((int)Integer.parseInt(txCourse.getText()));
-            csin.setPersonID((int)Integer.parseInt(txTeacher.getText()));
-           // System.out.println('Bat loi:'+);
-            CourseInstructorBUS bus=new CourseInstructorBUS();
+
+        try {
+            CourseInstructorDTO csin = new CourseInstructorDTO();
+            csin.setCourseID((int) Integer.parseInt(txCourse.getText()));
+            csin.setPersonID((int) Integer.parseInt(txTeacher.getText()));
+            // System.out.println('Bat loi:'+);
+            CourseInstructorBLL bus = new CourseInstructorBLL();
             bus.addCourseInstructor(csin);
             clearInput();
             refeshData();
-       
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,"Can't create CourseInstructor ", "Error Message",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't create CourseInstructor ", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
-         
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-       try{
-           int id=Integer.parseInt(txID.getText());
-           int teacherID=Integer.parseInt(txTeacher.getText());
-           int courseID=Integer.parseInt(txCourse.getText());
-            CourseInstructorDTO csin =new CourseInstructorDTO();
-            csin.setCourseID((int)courseID);
-            csin.setPersonID((int)teacherID);
-           // System.out.println('Bat loi:'+);
-            CourseInstructorBUS bus=new CourseInstructorBUS();
+        try {
+            int id = Integer.parseInt(txID.getText());
+            int teacherID = Integer.parseInt(txTeacher.getText());
+            int courseID = Integer.parseInt(txCourse.getText());
+            CourseInstructorDTO csin = new CourseInstructorDTO();
+            csin.setCourseID((int) courseID);
+            csin.setPersonID((int) teacherID);
+            // System.out.println('Bat loi:'+);
+            CourseInstructorBLL bus = new CourseInstructorBLL();
             bus.updateCourseInstructor(id, csin);
             clearInput();
             refeshData();
-       
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,"Can't update CourseInstructor ", "Error Message",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't update CourseInstructor ", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnSelectTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectTeacherActionPerformed
-       JPFormPerson tbps;
-       try {
-           tbps = new JPFormPerson();     
-       int personID = tbps.getPersonID(); 
-       txTeacher.setText(String.valueOf(personID));
-       } catch (Exception ex) {
-           Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
-       }
-      
+        JPFormPerson tbps;
+        try {
+            tbps = new JPFormPerson();
+            int personID = tbps.getPersonID();
+            txTeacher.setText(String.valueOf(personID));
+        } catch (Exception ex) {
+            Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnSelectTeacherActionPerformed
 
     private void btnSelectCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectCourseActionPerformed
         JPFormCourse tbcs;
-       try {
-           tbcs = new JPFormCourse();     
-       int courseID=tbcs.getCourseID();
-       txCourse.setText(String.valueOf(courseID));
-       } catch (Exception ex) {
-           Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        try {
+            tbcs = new JPFormCourse();
+            int courseID = tbcs.getCourseID();
+            txCourse.setText(String.valueOf(courseID));
+        } catch (Exception ex) {
+            Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSelectCourseActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-            Search();
+        Search();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-       refeshData();
+        refeshData();
     }//GEN-LAST:event_btnRefeshActionPerformed
 
     private void txTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTeacherActionPerformed
