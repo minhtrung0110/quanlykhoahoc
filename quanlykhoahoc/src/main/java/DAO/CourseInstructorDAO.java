@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package DAL;
 
 import DTO.CourseInstructorDTO;
 import java.sql.ResultSet;
@@ -16,8 +16,8 @@ import java.util.logging.Logger;
  *
  * @author trankimphu0609
  */
-public class CourseInstructorDAO extends MyConnectUnit {
-    public CourseInstructorDAO() {
+public class CourseInstructorDAL extends MyConnectUnit {
+    public CourseInstructorDAL() {
         super();
       
     }
@@ -25,16 +25,15 @@ public class CourseInstructorDAO extends MyConnectUnit {
     {
         ArrayList<CourseInstructorDTO> dssach = new ArrayList<>();
         try {
-            //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
-            //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
             ResultSet rs = this.SelectCustomOrderby("course as cs , person as ps, courseinstructor as csin",
                     "csin.ID,cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
-                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID","csin.ID ASC");
+                    "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID",
+                    "csin.ID ASC");
             while(rs.next())
             {
                CourseInstructorDTO csin = new  CourseInstructorDTO(
-                       rs.getInt("CourseID"),rs.getInt("CourseID"),rs.getString("Title"),
-                       rs.getInt("PersonID"),rs.getString("Lastname")+rs.getString("Firstname")
+                       rs.getInt("ID"),rs.getInt("CourseID"),rs.getString("Title"),
+                       rs.getInt("PersonID"),rs.getString("Lastname")+" "+rs.getString("Firstname")
                );       
                 dssach.add(csin);
             }
@@ -47,6 +46,7 @@ public class CourseInstructorDAO extends MyConnectUnit {
 
         return dssach;
     }
+        
       public void addCourseInstructor(CourseInstructorDTO csin) throws Exception
     {
          HashMap<String,Object> Insertvalues =new  HashMap<String,Object>();
@@ -75,17 +75,14 @@ public class CourseInstructorDAO extends MyConnectUnit {
     public void delete(int courseID,int teacherID)
     {
         try {
-                    this.Delete("courseinstructor","CourseID ='"+courseID+"'AND PersonID ='"+teacherID+"'");
+                this.Delete("courseinstructor",
+                "CourseID ='"+courseID+"'AND PersonID ='"+teacherID+"'");
                 } catch (Exception e) {
                     System.out.println("Lỗi không thể xóa courseinstructor item !!");
                 }
         
     }
      
- public static void main(String[] args) throws Exception {
-     CourseInstructorDAO cs=new CourseInstructorDAO();
-     cs.loadDatabase().forEach( (n) -> { System.out.println(n); } );
-       
-    }
+  
     
 }

@@ -16,19 +16,20 @@ import java.util.HashMap;
  */
 public class CourseInstructorBUS {
      static ArrayList<CourseInstructorDTO> listCourseInstructor;
+     static CourseInstructorDAO dal=new CourseInstructorDAO();
     public CourseInstructorBUS() {
     }
     
     public void  loadDSCourseInstructor() throws Exception{
-        CourseInstructorDAO data =new CourseInstructorDAO();
+       
         if(listCourseInstructor==null) listCourseInstructor = new ArrayList<CourseInstructorDTO>();
-        listCourseInstructor=data.loadDatabase();
+        listCourseInstructor=dal.loadDatabase();
     }
     
     public void addCourseInstructor(CourseInstructorDTO csin) throws Exception{
         // validate data
-        CourseInstructorDAO data =new CourseInstructorDAO();
-        data.addCourseInstructor(csin);
+        //CourseInstructorDAO data =new CourseInstructorDAO();
+        dal.addCourseInstructor(csin);
         listCourseInstructor.add(csin);
         
     }
@@ -41,8 +42,8 @@ public class CourseInstructorBUS {
             {   
                 try {
                    listCourseInstructor.remove(csin);
-                    CourseInstructorDAO data =new CourseInstructorDAO();
-                    data.delete(courseID,teacherID);  
+                   // CourseInstructorDAO data =new CourseInstructorDAO();
+                    dal.delete(courseID,teacherID);  
                 } catch (Exception e) {
                     System.out.println("Khong the Xoa CourseInstructor vao database !!!");
                 } 
@@ -58,8 +59,8 @@ public class CourseInstructorBUS {
             {
                 try {
                     listCourseInstructor.set(i, csin);
-                CourseInstructorDAO data =new CourseInstructorDAO();
-                data.updateCourseInstructor(id,csin);
+               // CourseInstructorDAO data =new CourseInstructorDAO();
+                dal.updateCourseInstructor(id,csin);
                 } catch (Exception e) {
                     System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
                    
@@ -95,7 +96,46 @@ public class CourseInstructorBUS {
         }
         return search;
     }
-    
+     public ArrayList<CourseInstructorDTO> searchCourseID(int courseID)
+    {
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        for(CourseInstructorDTO csin : listCourseInstructor)
+        {
+             if(  csin.getCourseID()==courseID  )
+                search.add(csin);
+        }
+        return search;
+    }
+      public ArrayList<CourseInstructorDTO> searchCourseTitle(String courseTitle)
+    {
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        for(CourseInstructorDTO csin : listCourseInstructor)
+        {
+             if(  csin.getTitleCourse().contains(courseTitle)  )
+                search.add(csin);
+        }
+        return search;
+    }
+         public ArrayList<CourseInstructorDTO> searchTeacherName(String teacherName)
+    {
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        for(CourseInstructorDTO csin : listCourseInstructor)
+        {
+             if(  csin.getTeacherName().contains(teacherName)  )
+                search.add(csin);
+        }
+        return search;
+    }
+     public ArrayList<CourseInstructorDTO> searchTeacherID(int teacherID)
+    {
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        for(CourseInstructorDTO csin : listCourseInstructor)
+        {
+             if(  csin.getPersonID()==teacherID  )
+                search.add(csin);
+        }
+        return search;
+    }
     
     public static void setListCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {
         CourseInstructorBUS.listCourseInstructor = listCourseInstructor;
