@@ -30,10 +30,11 @@ import javax.swing.JTextField;
 
 public class KhoaHocController {
     
-    private final JButton btnSubmit;
-    private final JTextField jtfTenKhoaHoc;
-    private final JTextField jtfMaPhong;
-    private final JLabel jlbMsg;
+    private  JButton btnSubmit;
+    private  JTextField jtfTenKhoaHoc;
+    private  JTextField jtfMaPhong;
+    private  JLabel jlbMsg;
+    private  JButton btnDelete;
 
     private CourseDTO khoaHoc = null;
 
@@ -43,11 +44,17 @@ public class KhoaHocController {
         this.btnSubmit = btnSubmit;
         this.jtfTenKhoaHoc = jtfTenKhoaHoc;
         this.jtfMaPhong = jtfMaPhong;
+        this.jlbMsg = jlbMsg;    
+        this.btnDelete=null;
+        this.khoaHocService = new KhoaHocServiceImpl();
+    }
+    
+    public KhoaHocController(JButton btnSubmit,JButton btnDelete  , JTextField jtfTenKhoaHoc, JTextField jtfMaPhong, JLabel jlbMsg) {
+        this.btnSubmit = btnSubmit;
+        this.jtfTenKhoaHoc = jtfTenKhoaHoc;
+        this.jtfMaPhong = jtfMaPhong;
         this.jlbMsg = jlbMsg;
-    
-    
-   
-
+        this.btnDelete=btnDelete;
         this.khoaHocService = new KhoaHocServiceImpl();
     }
 
@@ -57,10 +64,52 @@ public class KhoaHocController {
         jtfTenKhoaHoc.setText(khoaHoc.getTitle());
         jtfMaPhong.setText(String.valueOf(khoaHoc.getDepartmentID()));
         // set event
-        setEvent();
+        if(this.khoaHoc!=null){
+            setEvent(this.khoaHoc);
+        }
+        else{
+            System.out.print("abc");
+        }
+        
     }
 
-    public void setEvent() {
+    public void setEvent(CourseDTO course) {
+        if(btnDelete!=null){
+            btnDelete.addMouseListener(new MouseAdapter() {
+        @Override
+            public void mouseClicked(MouseEvent e) {
+                        khoaHoc.setCourseID(course.CourseID);
+                        khoaHoc.setTitle(jtfTenKhoaHoc.getText().trim());
+                        khoaHoc.setDepartmentID(Integer.parseInt(jtfMaPhong.getText()));
+                            if (showDialog()) {
+                            int done =khoaHocService.delete(khoaHoc);
+                            if (done == 1) {
+                                jlbMsg.setText("Xử lý cập nhật dữ liệu thành công!");
+                            } else {
+                                jlbMsg.setText("Có vẻ khóa học đã có dữ liệu!!");
+                            }
+                        }
+                    
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+                btnDelete.setBackground(new Color(0,0,255));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+                btnDelete.setBackground(new Color(102,102,255));
+            }
+        
+        });
+        
+        
+        }
+        
+        
         btnSubmit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -98,11 +147,13 @@ public class KhoaHocController {
             @Override
             public void mouseEntered(MouseEvent e) {
                 btnSubmit.setBackground(new Color(0,0,255));
+                
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 btnSubmit.setBackground(new Color(102,102,255));
+                
             }
         });
     }
