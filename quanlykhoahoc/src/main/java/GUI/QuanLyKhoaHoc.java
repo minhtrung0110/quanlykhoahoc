@@ -91,6 +91,11 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         btnAdd.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Thêm Mới");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnAdd1.setBackground(new java.awt.Color(102, 102, 255));
         btnAdd1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -143,6 +148,11 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                 jpnView, btnAdd, jtfSearch);
         controller.setDataToTable();
     }//GEN-LAST:event_btnAdd1ActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

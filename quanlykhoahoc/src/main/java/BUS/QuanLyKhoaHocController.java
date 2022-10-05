@@ -11,6 +11,7 @@ import DAO.KhoaHocService;
 import DAO.KhoaHocServiceImpl;
 import DTO.CourseDTO;
 import GUI.KhoaHocJF;
+import GUI.KhoaHocJF_delete;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -118,7 +119,7 @@ table.addMouseListener(new MouseAdapter() {
 
 
 
-                    KhoaHocJF frame = new KhoaHocJF(khoaHoc);
+                    KhoaHocJF_delete frame = new KhoaHocJF_delete(khoaHoc);
                     frame.setLocationRelativeTo(null);
                     frame.setResizable(false);
                     frame.setTitle("Thông tin khóa học");
