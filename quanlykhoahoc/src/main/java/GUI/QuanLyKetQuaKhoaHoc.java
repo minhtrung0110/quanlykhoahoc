@@ -4,10 +4,10 @@
  */
 package GUI;
 
-import BUS.CourseBUS;
-import BUS.GradeBUS;
-import BUS.PersonBUS;
-import DAO.GradeDAO;
+import BLL.CourseBLL;
+import BLL.GradeBLL;
+import BLL.PersonBLL;
+import DAL.GradeDAL;
 import DTO.CourseDTO;
 import DTO.GradeDTO;
 import DTO.PersonDTO;
@@ -31,9 +31,9 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
      */
     private int DEFALUT_WIDTH;
     private DefaultTableModel model;
-    private GradeBUS gradeBUS = new GradeBUS();
-    private CourseBUS courseBUS = new CourseBUS();
-    private PersonBUS personBUS = new PersonBUS();
+    private GradeBLL gradeBUS = new GradeBLL();
+    private CourseBLL courseBUS = new CourseBLL();
+    private PersonBLL personBUS = new PersonBLL();
 
     public QuanLyKetQuaKhoaHoc() {
         initComponents();
@@ -67,12 +67,12 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
 
     private void ShowDatabase() throws Exception {
         try {
-            GradeBUS bus = new GradeBUS();
-            if (GradeBUS.getListGrade() == null) {
+            GradeBLL bus = new GradeBLL();
+            if (GradeBLL.getListGrade() == null) {
                 bus.loadDSGrade();
             }
             insertHeader();
-            outModel(model, GradeBUS.getListGrade());
+            outModel(model, GradeBLL.getListGrade());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
@@ -96,10 +96,10 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
 
     private void refreshData() {
         try {
-            GradeBUS bus = new GradeBUS();
+            GradeBLL bus = new GradeBLL();
             bus.loadDSGrade();
             insertHeader();
-            outModel(model, GradeBUS.getListGrade());
+            outModel(model, GradeBLL.getListGrade());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
@@ -446,9 +446,9 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(161, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                        .addGap(23, 23, 23))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -502,7 +502,7 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
             g.setStudentID((int) Integer.parseInt(txtStuID.getText()));
             g.setGrade((float) Float.parseFloat(txtGrade.getText()));
 
-            GradeBUS bus = new GradeBUS();
+            GradeBLL bus = new GradeBLL();
             bus.addGrade(g);
             refreshData();
 
@@ -524,7 +524,7 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
             g.setCourseID((int) cid);
             g.setStudentID((int) sid);
             g.setGrade((float) grade);
-            GradeBUS bus = new GradeBUS();
+            GradeBLL bus = new GradeBLL();
             bus.updateGrade(eid, g);
             refreshData();
         } catch (Exception e) {
@@ -536,7 +536,7 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             int eid = Integer.parseInt(txtEID.getText());
-            GradeBUS bus = new GradeBUS();
+            GradeBLL bus = new GradeBLL();
             bus.deleteGrade(eid);
             refreshData();
         } catch (Exception e) {
@@ -564,7 +564,7 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
 
     
     private void Tim() {
-        GradeBUS gr = new GradeBUS();
+        GradeBLL gr = new GradeBLL();
         String a = cbbTim.getSelectedItem().toString();
         ArrayList<GradeDTO> ds = new ArrayList<>();
         ArrayList<GradeDTO> ds1 = new ArrayList<>();

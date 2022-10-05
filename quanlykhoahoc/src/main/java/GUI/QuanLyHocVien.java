@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import BUS.PersonBUS;
+import BLL.PersonBLL;
 import DTO.PersonDTO;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,25 +26,27 @@ import javax.swing.table.TableRowSorter;
  */
 public class QuanLyHocVien extends javax.swing.JPanel {
 
-   private int DEFALUT_WIDTH;   
-   private PersonBUS personBUS=new PersonBUS();
-   DefaultTableModel model;
-   static ArrayList<PersonDTO> listLecturers = new PersonBUS().getListPerson();
-   String formatTime = "yyyy-MM-dd     ";
-   DateFormat fm = new SimpleDateFormat(formatTime);
-     public QuanLyHocVien(){
-         this.setSize(1090, 750);
-         initComponents();
+    private int DEFALUT_WIDTH;
+    private PersonBLL personBUS = new PersonBLL();
+    DefaultTableModel model;
+    static ArrayList<PersonDTO> listLecturers = new PersonBLL().getListPerson();
+    String formatTime = "yyyy-MM-dd     ";
+    DateFormat fm = new SimpleDateFormat(formatTime);
+
+    public QuanLyHocVien() {
+        this.setSize(1090, 750);
+        initComponents();
     }
-    public QuanLyHocVien (int width) throws Exception
-    {
+
+    public QuanLyHocVien(int width) throws Exception {
         DEFALUT_WIDTH = width;
         initComponents();
-       this.setSize(this.DEFALUT_WIDTH - 200, 750);
-      init();
-  
+        this.setSize(this.DEFALUT_WIDTH - 200, 750);
+        init();
+
     }
-     private void init() throws Exception{
+
+    private void init() throws Exception {
         ShowStudent();
 //        Show dialog
         add_Student.pack();
@@ -52,20 +54,23 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         edit_Student.pack();
         edit_Student.setLocationRelativeTo(null);
     }
-    private void ShowStudent() throws Exception{       
-       
-        
+
+    private void ShowStudent() throws Exception {
+
         try {
-             PersonBUS bus =new PersonBUS();
-        if(PersonBUS.getListPersonStudent()==null) bus.loadDSPersonStudent();
-        insertHeader();
-        outModel(model,PersonBUS.getListPersonStudent());
+            PersonBLL bus = new PersonBLL();
+            if (PersonBLL.getListPersonStudent() == null) {
+                bus.loadDSPersonStudent();
+            }
+            insertHeader();
+            outModel(model, PersonBLL.getListPersonStudent());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Không Thể Load Database ", "Thông Báo Lỗi",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    private void insertHeader(){
+
+    private void insertHeader() {
         Vector header = new Vector();
         header.add("STT");
         header.add("Mã học viên");
@@ -73,27 +78,25 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         header.add("Tên");
         header.add("Ngày đăng ký");
 
-       
         //if (model.getRowCount()==0)
-              model=new DefaultTableModel(header,0);
-             
-                   
+        model = new DefaultTableModel(header, 0);
+
     }
-      private void outModel(DefaultTableModel model,ArrayList<PersonDTO> personDTO ) // Xuất ra Table từ ArrayList
+
+    private void outModel(DefaultTableModel model, ArrayList<PersonDTO> personDTO) // Xuất ra Table từ ArrayList
     {
         Vector data;
         model.setRowCount(0);
-          
-        int i=1;
-        for(PersonDTO cs: personDTO)
-        {
+
+        int i = 1;
+        for (PersonDTO cs : personDTO) {
             data = new Vector();
             data.add(i);
-            data.add(cs.getPersonID());     
+            data.add(cs.getPersonID());
             data.add(cs.getFirstname());
             data.add(cs.getLastname());
             data.add(fm.format(cs.getEnrollmentDate()));
-           
+
             model.addRow(data);
             i++;
         }
@@ -120,7 +123,8 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         txtId_Student = new javax.swing.JTextField();
         txtLastNameHV = new javax.swing.JTextField();
         txtFirstNameHV = new javax.swing.JTextField();
-        txtEnrollmentDateHV = new com.toedter.calendar.JDateChooser();
+        txtAddEnrollmentDateHV = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
         edit_Student = new javax.swing.JDialog();
         jPanel24 = new javax.swing.JPanel();
         txPositionError3 = new javax.swing.JLabel();
@@ -131,7 +135,8 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         txtEditId_Student = new javax.swing.JTextField();
         txtEditLastNameHV = new javax.swing.JTextField();
         txtEditFirstNameHV = new javax.swing.JTextField();
-        txtEditEnrollmentDateHV = new com.toedter.calendar.JDateChooser();
+        txtEnrollmentDateHV = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_hocvien = new javax.swing.JTable();
         jPanel20 = new javax.swing.JPanel();
@@ -167,11 +172,11 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbAddNV5, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+            .addComponent(lbAddNV5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbAddNV5, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+            .addComponent(lbAddNV5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnExitThemHV.setText("Hủy");
@@ -202,7 +207,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
 
         txtFirstNameHV.setBorder(javax.swing.BorderFactory.createTitledBorder("Họ Học viên"));
 
-        txtEnrollmentDateHV.setBorder(javax.swing.BorderFactory.createTitledBorder("Ngày Đăng ký"));
+        jLabel1.setText("Enroolment Date:");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -215,22 +220,26 @@ public class QuanLyHocVien extends javax.swing.JPanel {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel22Layout.createSequentialGroup()
-                                .addComponent(btnSaveHV, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
-                                .addComponent(btnDelHV)
+                                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel22Layout.createSequentialGroup()
+                                        .addComponent(btnSaveHV, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61)
+                                        .addComponent(btnDelHV))
+                                    .addComponent(txtAddEnrollmentDateHV, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txPositionError2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnExitThemHV, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55))
+                                .addGap(43, 43, 43))
                             .addGroup(jPanel22Layout.createSequentialGroup()
-                                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel22Layout.createSequentialGroup()
-                                        .addComponent(txtFirstNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                                        .addComponent(txtLastNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtId_Student)
-                                    .addComponent(txtEnrollmentDateHV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel22Layout.createSequentialGroup()
+                                            .addComponent(txtFirstNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                            .addComponent(txtLastNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtId_Student))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -240,20 +249,23 @@ public class QuanLyHocVien extends javax.swing.JPanel {
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtId_Student, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFirstNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLastNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addComponent(txtEnrollmentDateHV, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txPositionError2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSaveHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDelHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnExitThemHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(txtAddEnrollmentDateHV, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSaveHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExitThemHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout add_StudentLayout = new javax.swing.GroupLayout(add_Student.getContentPane());
@@ -292,11 +304,11 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbAddNV6, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+            .addComponent(lbAddNV6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbAddNV6, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+            .addComponent(lbAddNV6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnExitEditHV.setText("Hủy");
@@ -320,7 +332,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
 
         txtEditFirstNameHV.setBorder(javax.swing.BorderFactory.createTitledBorder("Họ Học viên"));
 
-        txtEditEnrollmentDateHV.setBorder(javax.swing.BorderFactory.createTitledBorder("Ngày đăng ký"));
+        jLabel3.setText("Enrollment Date:");
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -330,26 +342,28 @@ public class QuanLyHocVien extends javax.swing.JPanel {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel24Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel24Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(btnSaveEditStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(btnSaveEditStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(btnExitEditHV, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEnrollmentDateHV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
+                                .addComponent(txtEditFirstNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txPositionError3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExitEditHV, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100))
-                            .addGroup(jPanel24Layout.createSequentialGroup()
-                                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel24Layout.createSequentialGroup()
-                                        .addComponent(txtEditFirstNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                                        .addComponent(txtEditLastNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtEditId_Student)
-                                    .addComponent(txtEditEnrollmentDateHV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(txtEditLastNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEditId_Student, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txPositionError3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(190, 190, 190))))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,25 +371,33 @@ public class QuanLyHocVien extends javax.swing.JPanel {
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEditId_Student, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEditFirstNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEditLastNameHV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addComponent(txtEditEnrollmentDateHV, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txPositionError3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addComponent(txPositionError3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtEnrollmentDateHV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaveEditStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExitEditHV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout edit_StudentLayout = new javax.swing.GroupLayout(edit_Student.getContentPane());
         edit_Student.getContentPane().setLayout(edit_StudentLayout);
         edit_StudentLayout.setHorizontalGroup(
             edit_StudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(edit_StudentLayout.createSequentialGroup()
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 229, Short.MAX_VALUE))
         );
         edit_StudentLayout.setVerticalGroup(
             edit_StudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,7 +572,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
             String date = (String) tbl_hocvien.getValueAt(i, 4);
 
             try {
-                txtEditEnrollmentDateHV.setDate((Date) fm.parse(date));
+                txtAddEnrollmentDateHV.setDate((Date) fm.parse(date));
             } catch (ParseException ex) {
                 Logger.getLogger(QuanLyGiaoVien.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -567,21 +589,21 @@ public class QuanLyHocVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng cần xóa");
 
         } else if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa học viên này? ", "Confirm",
-            JOptionPane.YES_OPTION, JOptionPane.NO_OPTION) == JOptionPane.YES_OPTION){
-        int select = (int) tbl_hocvien.getModel().getValueAt(i, 1);
+                JOptionPane.YES_OPTION, JOptionPane.NO_OPTION) == JOptionPane.YES_OPTION) {
+            int select = (int) tbl_hocvien.getModel().getValueAt(i, 1);
 
-        PersonDTO studentDTO = new PersonDTO();
-        PersonBUS studentBUS =new PersonBUS();
-        studentDTO.setPersonID(select);
-        try {
-     
-            studentBUS.deleteStudent(studentDTO.getPersonID());
-            showMessageDialog(null, "Xóa thành công");
-            studentBUS.loadDSPersonStudent();
-            ShowStudent();
-        } catch (Exception e) {
-            showMessageDialog(null, "Xóa thất bại");
-        }
+            PersonDTO studentDTO = new PersonDTO();
+            PersonBLL studentBUS = new PersonBLL();
+            studentDTO.setPersonID(select);
+            try {
+
+                studentBUS.deleteStudent(studentDTO.getPersonID());
+                showMessageDialog(null, "Xóa thành công");
+                studentBUS.loadDSPersonStudent();
+                ShowStudent();
+            } catch (Exception e) {
+                showMessageDialog(null, "Xóa thất bại");
+            }
 
         }
     }//GEN-LAST:event_btn_deletestudentActionPerformed
@@ -590,7 +612,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         String idPerson;
         try {
-            idPerson = String.valueOf(personBUS.getALLPerson().get(personBUS.getALLPerson().size() - 1).getPersonID()+ 1);
+            idPerson = String.valueOf(personBUS.getALLPerson().get(personBUS.getALLPerson().size() - 1).getPersonID() + 1);
             txtId_Student.setText(idPerson);
             add_Student.setVisible(true);
         } catch (Exception ex) {
@@ -605,10 +627,10 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         try {
 
             PersonDTO studentDTO = new PersonDTO();
-            PersonBUS studentBUS =new PersonBUS();
+            PersonBLL studentBUS = new PersonBLL();
 
-            if (txtId_Student.getText().length() != 0 && txtEnrollmentDateHV.getDate()!= null && txtLastNameHV.getText().length() != 0
-                && txtFirstNameHV.getText().length() != 0 )//xem thử đã nhập hay chưa(textflied)
+            if (txtId_Student.getText().length() != 0 && txtEnrollmentDateHV.getDate() != null && txtLastNameHV.getText().length() != 0
+                    && txtFirstNameHV.getText().length() != 0)//xem thử đã nhập hay chưa(textflied)
             {
                 studentDTO.setPersonID(Integer.valueOf(txtId_Student.getText()));
                 studentDTO.setFirstname(txtFirstNameHV.getText());
@@ -616,7 +638,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
                 studentDTO.setEnrollmentDate(txtEnrollmentDateHV.getDate());
                 studentBUS.addStudent(studentDTO);
                 studentBUS.loadDSPersonStudent();
-                 JOptionPane.showMessageDialog(null, "Thêm học viên thành công !");
+                JOptionPane.showMessageDialog(null, "Thêm học viên thành công !");
                 add_Student.dispose();
                 ShowStudent();
                 txtFirstNameHV.setText("");
@@ -656,15 +678,15 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         try {
 
             PersonDTO studentDTO = new PersonDTO();
-            PersonBUS studentBUS =new PersonBUS();
+            PersonBLL studentBUS = new PersonBLL();
 
-            if (txtEditId_Student.getText().length() != 0 && txtEditEnrollmentDateHV.getDate()!= null && txtEditLastNameHV.getText().length() != 0
-                && txtEditFirstNameHV.getText().length() != 0 )//xem thử đã nhập hay chưa(textflied)
+            if (txtEditId_Student.getText().length() != 0 && txtAddEnrollmentDateHV.getDate() != null && txtEditLastNameHV.getText().length() != 0
+                    && txtEditFirstNameHV.getText().length() != 0)//xem thử đã nhập hay chưa(textflied)
             {
                 studentDTO.setPersonID(Integer.valueOf(txtEditId_Student.getText()));
                 studentDTO.setFirstname(txtEditFirstNameHV.getText());
                 studentDTO.setLastname(txtEditLastNameHV.getText());
-                studentDTO.setEnrollmentDate(txtEditEnrollmentDateHV.getDate());
+                studentDTO.setEnrollmentDate(txtAddEnrollmentDateHV.getDate());
                 studentBUS.editStudent(studentDTO);
                 studentBUS.loadDSPersonStudent();
                 JOptionPane.showMessageDialog(null, "Sửa học viên thành công !");
@@ -701,7 +723,9 @@ public class QuanLyHocVien extends javax.swing.JPanel {
     private javax.swing.JButton btn_deletestudent;
     private javax.swing.JButton btn_editstudent;
     private javax.swing.JDialog edit_Student;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel22;
@@ -715,7 +739,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
     private javax.swing.JTextField txFind_HV;
     private javax.swing.JLabel txPositionError2;
     private javax.swing.JLabel txPositionError3;
-    private com.toedter.calendar.JDateChooser txtEditEnrollmentDateHV;
+    private com.toedter.calendar.JDateChooser txtAddEnrollmentDateHV;
     private javax.swing.JTextField txtEditFirstNameHV;
     private javax.swing.JTextField txtEditId_Student;
     private javax.swing.JTextField txtEditLastNameHV;

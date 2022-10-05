@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import BUS.QuanLyKhoaHocController;
+import BLL.QuanLyKhoaHocController;
 
 /**
  *
