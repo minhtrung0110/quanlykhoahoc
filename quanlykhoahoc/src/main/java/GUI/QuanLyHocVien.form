@@ -58,11 +58,10 @@
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="txtFirstNameHV" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <EmptySpace pref="59" max="32767" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                               <Component id="txtLastNameHV" min="-2" pref="160" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="txtId_Student" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtEnrollmentDateHV" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
@@ -84,9 +83,7 @@
                           <Component id="txtFirstNameHV" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtLastNameHV" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="txtEnrollmentDateHV" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <EmptySpace pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txPositionError2" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -124,12 +121,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbAddNV5" alignment="0" pref="445" max="32767" attributes="0"/>
+                      <Component id="lbAddNV5" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbAddNV5" alignment="0" pref="52" max="32767" attributes="0"/>
+                      <Component id="lbAddNV5" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -204,15 +201,6 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="txtEnrollmentDateHV">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Ng&#xe0;y &#x110;&#x103;ng k&#xfd;"/>
-                  </Border>
-                </Property>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -272,18 +260,17 @@
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="txtEditFirstNameHV" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <EmptySpace pref="59" max="32767" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                               <Component id="txtEditLastNameHV" min="-2" pref="160" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="txtEditId_Student" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtEditEnrollmentDateHV" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -298,9 +285,7 @@
                           <Component id="txtEditFirstNameHV" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtEditLastNameHV" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="txtEditEnrollmentDateHV" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <EmptySpace pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txPositionError3" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="btnSaveEditStudent" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
@@ -335,12 +320,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbAddNV6" alignment="0" pref="445" max="32767" attributes="0"/>
+                      <Component id="lbAddNV6" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbAddNV6" alignment="0" pref="52" max="32767" attributes="0"/>
+                      <Component id="lbAddNV6" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -403,15 +388,6 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="H&#x1ecd; H&#x1ecd;c vi&#xea;n"/>
-                  </Border>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="txtEditEnrollmentDateHV">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Ng&#xe0;y &#x111;&#x103;ng k&#xfd;"/>
                   </Border>
                 </Property>
               </Properties>

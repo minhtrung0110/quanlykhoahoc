@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import BUS.KhoaHocController;
+import BLL.KhoaHocController;
 import DTO.CourseDTO;
 
 
