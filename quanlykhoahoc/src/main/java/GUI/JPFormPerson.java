@@ -344,7 +344,8 @@ public class JPFormPerson extends javax.swing.JDialog {
         ArrayList<PersonDTO> DSKH = new ArrayList<>();
         ArrayList<PersonDTO> ps1 = new ArrayList<>();
         DSKH = ps.getListPerson();
-        if ((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty()) {
+        if (((a.equals("PersonID") && txTim.getText().isEmpty()) || (a.equals("FirstName") && txTim.getText().isEmpty()) 
+                || (a.equals("LastName")) && txTim.getText().isEmpty())) {
             outModel(model, DSKH);
         } else if (a.equals("PersonID")) {
             ps1 = ps.searchPersonWithID(Integer.parseInt(txTim.getText()));

@@ -106,27 +106,27 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
 
     }
 
-    private void loadComboBoxCourse(JComboBox cmb) throws Exception {
-        if (courseBUS.getListCourse() == null) {
-            courseBUS.loadDSCourse();
-        }
-        ArrayList<CourseDTO> cs = courseBUS.getListCourse();
-        for (CourseDTO a : cs) {
-            cmb.addItem(a.getTitle());
-        }
-
-    }
-
-    private void loadComboBoxStudent(JComboBox cmb) throws Exception {
-        if (personBUS.getListPerson() == null) {
-            personBUS.loadDSPerson();
-        }
-        ArrayList<PersonDTO> ps = personBUS.getListPerson();
-        for (PersonDTO a : ps) {
-            cmb.addItem(a.getFirstname() + " " + a.getLastname());
-        }
-
-    }
+//    private void loadComboBoxCourse(JComboBox cmb) throws Exception {
+//        if (courseBUS.getListCourse() == null) {
+//            courseBUS.loadDSCourse();
+//        }
+//        ArrayList<CourseDTO> cs = courseBUS.getListCourse();
+//        for (CourseDTO a : cs) {
+//            cmb.addItem(a.getTitle());
+//        }
+//
+//    }
+//
+//    private void loadComboBoxStudent(JComboBox cmb) throws Exception {
+//        if (personBUS.getListPerson() == null) {
+//            personBUS.loadDSPerson();
+//        }
+//        ArrayList<PersonDTO> ps = personBUS.getListPerson();
+//        for (PersonDTO a : ps) {
+//            cmb.addItem(a.getFirstname() + " " + a.getLastname());
+//        }
+//
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -339,6 +339,11 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
                 btTimMouseClicked(evt);
             }
         });
+        btTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimActionPerformed(evt);
+            }
+        });
 
         cbbTim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "StudentID", "CourseID", " " }));
         cbbTim.addActionListener(new java.awt.event.ActionListener() {
@@ -443,12 +448,9 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(161, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -562,6 +564,10 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbTimActionPerformed
 
+    private void btTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btTimActionPerformed
+
     
     private void Tim() {
         GradeBLL gr = new GradeBLL();
@@ -569,7 +575,7 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
         ArrayList<GradeDTO> ds = new ArrayList<>();
         ArrayList<GradeDTO> ds1 = new ArrayList<>();
         ds = gr.getListGrade();
-        if (a.equals("StudentID") || a.equals("CourseID") && txTim.getText().isEmpty()) {
+        if ((a.equals("StudentID")&& txTim.getText().isEmpty()) || (a.equals("CourseID") && txTim.getText().isEmpty())) {
             outModel(model, ds);
         } 
         else if (a.equals("StudentID")) {
