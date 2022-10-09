@@ -8,23 +8,49 @@ import java.util.Date;
 
 /**
  *
- * @author trankimphu0609
+ * @author nguyenducminhtrung
  */
-public class CourseOnsiteDTO {
+public class CourseOnsite extends Course {
     public int CourseID;
     public String Location;
     public Date Days, Time;
 
-    public CourseOnsiteDTO() {
+    public CourseOnsite() {
+        super();
     }
 
-    public CourseOnsiteDTO(int CourseID, String Location, Date Days, Date Time) {
+    public CourseOnsite(int CourseID, String Location, Date Days, Date Time) {
+        super();
         this.CourseID = CourseID;
         this.Location = Location;
         this.Days = Days;
         this.Time = Time;
     }
 
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String Title) {
+        this.Title = Title;
+    }
+
+    public int getCredits() {
+        return Credits;
+    }
+
+    public void setCredits(int Credits) {
+        this.Credits = Credits;
+    }
+
+    public int getDepartmentID() {
+        return DepartmentID;
+    }
+
+    public void setDepartmentID(int DepartmentID) {
+        this.DepartmentID = DepartmentID;
+    }
+    
     public int getCourseID() {
         return CourseID;
     }
