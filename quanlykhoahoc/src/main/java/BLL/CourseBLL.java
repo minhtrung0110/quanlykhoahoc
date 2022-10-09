@@ -6,6 +6,8 @@ package BLL;
 
 import DAL.CourseDAL;
 import DTO.Course;
+import DTO.CourseInstructor;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,7 @@ import java.util.ArrayList;
  */
 public class CourseBLL {
       static ArrayList<Course> listCourse;
-      CourseDAL data =new CourseDAL();
+        private  CourseDAL data =new CourseDAL();
     public CourseBLL() {
     }
 
@@ -32,9 +34,42 @@ public class CourseBLL {
         if(listCourse==null) listCourse = new ArrayList<Course>();
         listCourse=data.loadDatabase();// gọi Layer DAL hàm đọc data từ CSDL
     }
-    public void addCourse(){
+    public void addCourse(Course cs,String type) throws Exception {
          if(listCourse==null) listCourse = new ArrayList<Course>();
-        //listCourse=data.loadDatabase();// gọi Layer DAL hàm đọc data từ CSDL
+         data.addCourse(cs, type);// gọi Layer DAL hàm đọc data từ CSDL
+    }
+    public void deleteCourse(int courseID) throws Exception{
+        for(Course csin : listCourse)
+        {
+            if(csin.getCourseID()==courseID)
+            {
+                try {
+                    data.deleteCourse(courseID);
+                    listCourse.remove(csin);// xoá trong arraylist
+                } catch (Exception e) {
+                    System.out.println("Khong the Xoa Course vao database !!!");
+                }
+                return;
+            }
+        }
+
+    }
+    public void updateCourse(int id, Course cs) throws Exception{
+        for(int i = 0 ; i < listCourse.size() ; i++)
+        {
+            if(listCourse.get(i).getCourseID()==cs.getCourseID())
+            {
+                try {
+                    data.updateCourse(id, cs);
+                    listCourse.set(i, cs);
+                } catch (Exception e) {
+                    System.out.println("Khong the Cap nhat Course vao database !!!");
+
+                }
+
+                return;
+            }
+        }
     }
      public ArrayList<Course> searchCourseWithID(int courseID)
     {
