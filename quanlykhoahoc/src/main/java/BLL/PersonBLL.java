@@ -5,7 +5,7 @@
 package BLL;
 
 import DAL.PersonDAL;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.util.ArrayList;
 
 /**
@@ -14,36 +14,36 @@ import java.util.ArrayList;
  */
 public class PersonBLL {
 
-    static ArrayList<PersonDTO> listPerson;
-    static ArrayList<PersonDTO> listPersonStudent;
-    static ArrayList<PersonDTO> listPersonLecturers;
-
+    static ArrayList<Person> listPerson;
+    static ArrayList<Person> listPersonStudent;
+    static ArrayList<Person> listPersonLecturers;
+    private PersonDAL data = new PersonDAL();
     public PersonBLL() {
     }
 
-    public ArrayList<PersonDTO> getListPerson() {
+    public ArrayList<Person> getListPerson() {
         return listPerson;
     }
 
-    public void setListPerson(ArrayList<PersonDTO> listPerson) {
+    public void setListPerson(ArrayList<Person> listPerson) {
         PersonBLL.listPerson = listPerson;
     }
 
     public void loadDSPerson() throws Exception {
         PersonDAL data = new PersonDAL();
         if (listPerson == null) {
-            listPerson = new ArrayList<PersonDTO>();
+            listPerson = new ArrayList<Person>();
         }
         listPerson = data.loadDatabase();
     }
 
-    public ArrayList<PersonDTO> searchPerson(int personID, String firstName, String lastName) {
-        ArrayList<PersonDTO> search = new ArrayList<>();
+    public ArrayList<Person> searchPerson(int personID, String firstName, String lastName) {
+        ArrayList<Person> search = new ArrayList<>();
         //personID=personID.isEmpty()?personID="":personID;
         firstName = firstName.isEmpty() ? firstName = "" : firstName;
         lastName = lastName.isEmpty() ? lastName = "" : lastName;
 
-        for (PersonDTO ps : listPerson) {
+        for (Person ps : listPerson) {
             /* System.out.println(sach.getMaPerson().contains(masach) );
 
             System.out.println( sach.getMaNXB().contains(manxb));
@@ -63,11 +63,11 @@ public class PersonBLL {
         return search;
     }
 
-    public ArrayList<PersonDTO> searchPersonWithID(int personID) {
-        ArrayList<PersonDTO> search = new ArrayList<>();
+    public ArrayList<Person> searchPersonWithID(int personID) {
+        ArrayList<Person> search = new ArrayList<>();
         //personID=personID.isEmpty()?personID="":personID;
 
-        for (PersonDTO ps : listPerson) {
+        for (Person ps : listPerson) {
 
             if (ps.getPersonID() == personID) {
 
@@ -77,11 +77,11 @@ public class PersonBLL {
         return search;
     }
 
-    public ArrayList<PersonDTO> searchPersonWithFirstName(String firstName) {
-        ArrayList<PersonDTO> search = new ArrayList<>();
+    public ArrayList<Person> searchPersonWithFirstName(String firstName) {
+        ArrayList<Person> search = new ArrayList<>();
         firstName = firstName.isEmpty() ? firstName = "" : firstName;
 
-        for (PersonDTO ps : listPerson) {
+        for (Person ps : listPerson) {
 
             if (ps.getFirstname().contains(firstName)) {
 
@@ -91,12 +91,12 @@ public class PersonBLL {
         return search;
     }
 
-    public ArrayList<PersonDTO> searchPersonWithLastName(String lastName) {
-        ArrayList<PersonDTO> search = new ArrayList<>();
+    public ArrayList<Person> searchPersonWithLastName(String lastName) {
+        ArrayList<Person> search = new ArrayList<>();
 
         lastName = lastName.isEmpty() ? lastName = "" : lastName;
 
-        for (PersonDTO ps : listPerson) {
+        for (Person ps : listPerson) {
 
             if (ps.getLastname().contains(lastName)) {
 
@@ -107,27 +107,26 @@ public class PersonBLL {
     }
 
     // Thuan
-    public ArrayList<PersonDTO> getALLPerson() throws Exception {
+    public ArrayList<Person> getALLPerson() throws Exception {
         PersonDAL data = new PersonDAL();
-        ArrayList<PersonDTO> listAllPerson = new ArrayList<PersonDTO>();
+        ArrayList<Person> listAllPerson = new ArrayList<Person>();
         listAllPerson = data.getALLPerson();
         return listAllPerson;
     }
 
     //    Giang vien
     public void loadDSPersonLecturers() throws Exception {
-        PersonDAL data = new PersonDAL();
         if (listPersonLecturers == null) {
-            listPersonLecturers = new ArrayList<PersonDTO>();
+            listPersonLecturers = new ArrayList<Person>();
         }
-        listPersonLecturers = data.getAllLecturers();
+        listPersonLecturers = data.getAllLecturers();// goi layer DAL đọc Database
     }
 
-    public static ArrayList<PersonDTO> getListPersonLecturers() {
+    public static ArrayList<Person> getListPersonLecturers() {
         return listPersonLecturers;
     }
 
-    public void addLectures(PersonDTO ps) throws Exception {
+    public void addLectures(Person ps) throws Exception {
         // validate data
         PersonDAL data = new PersonDAL();
         data.addLecturesDAO(ps);
@@ -135,7 +134,7 @@ public class PersonBLL {
 
     }
 
-    public void editLectures(PersonDTO ps) throws Exception {
+    public void editLectures(Person ps) throws Exception {
         // validate data
         PersonDAL data = new PersonDAL();
         data.editLecturesDAO(ps);
@@ -145,7 +144,7 @@ public class PersonBLL {
 
     public void deleteLectures(int PersonID) throws Exception {
 
-        for (PersonDTO ps : listPersonLecturers) {
+        for (Person ps : listPersonLecturers) {
             if (ps.getPersonID() == PersonID) {
                 try {
                     listPersonLecturers.remove(ps);
@@ -164,16 +163,16 @@ public class PersonBLL {
     public void loadDSPersonStudent() throws Exception {
         PersonDAL data = new PersonDAL();
         if (listPersonStudent == null) {
-            listPersonStudent = new ArrayList<PersonDTO>();
+            listPersonStudent = new ArrayList<Person>();
         }
         listPersonStudent = data.getAllStudent();
     }
 
-    public static ArrayList<PersonDTO> getListPersonStudent() {
+    public static ArrayList<Person> getListPersonStudent() {
         return listPersonStudent;
     }
 
-    public void addStudent(PersonDTO ps) throws Exception {
+    public void addStudent(Person ps) throws Exception {
         // validate data
         PersonDAL data = new PersonDAL();
         data.addStudentDAO(ps);
@@ -181,7 +180,7 @@ public class PersonBLL {
 
     }
 
-    public void editStudent(PersonDTO ps) throws Exception {
+    public void editStudent(Person ps) throws Exception {
         // validate data
         PersonDAL data = new PersonDAL();
         data.editStudentDAO(ps);
@@ -191,7 +190,7 @@ public class PersonBLL {
 
     public void deleteStudent(int PersonID) throws Exception {
 
-        for (PersonDTO ps : listPersonStudent) {
+        for (Person ps : listPersonStudent) {
             if (ps.getPersonID() == PersonID) {
                 try {
                     listPersonStudent.remove(ps);

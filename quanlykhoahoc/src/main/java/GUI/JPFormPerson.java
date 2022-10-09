@@ -6,7 +6,7 @@
 package GUI;
 
 import BLL.PersonBLL;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ public class JPFormPerson extends javax.swing.JDialog {
         setModal(true);
         initComponents();
         txTim.requestFocus();
-        this.LoadDSKH();
+        this.LoadListLecturers();
         setVisible(true);
     }
 
@@ -47,7 +47,7 @@ public class JPFormPerson extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbKH = new javax.swing.JTable();
+        tbPerson = new javax.swing.JTable();
         btXacNhan = new javax.swing.JButton();
         btDong = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -87,7 +87,7 @@ public class JPFormPerson extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        tbKH.setModel(new javax.swing.table.DefaultTableModel(
+        tbPerson.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -95,16 +95,16 @@ public class JPFormPerson extends javax.swing.JDialog {
                 "PersonID", "FirstName", "LastName", "HireDate", "EnrollmentDate"
             }
         ));
-        tbKH.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbPerson.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbKHMouseClicked(evt);
+                tbPersonMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbKH);
-        if (tbKH.getColumnModel().getColumnCount() > 0) {
-            tbKH.getColumnModel().getColumn(0).setMinWidth(70);
-            tbKH.getColumnModel().getColumn(1).setMinWidth(150);
-            tbKH.getColumnModel().getColumn(4).setMinWidth(150);
+        jScrollPane1.setViewportView(tbPerson);
+        if (tbPerson.getColumnModel().getColumnCount() > 0) {
+            tbPerson.getColumnModel().getColumn(0).setMinWidth(70);
+            tbPerson.getColumnModel().getColumn(1).setMinWidth(150);
+            tbPerson.getColumnModel().getColumn(4).setMinWidth(150);
         }
 
         btXacNhan.setBackground(new java.awt.Color(0, 153, 0));
@@ -114,6 +114,11 @@ public class JPFormPerson extends javax.swing.JDialog {
         btXacNhan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btXacNhanMouseClicked(evt);
+            }
+        });
+        btXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXacNhanActionPerformed(evt);
             }
         });
 
@@ -139,6 +144,11 @@ public class JPFormPerson extends javax.swing.JDialog {
         btTim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btTimMouseClicked(evt);
+            }
+        });
+        btTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimActionPerformed(evt);
             }
         });
 
@@ -238,9 +248,9 @@ public class JPFormPerson extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btXacNhanMouseClicked
 
-    private void tbKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKHMouseClicked
+    private void tbPersonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPersonMouseClicked
         Click();
-    }//GEN-LAST:event_tbKHMouseClicked
+    }//GEN-LAST:event_tbPersonMouseClicked
 
     private void btTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTimMouseClicked
         Tim();
@@ -258,6 +268,14 @@ public class JPFormPerson extends javax.swing.JDialog {
     private void cbbTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbTimMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbTimMouseClicked
+
+    private void btTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btTimActionPerformed
+
+    private void btXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXacNhanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btXacNhanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,12 +305,12 @@ public class JPFormPerson extends javax.swing.JDialog {
     }
 
     /**
-     * *********************************ĐỌC DSKH*****************************************
+     * *********************************ĐỌC DSPerson*****************************************
      */
-    public void outModel(DefaultTableModel model, ArrayList<PersonDTO> listPerson) {
+    public void outModel(DefaultTableModel model, ArrayList<Person> listPerson) {
         Vector row;
         model.setRowCount(0);
-        for (PersonDTO ps : listPerson) {
+        for (Person ps : listPerson) {
             row = new Vector();
             row.add(ps.getPersonID());
             row.add(ps.getFirstname());
@@ -301,51 +319,50 @@ public class JPFormPerson extends javax.swing.JDialog {
             row.add(ps.getEnrollmentDate());
             model.addRow(row);
         }
-        tbKH.setModel(model);
+        tbPerson.setModel(model);
     }
 
-    public void LoadDSKH() throws Exception {
+    public void LoadListLecturers() throws Exception {
         PersonBLL psBUS = new PersonBLL();
         Vector header = new Vector();
         header.add("TeacherID ");
         header.add("FirstName");
         header.add("LastName");
         header.add("HireDate");
-        header.add("EnrollmentDate");
         if (model.getRowCount() == 0) {
             model = new DefaultTableModel(header, 0);
         }
         if (psBUS.getListPersonLecturers() == null) {
-            psBUS.loadDSPersonLecturers();
+            psBUS.loadDSPersonLecturers();// lấy danh sách giảng viên từ bảng Person
         }
-        ArrayList<PersonDTO> listPerson = new ArrayList<>();
+        ArrayList<Person> listPerson = new ArrayList<>();
         listPerson = psBUS.getListPersonLecturers();
-        outModel(model, listPerson);
+        outModel(model, listPerson);// truyền data vào table
     }
 
     /**
      * **********************lấy mã ps****************************************
      */
-    public String maKH() {
-        int i = tbKH.getSelectedRow();
+    public String maPerson() {
+        int i = tbPerson.getSelectedRow();
         String maps = txPersonID.getText();
         return maps;
     }
 
     public void Click() {
-        int i = tbKH.getSelectedRow();
-        txPersonID.setText(tbKH.getModel().getValueAt(i, 0).toString());
+        int i = tbPerson.getSelectedRow();
+        txPersonID.setText(tbPerson.getModel().getValueAt(i, 0).toString());
     }
 //tìm***********************************************************************
 
     public void Tim() {
         PersonBLL ps = new PersonBLL();
         String a = cbbTim.getSelectedItem().toString();
-        ArrayList<PersonDTO> DSKH = new ArrayList<>();
-        ArrayList<PersonDTO> ps1 = new ArrayList<>();
-        DSKH = ps.getListPerson();
+        ArrayList<Person> DSPerson = new ArrayList<>();
+        ArrayList<Person> ps1 = new ArrayList<>();
+        DSPerson = ps.getListPerson();
         if ((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty()) {
-            outModel(model, DSKH);
+            outModel(model, DSPerson);
         } else if (a.equals("PersonID")) {
             ps1 = ps.searchPersonWithID(Integer.parseInt(txTim.getText()));
             outModel(model, ps1);
@@ -368,7 +385,7 @@ public class JPFormPerson extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbKH;
+    private javax.swing.JTable tbPerson;
     private javax.swing.JTextField txPersonID;
     private javax.swing.JTextField txTim;
     // End of variables declaration//GEN-END:variables

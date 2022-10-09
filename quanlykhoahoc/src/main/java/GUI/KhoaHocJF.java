@@ -6,7 +6,7 @@
 package GUI;
 
 import BLL.KhoaHocController;
-import DTO.CourseDTO;
+import DTO.Course;
 
 
 
@@ -21,7 +21,7 @@ public class KhoaHocJF extends javax.swing.JFrame {
      * Creates new form KhoaHocJFrame
      * @param khoaHoc
      */
-    public KhoaHocJF(CourseDTO khoaHoc) {
+    public KhoaHocJF(Course khoaHoc) {
         initComponents();
         
         KhoaHocController controller = new KhoaHocController( btnSubmit,  jtfTenKhoaHoc,  jtfMaPhong,  jlbMsg);

@@ -6,7 +6,7 @@
 package DAL;
 
 
-import DTO.CourseDTO;
+import DTO.Course;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ import java.util.List;
  * @author LENOVO
  */
 public interface KhoaHocDAL {
-    public List<CourseDTO> getList();
+    public List<Course> getList();
     
-    public int createOrUpdate(CourseDTO khoaHoc);
+    public int createOrUpdate(Course khoaHoc);
 }

@@ -8,9 +8,9 @@ import BLL.CourseBLL;
 import BLL.GradeBLL;
 import BLL.PersonBLL;
 import DAL.GradeDAL;
-import DTO.CourseDTO;
+import DTO.Course;
 import DTO.GradeDTO;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -110,8 +110,8 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
         if (courseBUS.getListCourse() == null) {
             courseBUS.loadDSCourse();
         }
-        ArrayList<CourseDTO> cs = courseBUS.getListCourse();
-        for (CourseDTO a : cs) {
+        ArrayList<Course> cs = courseBUS.getListCourse();
+        for (Course a : cs) {
             cmb.addItem(a.getTitle());
         }
 
@@ -121,8 +121,8 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
         if (personBUS.getListPerson() == null) {
             personBUS.loadDSPerson();
         }
-        ArrayList<PersonDTO> ps = personBUS.getListPerson();
-        for (PersonDTO a : ps) {
+        ArrayList<Person> ps = personBUS.getListPerson();
+        for (Person a : ps) {
             cmb.addItem(a.getFirstname() + " " + a.getLastname());
         }
 

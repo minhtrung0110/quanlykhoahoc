@@ -7,9 +7,9 @@ package GUI;
 import BLL.CourseBLL;
 import BLL.CourseInstructorBLL;
 import BLL.PersonBLL;
-import DTO.CourseDTO;
-import DTO.CourseInstructorDTO;
-import DTO.PersonDTO;
+import DTO.Course;
+import DTO.CourseInstructor;
+import DTO.Person;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -26,9 +26,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
     private int DEFALUT_WIDTH;
     private DefaultTableModel model;
-    private CourseBLL courseBUS = new CourseBLL();
-    private PersonBLL personBUS = new PersonBLL();
-
+    CourseInstructorBLL bll = new CourseInstructorBLL();
     public QuanLyPhanCongGiangDay() {
         this.setSize(1090, 750);
         initComponents();
@@ -43,7 +41,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }
 
     private void init() throws Exception {
-        ShowDataBase();
+        ShowDataBase("ASC");
     }
 
     private void clearInput() {
@@ -52,32 +50,21 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         txTeacher.setText("");
     }
 
-    private void ShowDataBase() throws Exception {
+    private void ShowDataBase(String orderby) throws Exception {
         try {
-            CourseInstructorBLL bus = new CourseInstructorBLL();
             if (CourseInstructorBLL.getListCourseInstructor() == null) {
-                bus.loadDSCourseInstructor();
+                bll.loadDSCourseInstructor(orderby);
             }
             insertHeader();
             outModel(model, CourseInstructorBLL.getListCourseInstructor());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Load Database ",
+                    "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
-    private void refeshData() {
-        try {
-            CourseInstructorBLL bus = new CourseInstructorBLL();
-            bus.loadDSCourseInstructor();
-            insertHeader();
-            outModel(model, CourseInstructorBLL.getListCourseInstructor());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Không Thể Load Database ", "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
-
+  
     private void insertHeader() {
         Vector header = new Vector();
         header.add("STT");
@@ -91,11 +78,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
     }
 
-    private void outModel(DefaultTableModel model, ArrayList<CourseInstructorDTO> courseinstructor) // Xuất ra Table từ ArrayList
+    private void outModel(DefaultTableModel model, ArrayList<CourseInstructor> courseinstructor) // Xuất ra Table từ ArrayList
     {
         Vector data;
         model.setRowCount(0);
-        for (CourseInstructorDTO cs : courseinstructor) {
+        for (CourseInstructor cs : courseinstructor) {
             data = new Vector();
             data.add(cs.getID());
             data.add(cs.getCourseID());
@@ -132,14 +119,9 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         txID = new javax.swing.JTextField();
         pSearch = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        txtSearchTeacherName = new javax.swing.JTextField();
-        txtSearchTeacherID = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtSearchCourseName = new javax.swing.JTextField();
-        txtSearchCourseID = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
+        cbSelectSearch = new javax.swing.JComboBox<>();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -292,32 +274,9 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("MÃ GIẢNG VIÊN");
+        jLabel5.setText("CHỌN ĐIỀU KIỆN:");
 
-        txtSearchTeacherName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSearchTeacherName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchTeacherNameActionPerformed(evt);
-            }
-        });
-
-        txtSearchTeacherID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("TÊN GIẢNG VIÊN");
-
-        txtSearchCourseName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        txtSearchCourseID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("MÃ KHOÁ HỌC");
-
-        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("TÊN KHOÁ HỌC");
+        txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnSearch.setBackground(new java.awt.Color(255, 204, 0));
         btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -325,6 +284,14 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        cbSelectSearch.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cbSelectSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã Khoá Học", "Mã Giảng Viên", "Tên Khoá Học", "Tên Giảng Viên" }));
+        cbSelectSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSelectSearchActionPerformed(evt);
             }
         });
 
@@ -336,51 +303,28 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pSearchLayout.createSequentialGroup()
-                        .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pSearchLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtSearchCourseID))
-                        .addGap(44, 44, 44)
-                        .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSearchCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pSearchLayout.createSequentialGroup()
-                        .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSearchTeacherID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSearchTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10))
-            .addGroup(pSearchLayout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(btnSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(cbSelectSearch, 0, 96, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))))
         );
         pSearchLayout.setVerticalGroup(
             pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pSearchLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(10, 10, 10)
-                .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearchTeacherID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(9, 9, 9)
-                .addGroup(pSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearchCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbSelectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(139, 139, 139))
         );
 
         btnDelete.setBackground(new java.awt.Color(153, 0, 51));
@@ -419,7 +363,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         btnRefesh.setText("ReFresh");
         btnRefesh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefeshActionPerformed(evt);
+                try {
+                    btnRefeshActionPerformed(evt);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -484,29 +432,44 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }//GEN-LAST:event_tbCourseInstructorMouseClicked
     private void Search() {
         DefaultTableModel temp = new DefaultTableModel();
-        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        ArrayList<CourseInstructor> search = new ArrayList<>();
         Vector header = new Vector();
         header.add("STT");
         header.add("Mã Khoá Học");
         header.add("Khoá Học");
         header.add("Mã Giảng Viên");
         header.add("Tên Giảng Viên");
-
+        String optionSearch=cbSelectSearch.getSelectedItem().toString();
+       
         try {
+            if(!txtSearch.getText().isEmpty()){
+                 String inputSearch=txtSearch.getText();
 
-            int courseID = Integer.parseInt(txtSearchCourseID.getText().equals("") ? "5" : txtSearchCourseID.getText());
-            int teacherID = Integer.parseInt(txtSearchTeacherID.getText().equals("") ? "1045" : txtSearchTeacherID.getText());
-            String courseTitle = txtSearchCourseName.getText().equals("") ? "" : txtSearchCourseName.getText();
-            String teacherName = txtSearchTeacherName.getText().equals("") ? "" : txtSearchTeacherName.getText();
-            // System.out.println(courseID+" "+teacherID+" "+courseTitle+ " "+teacherName);
-            CourseInstructorBLL bus = new CourseInstructorBLL();
-            search = bus.searchCourseInstructor(courseID, courseTitle, teacherID, teacherName);
-
+                switch(optionSearch){
+                    case "Mã Khoá Học":
+                        search=bll.searchCourseID(Integer.parseInt(inputSearch));
+                        break;
+                    case "Mã Giảng Viên":
+                        search=bll.searchTeacherID(Integer.parseInt(inputSearch));
+                        break;
+                    case "Tên Khoá Học":
+                        search=bll.searchCourseTitle(inputSearch);
+                        break;
+                    case "Tên Giảng Viên":
+                        search=bll.searchTeacherName(inputSearch);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else 
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập điều kiện tìm ", 
+                    "Thông Báo", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Không Thể Tìm Kiếm ", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không Thể Tìm Kiếm ", 
+                    "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         if (search != null && search.size() > 0) {
-            // outModel(temp,search);
             if (temp.getRowCount() == 0) {
                 temp = new DefaultTableModel(header, 0);
             }
@@ -519,28 +482,24 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
                 row.add(search.get(i).getTeacherName());
                 temp.addRow(row);
             }
+            tbCourseInstructor.setModel(temp);
         }
-
-        tbCourseInstructor.setModel(temp);
-
     }
-    private void txtSearchTeacherNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchTeacherNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchTeacherNameActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn Thực Sự Muốn Xóa Phân Công Này ?", "Thông Báo", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn Thực Sự Muốn Xóa Phân Công Này ?",
+                "Thông Báo", JOptionPane.YES_NO_OPTION);
         if (confirm == 0)
         try {
             int teacherID = Integer.parseInt(txTeacher.getText());
             int courseID = Integer.parseInt(txCourse.getText());
-            CourseInstructorBLL bus = new CourseInstructorBLL();
-            bus.deleteCourseInstructor(courseID, teacherID);
+            bll.deleteCourseInstructor(courseID, teacherID);//gọi Layer BLL xoá phân công     
+            insertHeader();// chèn header cho table
+            outModel(model, CourseInstructorBLL.getListCourseInstructor());// đổ data vào table
             clearInput();
-            refeshData();
-
+            
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Can't delete CourseInstructor ", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không thể xoá CourseInstructor ",
+                    "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
         } else
             return;
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -548,17 +507,16 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
         try {
-            CourseInstructorDTO csin = new CourseInstructorDTO();
+            CourseInstructor csin = new CourseInstructor();
             csin.setCourseID((int) Integer.parseInt(txCourse.getText()));
             csin.setPersonID((int) Integer.parseInt(txTeacher.getText()));
-            // System.out.println('Bat loi:'+);
-            CourseInstructorBLL bus = new CourseInstructorBLL();
-            bus.addCourseInstructor(csin);
+            bll.addCourseInstructor(csin);// gọi Layer Bll Thêm phân công
             clearInput();
-            refeshData();
+            ShowDataBase("DESC");
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Can't create CourseInstructor ", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không thể tạo phân công giảng dạy ",
+                    "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -568,17 +526,17 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
             int id = Integer.parseInt(txID.getText());
             int teacherID = Integer.parseInt(txTeacher.getText());
             int courseID = Integer.parseInt(txCourse.getText());
-            CourseInstructorDTO csin = new CourseInstructorDTO();
+            CourseInstructor csin = new CourseInstructor();
             csin.setCourseID((int) courseID);
             csin.setPersonID((int) teacherID);
-            // System.out.println('Bat loi:'+);
-            CourseInstructorBLL bus = new CourseInstructorBLL();
-            bus.updateCourseInstructor(id, csin);
+            // gọi Layer BLL cập nhật phân công
+            bll.updateCourseInstructor(id, csin);
             clearInput();
-            refeshData();
+            ShowDataBase("DESC");
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Can't update CourseInstructor ", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không thể cập nhật CourseInstructor ",
+                    "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -586,10 +544,11 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         JPFormPerson tbps;
         try {
             tbps = new JPFormPerson();
-            int personID = tbps.getPersonID();
+            int personID = tbps.getPersonID();// lấy ID Giảng viên từ Form chọn giảng viên
             txTeacher.setText(String.valueOf(personID));
         } catch (Exception ex) {
-            Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(this, "Không thể tải lên danh sách giảng viên ",
+                    "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnSelectTeacherActionPerformed
@@ -601,21 +560,76 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
             int courseID = tbcs.getCourseID();
             txCourse.setText(String.valueOf(courseID));
         } catch (Exception ex) {
-            Logger.getLogger(QuanLyPhanCongGiangDay.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Không thể tải lên danh sách khoá học ",
+                    "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSelectCourseActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        Search();
+       DefaultTableModel temp = new DefaultTableModel();
+        ArrayList<CourseInstructor> search = new ArrayList<>();
+        Vector header = new Vector();
+        header.add("STT");
+        header.add("Mã Khoá Học");
+        header.add("Khoá Học");
+        header.add("Mã Giảng Viên");
+        header.add("Tên Giảng Viên");
+        String optionSearch=cbSelectSearch.getSelectedItem().toString();
+        try {
+            if(!txtSearch.getText().isEmpty()){
+                 String inputSearch=txtSearch.getText();
+                switch(optionSearch){
+                    case "Mã Khoá Học":
+                        search=bll.searchCourseID(Integer.parseInt(inputSearch));
+                        break;
+                    case "Mã Giảng Viên":
+                        search=bll.searchTeacherID(Integer.parseInt(inputSearch));
+                        break;
+                    case "Tên Khoá Học":
+                        search=bll.searchCourseTitle(inputSearch);
+                        break;
+                    case "Tên Giảng Viên":
+                        search=bll.searchTeacherName(inputSearch);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else 
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập điều kiện tìm ", 
+                    "Thông Báo", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không Thể Tìm Kiếm ", 
+                    "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        if (search != null && search.size() > 0) {
+            if (temp.getRowCount() == 0) {
+                temp = new DefaultTableModel(header, 0);
+            }
+            for (int i = 0; i < search.size(); i++) {
+                Vector row = new Vector();
+                row.add(search.get(i).getID());
+                row.add(search.get(i).getCourseID());
+                row.add(search.get(i).getTitleCourse());
+                row.add(search.get(i).getPersonID());
+                row.add(search.get(i).getTeacherName());
+                temp.addRow(row);
+            }
+            tbCourseInstructor.setModel(temp);
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-        refeshData();
+    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnRefeshActionPerformed
+         ShowDataBase("ASC");
     }//GEN-LAST:event_btnRefeshActionPerformed
 
     private void txTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTeacherActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txTeacherActionPerformed
+
+    private void cbSelectSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSelectSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSelectSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -626,14 +640,12 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSelectCourse;
     private javax.swing.JButton btnSelectTeacher;
+    private javax.swing.JComboBox<String> cbSelectSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pInput;
@@ -642,9 +654,6 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     private javax.swing.JTextField txCourse;
     private javax.swing.JTextField txID;
     private javax.swing.JTextField txTeacher;
-    private javax.swing.JTextField txtSearchCourseID;
-    private javax.swing.JTextField txtSearchCourseName;
-    private javax.swing.JTextField txtSearchTeacherID;
-    private javax.swing.JTextField txtSearchTeacherName;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

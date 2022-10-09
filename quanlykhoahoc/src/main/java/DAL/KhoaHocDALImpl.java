@@ -21,7 +21,7 @@ package DAL;
  * @author LENOVO
  */
 
-import DTO.CourseDTO;
+import DTO.Course;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,15 +37,15 @@ public class KhoaHocDALImpl implements KhoaHocDAL {
     
 
     @Override
-    public List<CourseDTO> getList() {
+    public List<Course> getList() {
         Connection cons = MyDatabaseManager.getConnection();
         String sql = "SELECT * FROM course";
-        List<CourseDTO> list = new ArrayList<>();
+        List<Course> list = new ArrayList<>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                CourseDTO khoaHoc = new CourseDTO();
+                Course khoaHoc = new Course();
                 khoaHoc.setCourseID(rs.getInt("CourseID"));
                 khoaHoc.setTitle(rs.getString("Title"));
                 khoaHoc.setDepartmentID(rs.getInt("DepartmentID"));
@@ -61,7 +61,7 @@ public class KhoaHocDALImpl implements KhoaHocDAL {
     }
     
      @Override
-    public int createOrUpdate(CourseDTO khoaHoc) {
+    public int createOrUpdate(Course khoaHoc) {
         try {
             Connection cons = MyDatabaseManager.getConnection();
             String sql = "INSERT INTO course(CourseID, Title, Credits, DepartmentID) VALUES(?, ?, ?, ?) ON DUPLICATE KEY UPDATE  Title = VALUES(Title), DepartmentID = VALUES(DepartmentID);";

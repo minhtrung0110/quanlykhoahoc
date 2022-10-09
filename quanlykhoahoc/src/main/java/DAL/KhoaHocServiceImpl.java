@@ -5,7 +5,7 @@
  */
 package DAL;
 
-import DTO.CourseDTO;
+import DTO.Course;
 import java.util.List;
 
 /**
@@ -21,12 +21,12 @@ public class KhoaHocServiceImpl implements KhoaHocService {
     }
 
     @Override
-    public List<CourseDTO> getList() {
+    public List<Course> getList() {
         return khoaHocnDAO.getList();
     }
     
     @Override
-    public int createOrUpdate(CourseDTO khoahoc) {
+    public int createOrUpdate(Course khoahoc) {
         return khoaHocnDAO.createOrUpdate(khoahoc);
     }
 }

@@ -9,13 +9,13 @@ package BLL;
  *
  * @author LENOVO
  */
-import DTO.CourseDTO;
+import DTO.Course;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class ClassTableModel_KhoaHoc {
 
-    public DefaultTableModel setTableHocVien(List<CourseDTO> listItem, String[] listColumn) {
+    public DefaultTableModel setTableHocVien(List<Course> listItem, String[] listColumn) {
         int columns = listColumn.length;
         DefaultTableModel dtm = new DefaultTableModel() {
             @Override
@@ -31,7 +31,7 @@ public class ClassTableModel_KhoaHoc {
         dtm.setColumnIdentifiers(listColumn);
         Object[] obj;
         int num = listItem.size();
-        CourseDTO khoaHoc = null;
+        Course khoaHoc = null;
         for (int i = 0; i < num; i++) {
             khoaHoc = listItem.get(i);
             obj = new Object[columns];

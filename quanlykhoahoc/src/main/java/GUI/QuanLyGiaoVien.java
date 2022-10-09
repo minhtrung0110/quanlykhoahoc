@@ -5,7 +5,7 @@
 package GUI;
 
 import BLL.PersonBLL;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
     private int DEFALUT_WIDTH;
     private PersonBLL personBUS = new PersonBLL();
     DefaultTableModel model;
-    static ArrayList<PersonDTO> listLecturers = new PersonBLL().getListPerson();
+    static ArrayList<Person> listLecturers = new PersonBLL().getListPerson();
     String formatTime = "yyyy-MM-dd     ";
     DateFormat fm = new SimpleDateFormat(formatTime);
 
@@ -85,13 +85,13 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 
     }
 
-    private void outModel(DefaultTableModel model, ArrayList<PersonDTO> personDTO) // Xuất ra Table từ ArrayList
+    private void outModel(DefaultTableModel model, ArrayList<Person> personDTO) // Xuất ra Table từ ArrayList
     {
         Vector data;
         model.setRowCount(0);
 
         int i = 1;
-        for (PersonDTO cs : personDTO) {
+        for (Person cs : personDTO) {
             data = new Vector();
             data.add(i);
             data.add(cs.getPersonID());
@@ -533,7 +533,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
 
         try {
 
-            PersonDTO lecturerDTO = new PersonDTO();
+            Person lecturerDTO = new Person();
             PersonBLL lePersonBUS = new PersonBLL();
 
             if (txtId_Lecturers.getText().length() != 0 && txtHireDateGV.getDate() != null && txtLastNameGV.getText().length() != 0
@@ -630,7 +630,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
 
-            PersonDTO lecturerDTO = new PersonDTO();
+            Person lecturerDTO = new Person();
             PersonBLL lePersonBUS = new PersonBLL();
 
             if (txtEditId_Lecturers.getText().length() != 0 && txtEditHireDateGV.getDate() != null && txtEditLastNameGV.getText().length() != 0
@@ -665,7 +665,7 @@ public class QuanLyGiaoVien extends javax.swing.JPanel {
                 JOptionPane.YES_OPTION, JOptionPane.NO_OPTION) == JOptionPane.YES_OPTION) {
             int select = (int) tbl_giangvien.getModel().getValueAt(i, 1);
 
-            PersonDTO lecturerDTO = new PersonDTO();
+            Person lecturerDTO = new Person();
             PersonBLL lePersonBUS = new PersonBLL();
             lecturerDTO.setPersonID(select);
             try {

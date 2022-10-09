@@ -6,44 +6,45 @@ package BLL;
 
 import DAL.CourseInstructorDAL;
 import java.util.ArrayList;
-import DTO.CourseInstructorDTO;
+import DTO.CourseInstructor;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
  *
- * @author nguye
+ * @author nguyeD
  */
 public class CourseInstructorBLL {
-     static ArrayList<CourseInstructorDTO> listCourseInstructor;
-     static CourseInstructorDAL dal=new CourseInstructorDAL();
+     static ArrayList<CourseInstructor> listCourseInstructor;
+     private CourseInstructorDAL dal=new CourseInstructorDAL();
     public CourseInstructorBLL() {
     }
     
-    public void  loadDSCourseInstructor() throws Exception{
+    public void  loadDSCourseInstructor(String orderby) throws Exception{
        
-        if(listCourseInstructor==null) listCourseInstructor = new ArrayList<CourseInstructorDTO>();
-        listCourseInstructor=dal.loadDatabase();
+        if(listCourseInstructor==null) listCourseInstructor = new ArrayList<CourseInstructor>();
+        listCourseInstructor=dal.loadDatabase(orderby);
     }
     
-    public void addCourseInstructor(CourseInstructorDTO csin) throws Exception{
-        // validate data
-        //CourseInstructorDAO data =new CourseInstructorDAO();
-        dal.addCourseInstructor(csin);
-        listCourseInstructor.add(csin);
+    public void addCourseInstructor(CourseInstructor csin) throws Exception{
+        try{
+            dal.addCourseInstructor(csin);
+            listCourseInstructor.add(csin);
+        } 
+        catch(Exception ex){
+            System.out.println("Khong the them CourseInstructor Item vao database ");
+        }
         
     }
     
     public void deleteCourseInstructor(int courseID,int teacherID) throws Exception{
-        
-        for(CourseInstructorDTO csin : listCourseInstructor )
+        for(CourseInstructor csin : listCourseInstructor )
         {
             if(csin.getCourseID()==courseID)
             {   
                 try {
-                   listCourseInstructor.remove(csin);
-                   // CourseInstructorDAO data =new CourseInstructorDAO();
-                    dal.delete(courseID,teacherID);  
+                    dal.delete(courseID,teacherID); 
+                   listCourseInstructor.remove(csin);// xoá trong arraylist 
                 } catch (Exception e) {
                     System.out.println("Khong the Xoa CourseInstructor vao database !!!");
                 } 
@@ -52,15 +53,14 @@ public class CourseInstructorBLL {
         }
         
     }
-    public void updateCourseInstructor(int id, CourseInstructorDTO csin) throws Exception{
+    public void updateCourseInstructor(int id, CourseInstructor csin) throws Exception{
          for(int i = 0 ; i < listCourseInstructor.size() ; i++)
         {
             if(listCourseInstructor.get(i).getCourseID()==csin.getCourseID())
             {
                 try {
-                    listCourseInstructor.set(i, csin);
-               // CourseInstructorDAO data =new CourseInstructorDAO();
-                dal.updateCourseInstructor(id,csin);
+                    dal.updateCourseInstructor(id,csin);
+                    listCourseInstructor.set(i, csin);               
                 } catch (Exception e) {
                     System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
                    
@@ -70,14 +70,14 @@ public class CourseInstructorBLL {
             }
         }
     }
-     public ArrayList<CourseInstructorDTO> searchCourseInstructor(int courseID,String courseTitle, int teacherID, String teacherName)
+     public ArrayList<CourseInstructor> searchCourseInstructor(int courseID,String courseTitle, int teacherID, String teacherName)
     {
-        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        ArrayList<CourseInstructor> search = new ArrayList<>();
         
          courseTitle= courseTitle.isEmpty()? courseTitle="": courseTitle;
         teacherName=teacherName.isEmpty()?teacherName="":teacherName;
 
-        for(CourseInstructorDTO csin : listCourseInstructor)
+        for(CourseInstructor csin : listCourseInstructor)
         {
             //System.out.println(csin.getCourseID()+"--"+courseID );
 
@@ -96,40 +96,40 @@ public class CourseInstructorBLL {
         }
         return search;
     }
-     public ArrayList<CourseInstructorDTO> searchCourseID(int courseID)
+     public ArrayList<CourseInstructor> searchCourseID(int courseID)
     {
-        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
-        for(CourseInstructorDTO csin : listCourseInstructor)
+        ArrayList<CourseInstructor> search = new ArrayList<>();
+        for(CourseInstructor csin : listCourseInstructor)
         {
              if(  csin.getCourseID()==courseID  )
                 search.add(csin);
         }
         return search;
     }
-      public ArrayList<CourseInstructorDTO> searchCourseTitle(String courseTitle)
+      public ArrayList<CourseInstructor> searchCourseTitle(String courseTitle)
     {
-        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
-        for(CourseInstructorDTO csin : listCourseInstructor)
+        ArrayList<CourseInstructor> search = new ArrayList<>();
+        for(CourseInstructor csin : listCourseInstructor)
         {
              if(  csin.getTitleCourse().contains(courseTitle)  )
                 search.add(csin);
         }
         return search;
     }
-         public ArrayList<CourseInstructorDTO> searchTeacherName(String teacherName)
+    public ArrayList<CourseInstructor> searchTeacherName(String teacherName)
     {
-        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
-        for(CourseInstructorDTO csin : listCourseInstructor)
+        ArrayList<CourseInstructor> search = new ArrayList<>();
+        for(CourseInstructor csin : listCourseInstructor)
         {
              if(  csin.getTeacherName().contains(teacherName)  )
                 search.add(csin);
         }
         return search;
     }
-     public ArrayList<CourseInstructorDTO> searchTeacherID(int teacherID)
+     public ArrayList<CourseInstructor> searchTeacherID(int teacherID)
     {
-        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
-        for(CourseInstructorDTO csin : listCourseInstructor)
+        ArrayList<CourseInstructor> search = new ArrayList<>();
+        for(CourseInstructor csin : listCourseInstructor)
         {
              if(  csin.getPersonID()==teacherID  )
                 search.add(csin);
@@ -137,18 +137,18 @@ public class CourseInstructorBLL {
         return search;
     }
     
-    public static void setListCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {
+    public static void setListCourseInstructor(ArrayList<CourseInstructor> listCourseInstructor) {
         CourseInstructorBLL.listCourseInstructor = listCourseInstructor;
     }
 
-    public static ArrayList<CourseInstructorDTO> getListCourseInstructor() {
+    public static ArrayList<CourseInstructor> getListCourseInstructor() {
         return listCourseInstructor;
     }
-    public  void setlistCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {
+    public  void setlistCourseInstructor(ArrayList<CourseInstructor> listCourseInstructor) {
         CourseInstructorBLL.listCourseInstructor = listCourseInstructor;
     }
 
-    public  ArrayList<CourseInstructorDTO> getlistCourseInstructor() {
+    public  ArrayList<CourseInstructor> getlistCourseInstructor() {
         return listCourseInstructor;
     }
     

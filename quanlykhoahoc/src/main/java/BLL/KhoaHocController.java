@@ -14,7 +14,7 @@ package BLL;
 
 import DAL.KhoaHocService;
 import DAL.KhoaHocServiceImpl;
-import DTO.CourseDTO;
+import DTO.Course;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,7 +35,7 @@ public class KhoaHocController {
     private final JTextField jtfMaPhong;
     private final JLabel jlbMsg;
 
-    private CourseDTO khoaHoc = null;
+    private Course khoaHoc = null;
 
     private KhoaHocService khoaHocService = null;
 
@@ -51,7 +51,7 @@ public class KhoaHocController {
         this.khoaHocService = new KhoaHocServiceImpl();
     }
 
-    public void setView(CourseDTO khoaHoc) {
+    public void setView(Course khoaHoc) {
         this.khoaHoc = khoaHoc;
         // set data
         jtfTenKhoaHoc.setText(khoaHoc.getTitle());

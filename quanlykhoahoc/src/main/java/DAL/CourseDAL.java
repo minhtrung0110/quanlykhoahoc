@@ -4,7 +4,7 @@
  */
 package DAL;
 
-import DTO.CourseDTO;
+import DTO.Course;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,16 +20,14 @@ public class CourseDAL extends MyConnectUnit {
         super();
       
     }
-     public ArrayList<CourseDTO> loadDatabase() throws Exception
+     public ArrayList<Course> loadDatabase() throws Exception
     {
-        ArrayList<CourseDTO> listCourse = new ArrayList<>();
+        ArrayList<Course> listCourse = new ArrayList<>();
         try {
-            //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
-            //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
             ResultSet rs = this.Select("course");
             while(rs.next())
             {
-               CourseDTO csin = new  CourseDTO(
+               Course csin = new  Course(
                        rs.getInt("CourseID") , rs.getString("Title"),
                        rs.getInt("Credits"), rs.getInt("DepartmentID"));    
                 listCourse.add(csin);
@@ -38,9 +36,8 @@ public class CourseDAL extends MyConnectUnit {
             this.Close();//dong ket noi;
 
         } catch (SQLException ex) {
-            System.out.println("Khong the load database Course: "+ex);
+            System.out.println("Khong the load database Course");
         }
-
         return listCourse;
     }
     /*public static void main(String[] args) {

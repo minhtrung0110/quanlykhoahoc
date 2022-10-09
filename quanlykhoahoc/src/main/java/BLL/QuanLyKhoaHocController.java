@@ -9,7 +9,7 @@ package BLL;
 
 import DAL.KhoaHocService;
 import DAL.KhoaHocServiceImpl;
-import DTO.CourseDTO;
+import DTO.Course;
 import GUI.KhoaHocJF;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -64,7 +64,7 @@ public class QuanLyKhoaHocController {
     public void setDataToTable() {
         try{
             
-            List<CourseDTO> listItem = khoaHocnService.getList();
+            List<Course> listItem = khoaHocnService.getList();
         DefaultTableModel model = classTableModel.setTableHocVien(listItem, COLUMNS);
         JTable table = new JTable(model);
 
@@ -105,7 +105,7 @@ table.addMouseListener(new MouseAdapter() {
                     
                     selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
 
-                    CourseDTO khoaHoc = new CourseDTO();
+                    Course khoaHoc = new Course();
                     khoaHoc.setCourseID((int) model.getValueAt(selectedRowIndex, 1));
                     khoaHoc.setTitle(model.getValueAt(selectedRowIndex, 2).toString());
                     khoaHoc.setDepartmentID((int) model.getValueAt(selectedRowIndex, 3));
@@ -155,7 +155,7 @@ table.addMouseListener(new MouseAdapter() {
         
         @Override
             public void mouseClicked(MouseEvent e) {
-            KhoaHocJF frame = new KhoaHocJF(new CourseDTO());
+            KhoaHocJF frame = new KhoaHocJF(new Course());
             frame.setTitle("Thông Tin Khóa Học");
             frame.setLocationRelativeTo(null);
             frame.setResizable(false);

@@ -5,7 +5,7 @@
 package DAL;
 
 import DAL.MyDatabaseManager;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -21,21 +21,21 @@ import java.util.logging.Logger;
  * @author trankimphu0609
  */
 public class PersonDAL extends MyConnectUnit{
-    ArrayList<PersonDTO> listPersonDTOs;
+    ArrayList<Person> listPersonDTOs;
     public PersonDAL() {
         super();
         
     }
-     public ArrayList<PersonDTO> loadDatabase() throws Exception
+     public ArrayList<Person> loadDatabase() throws Exception
     {
-        ArrayList<PersonDTO> dssach = new ArrayList<>();
+        ArrayList<Person> dssach = new ArrayList<>();
         try {
             //select cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname from course as cs , person as ps, courseinstructor as csin 
             //where cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID;
             ResultSet rs = this.Select("person");
             while(rs.next())
             {
-               PersonDTO ps = new  PersonDTO(
+               Person ps = new  Person(
                      rs.getInt("PersonID"),rs.getString("Lastname"),
                        rs.getString("Firstname"),rs.getDate("HireDate"),rs.getDate("EnrollmentDate")
                );       
@@ -66,14 +66,14 @@ public class PersonDAL extends MyConnectUnit{
     }*/
 
     // Thuan
-    public ArrayList<PersonDTO> getALLPerson() throws Exception
+    public ArrayList<Person> getALLPerson() throws Exception
     {
-        ArrayList<PersonDTO> dssach = new ArrayList<>();
+        ArrayList<Person> dssach = new ArrayList<>();
         try {
             ResultSet rs = this.Select("person");
             while(rs.next())
             {
-               PersonDTO ps = new  PersonDTO(
+               Person ps = new  Person(
                      rs.getInt("PersonID"),rs.getString("Lastname"),
                        rs.getString("Firstname"),rs.getDate("HireDate"),rs.getDate("EnrollmentDate")
                );       
@@ -88,32 +88,33 @@ public class PersonDAL extends MyConnectUnit{
 
         return dssach;
     }
-     public ArrayList<PersonDTO> getAllLecturers() throws  Exception {
-          ArrayList<PersonDTO> dssach = new ArrayList<>();
-        try {
-        
-            ResultSet rs = this.SelectCustom("person as ps","ps.PersonID,ps.Lastname, ps.Firstname,ps.HireDate,ps.EnrollmentDate","ps.HireDate IS NOT NULL ORDER BY PersonID DESC");
+     public ArrayList<Person> getAllLecturers() throws  Exception {
+          ArrayList<Person> listLecturers = new ArrayList<>();
+        try {      
+            ResultSet rs = this.SelectCustom("person as ps",
+                    "ps.PersonID,ps.Lastname, ps.Firstname,ps.HireDate,ps.EnrollmentDate",
+                    "ps.HireDate IS NOT NULL ORDER BY PersonID DESC");
             while(rs.next())
             {
-                PersonDTO psDTO=new PersonDTO(
+                Person psDTO=new Person(
                       rs.getInt("PersonID"),rs.getString("Lastname"),
-                                       rs.getString("Firstname"),rs.getDate("HireDate"),rs.getDate("EnrollmentDate")
+                        rs.getString("Firstname"),rs.getDate("HireDate"),
+                        rs.getDate("EnrollmentDate")
                );       
-                dssach.add(psDTO);
+                listLecturers.add(psDTO);
             }
             rs.close();
             this.Close();//dong ket noi;
 
         } catch (SQLException ex) {
-            System.out.println("Khong the load database Person: "+ex);
+            System.out.println("Khong the load danh sách Giảng Viên: ");
         }
 
-        return dssach;
-            
+        return listLecturers;
     }
 
 // thêm 
-    public void addLecturesDAO(PersonDTO personDTO) throws Exception {
+    public void addLecturesDAO(Person personDTO) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         HashMap<String,Object> objMap =new  HashMap<String,Object>();
            objMap.put("PersonID",personDTO.getPersonID());
@@ -129,7 +130,7 @@ public class PersonDAL extends MyConnectUnit{
        
     }
     // Sửa
-    public void editLecturesDAO(PersonDTO personDTO) throws Exception {
+    public void editLecturesDAO(Person personDTO) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         HashMap<String,Object> objMap =new  HashMap<String,Object>();
            objMap.put("PersonID",personDTO.getPersonID());
@@ -157,14 +158,14 @@ public class PersonDAL extends MyConnectUnit{
     }
      
       //     Hoc vien
-     public ArrayList<PersonDTO> getAllStudent() throws  Exception {
-          ArrayList<PersonDTO> dssach = new ArrayList<>();
+     public ArrayList<Person> getAllStudent() throws  Exception {
+          ArrayList<Person> dssach = new ArrayList<>();
         try {
         
             ResultSet rs = this.SelectCustom("person as ps","ps.PersonID,ps.Lastname, ps.Firstname,ps.HireDate,ps.EnrollmentDate","ps.EnrollmentDate IS NOT NULL ORDER BY PersonID DESC");
             while(rs.next())
             {
-                PersonDTO psDTO=new PersonDTO(
+                Person psDTO=new Person(
                       rs.getInt("PersonID"),rs.getString("Lastname"),
                                        rs.getString("Firstname"),rs.getDate("HireDate"),rs.getDate("EnrollmentDate")
                );       
@@ -182,7 +183,7 @@ public class PersonDAL extends MyConnectUnit{
     }
 
 // thêm 
-    public void addStudentDAO(PersonDTO personDTO) throws Exception {
+    public void addStudentDAO(Person personDTO) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         HashMap<String,Object> objMap =new  HashMap<String,Object>();
            objMap.put("PersonID",personDTO.getPersonID());
@@ -198,7 +199,7 @@ public class PersonDAL extends MyConnectUnit{
        
     }
     // Sửa
-    public void editStudentDAO(PersonDTO personDTO) throws Exception {
+    public void editStudentDAO(Person personDTO) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         HashMap<String,Object> objMap =new  HashMap<String,Object>();
            objMap.put("PersonID",personDTO.getPersonID());

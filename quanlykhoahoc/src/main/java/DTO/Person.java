@@ -10,15 +10,15 @@ import java.util.Date;
  *
  * @author trankimphu0609
  */
-public class PersonDTO {
+public class Person {
     public int PersonID;
     public String Lastname, Firstname;
     public Date HireDate, EnrollmentDate;
 
-    public PersonDTO() {
+    public Person() {
     }
 
-    public PersonDTO(int PersonID, String Lastname, String Firstname, Date HireDate, Date EnrollmentDate) {
+    public Person(int PersonID, String Lastname, String Firstname, Date HireDate, Date EnrollmentDate) {
         this.PersonID = PersonID;
         this.Lastname = Lastname;
         this.Firstname = Firstname;

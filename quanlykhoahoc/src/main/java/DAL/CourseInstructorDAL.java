@@ -4,7 +4,7 @@
  */
 package DAL;
 
-import DTO.CourseInstructorDTO;
+import DTO.CourseInstructor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,21 +21,22 @@ public class CourseInstructorDAL extends MyConnectUnit {
         super();
       
     }
-        public ArrayList<CourseInstructorDTO> loadDatabase() throws Exception
+        public ArrayList<CourseInstructor> loadDatabase(String orderby) throws Exception
     {
-        ArrayList<CourseInstructorDTO> dssach = new ArrayList<>();
+        ArrayList<CourseInstructor> list = new ArrayList<>();
         try {
             ResultSet rs = this.SelectCustomOrderby("course as cs , person as ps, courseinstructor as csin",
                     "csin.ID,cs.CourseID,cs.Title, ps.PersonID, ps.Lastname, ps.Firstname",
                     "cs.CourseID=csin.CourseID AND ps.PersonID=csin.PersonID",
-                    "csin.ID ASC");
+                    "csin.ID "+orderby);
             while(rs.next())
             {
-               CourseInstructorDTO csin = new  CourseInstructorDTO(
-                       rs.getInt("ID"),rs.getInt("CourseID"),rs.getString("Title"),
-                       rs.getInt("PersonID"),rs.getString("Lastname")+" "+rs.getString("Firstname")
+               CourseInstructor csin = new  CourseInstructor(
+                       rs.getInt("ID"),rs.getInt("CourseID"),
+                       rs.getString("Title"),rs.getInt("PersonID"),
+                       rs.getString("Lastname")+" "+rs.getString("Firstname")
                );       
-                dssach.add(csin);
+                list.add(csin);
             }
             rs.close();
             this.Close();//dong ket noi;
@@ -44,10 +45,11 @@ public class CourseInstructorDAL extends MyConnectUnit {
             System.out.println("Khong the load database CourseInstructor: "+ex);
         }
 
-        return dssach;
+        return list;
     }
         
-      public void addCourseInstructor(CourseInstructorDTO csin) throws Exception
+       
+      public void addCourseInstructor(CourseInstructor csin) throws Exception
     {
          HashMap<String,Object> Insertvalues =new  HashMap<String,Object>();
          
@@ -59,7 +61,7 @@ public class CourseInstructorDAL extends MyConnectUnit {
             System.out.println("Khong the them CourseInstructor vao database !!!");
         }
     }
-         public void updateCourseInstructor(int id,CourseInstructorDTO csin) throws Exception
+         public void updateCourseInstructor(int id,CourseInstructor csin) throws Exception
     {
         HashMap<String,Object> Updatevalues =new  HashMap<String,Object>();
          
@@ -77,9 +79,10 @@ public class CourseInstructorDAL extends MyConnectUnit {
         try {
                 this.Delete("courseinstructor",
                 "CourseID ='"+courseID+"'AND PersonID ='"+teacherID+"'");
-                } catch (Exception e) {
+           } 
+        catch (Exception e) {
                     System.out.println("Lỗi không thể xóa courseinstructor item !!");
-                }
+             }
         
     }
      

@@ -6,7 +6,7 @@
 package GUI;
 
 import BLL.PersonBLL;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -279,10 +279,10 @@ public class JPFormStudent extends javax.swing.JDialog {
     /**
      * *********************************ĐỌC DSKH*****************************************
      */
-    public void outModel(DefaultTableModel model, ArrayList<PersonDTO> listPerson) {
+    public void outModel(DefaultTableModel model, ArrayList<Person> listPerson) {
         Vector row;
         model.setRowCount(0);
-        for (PersonDTO ps : listPerson) {
+        for (Person ps : listPerson) {
             row = new Vector();
             row.add(ps.getPersonID());
             row.add(ps.getFirstname());
@@ -306,7 +306,7 @@ public class JPFormStudent extends javax.swing.JDialog {
         if (psBUS.getListPersonStudent() == null) {
             psBUS.loadDSPersonStudent();
         }
-        ArrayList<PersonDTO> listPerson = new ArrayList<>();
+        ArrayList<Person> listPerson = new ArrayList<>();
         listPerson = psBUS.getListPersonStudent();
         outModel(model, listPerson);
     }
@@ -329,8 +329,8 @@ public class JPFormStudent extends javax.swing.JDialog {
     public void Tim() {
         PersonBLL ps = new PersonBLL();
         String a = cbbTim.getSelectedItem().toString();
-        ArrayList<PersonDTO> DSKH = new ArrayList<>();
-        ArrayList<PersonDTO> ps1 = new ArrayList<>();
+        ArrayList<Person> DSKH = new ArrayList<>();
+        ArrayList<Person> ps1 = new ArrayList<>();
         DSKH = ps.getListPerson();
         if ((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty()) {
             outModel(model, DSKH);

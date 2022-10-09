@@ -8,17 +8,17 @@ package DTO;
  *
  * @author trankimphu0609
  */
-public class CourseDTO {
+public class Course {
     
     public int CourseID;
     public String Title;
     public int Credits;
     public int DepartmentID;
 
-    public CourseDTO() {
+    public Course() {
     }
 
-    public CourseDTO(int CourseID, String title, int Credits, int DepartmentID) {
+    public Course(int CourseID, String title, int Credits, int DepartmentID) {
         this.CourseID = CourseID;
         this.Title = title;
         this.Credits = Credits;

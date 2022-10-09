@@ -5,7 +5,7 @@
 package BLL;
 
 import DAL.CourseDAL;
-import DTO.CourseDTO;
+import DTO.Course;
 import java.util.ArrayList;
 
 /**
@@ -13,31 +13,32 @@ import java.util.ArrayList;
  * @author trankimphu0609
  */
 public class CourseBLL {
-      static ArrayList<CourseDTO> listCourse;
+      static ArrayList<Course> listCourse;
+      CourseDAL data =new CourseDAL();
     public CourseBLL() {
     }
 
-    public  ArrayList<CourseDTO> getListCourse() {
+    public  ArrayList<Course> getListCourse() {
         return listCourse;
     }
     
-    public void setListCourse(ArrayList<CourseDTO> listCourse) {
+    public void setListCourse(ArrayList<Course> listCourse) {
         CourseBLL.listCourse = listCourse;
     }
     
     
     public void  loadDSCourse() throws Exception{
-        CourseDAL data =new CourseDAL();
-        if(listCourse==null) listCourse = new ArrayList<CourseDTO>();
-        listCourse=data.loadDatabase();
+        
+        if(listCourse==null) listCourse = new ArrayList<Course>();
+        listCourse=data.loadDatabase();// gọi Layer DAL hàm đọc data từ CSDL
     }
     
-     public ArrayList<CourseDTO> searchCourseWithID(int courseID)
+     public ArrayList<Course> searchCourseWithID(int courseID)
     {
-        ArrayList<CourseDTO> search = new ArrayList<>();
+        ArrayList<Course> search = new ArrayList<>();
         //courseID=courseID.isEmpty()?courseID="":courseID;
 
-        for(CourseDTO ps : listCourse)
+        for(Course ps : listCourse)
         {
           
              if( ps.getCourseID()==courseID )
@@ -48,12 +49,12 @@ public class CourseBLL {
         }
         return search;
     }
-      public ArrayList<CourseDTO> searchCourseWithTitle(String title)
+      public ArrayList<Course> searchCourseWithTitle(String title)
     {
-        ArrayList<CourseDTO> search = new ArrayList<>();
+        ArrayList<Course> search = new ArrayList<>();
         //courseID=courseID.isEmpty()?courseID="":courseID;
 
-        for(CourseDTO ps : listCourse)
+        for(Course ps : listCourse)
         {
           
              if( ps.getTitle().contains(title) )
@@ -64,10 +65,10 @@ public class CourseBLL {
         }
         return search;
     }
-       public ArrayList<CourseDTO> searchCourseWithDepartmentID(int id)
+       public ArrayList<Course> searchCourseWithDepartmentID(int id)
     {
-         ArrayList<CourseDTO> search = new ArrayList<>();
-        for(CourseDTO ps : listCourse)
+         ArrayList<Course> search = new ArrayList<>();
+        for(Course ps : listCourse)
         {
           
              if( ps.getDepartmentID()==id)

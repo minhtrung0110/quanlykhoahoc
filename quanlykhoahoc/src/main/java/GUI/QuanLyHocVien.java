@@ -5,7 +5,7 @@
 package GUI;
 
 import BLL.PersonBLL;
-import DTO.PersonDTO;
+import DTO.Person;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
     private int DEFALUT_WIDTH;
     private PersonBLL personBUS = new PersonBLL();
     DefaultTableModel model;
-    static ArrayList<PersonDTO> listLecturers = new PersonBLL().getListPerson();
+    static ArrayList<Person> listLecturers = new PersonBLL().getListPerson();
     String formatTime = "yyyy-MM-dd     ";
     DateFormat fm = new SimpleDateFormat(formatTime);
 
@@ -83,13 +83,13 @@ public class QuanLyHocVien extends javax.swing.JPanel {
 
     }
 
-    private void outModel(DefaultTableModel model, ArrayList<PersonDTO> personDTO) // Xuất ra Table từ ArrayList
+    private void outModel(DefaultTableModel model, ArrayList<Person> personDTO) // Xuất ra Table từ ArrayList
     {
         Vector data;
         model.setRowCount(0);
 
         int i = 1;
-        for (PersonDTO cs : personDTO) {
+        for (Person cs : personDTO) {
             data = new Vector();
             data.add(i);
             data.add(cs.getPersonID());
@@ -592,7 +592,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
                 JOptionPane.YES_OPTION, JOptionPane.NO_OPTION) == JOptionPane.YES_OPTION) {
             int select = (int) tbl_hocvien.getModel().getValueAt(i, 1);
 
-            PersonDTO studentDTO = new PersonDTO();
+            Person studentDTO = new Person();
             PersonBLL studentBUS = new PersonBLL();
             studentDTO.setPersonID(select);
             try {
@@ -626,7 +626,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
 
         try {
 
-            PersonDTO studentDTO = new PersonDTO();
+            Person studentDTO = new Person();
             PersonBLL studentBUS = new PersonBLL();
 
             if (txtId_Student.getText().length() != 0 && txtEnrollmentDateHV.getDate() != null && txtLastNameHV.getText().length() != 0
@@ -677,7 +677,7 @@ public class QuanLyHocVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
 
-            PersonDTO studentDTO = new PersonDTO();
+            Person studentDTO = new Person();
             PersonBLL studentBUS = new PersonBLL();
 
             if (txtEditId_Student.getText().length() != 0 && txtAddEnrollmentDateHV.getDate() != null && txtEditLastNameHV.getText().length() != 0

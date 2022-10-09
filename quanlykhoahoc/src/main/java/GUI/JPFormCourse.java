@@ -6,7 +6,7 @@
 package GUI;
 
 import BLL.CourseBLL;
-import DTO.CourseDTO;
+import DTO.Course;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ public class JPFormCourse extends javax.swing.JDialog {
         setModal(true);
         initComponents();
         txTim.requestFocus();
-        this.LoadDSKH();
+        this.LoadDSCourse();
         setVisible(true);
     }
 
@@ -47,7 +47,7 @@ public class JPFormCourse extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbKH = new javax.swing.JTable();
+        tbCourse = new javax.swing.JTable();
         btXacNhan = new javax.swing.JButton();
         btDong = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -87,7 +87,7 @@ public class JPFormCourse extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        tbKH.setModel(new javax.swing.table.DefaultTableModel(
+        tbCourse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -95,16 +95,16 @@ public class JPFormCourse extends javax.swing.JDialog {
                 "PersonID", "FirstName", "LastName", "HireDate", "EnrollmentDate"
             }
         ));
-        tbKH.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbCourse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbKHMouseClicked(evt);
+                tbCourseMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbKH);
-        if (tbKH.getColumnModel().getColumnCount() > 0) {
-            tbKH.getColumnModel().getColumn(0).setMinWidth(70);
-            tbKH.getColumnModel().getColumn(1).setMinWidth(150);
-            tbKH.getColumnModel().getColumn(4).setMinWidth(150);
+        jScrollPane1.setViewportView(tbCourse);
+        if (tbCourse.getColumnModel().getColumnCount() > 0) {
+            tbCourse.getColumnModel().getColumn(0).setMinWidth(70);
+            tbCourse.getColumnModel().getColumn(1).setMinWidth(150);
+            tbCourse.getColumnModel().getColumn(4).setMinWidth(150);
         }
 
         btXacNhan.setBackground(new java.awt.Color(0, 153, 0));
@@ -233,9 +233,9 @@ public class JPFormCourse extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btXacNhanMouseClicked
 
-    private void tbKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKHMouseClicked
+    private void tbCourseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCourseMouseClicked
         Click();
-    }//GEN-LAST:event_tbKHMouseClicked
+    }//GEN-LAST:event_tbCourseMouseClicked
 
     private void btTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTimMouseClicked
         Tim();
@@ -278,12 +278,12 @@ public class JPFormCourse extends javax.swing.JDialog {
     }
 
     /**
-     * *********************************ĐỌC DSKH*****************************************
+     * *********************************ĐỌC DSCourse*****************************************
      */
-    public void outModel(DefaultTableModel model, ArrayList<CourseDTO> listCourse) {
+    public void outModel(DefaultTableModel model, ArrayList<Course> listCourse) {
         Vector row;
         model.setRowCount(0);
-        for (CourseDTO cs : listCourse) {
+        for (Course cs : listCourse) {
             row = new Vector();
             row.add(cs.getCourseID());
             row.add(cs.getTitle());
@@ -291,10 +291,10 @@ public class JPFormCourse extends javax.swing.JDialog {
             row.add(cs.getDepartmentID());
             model.addRow(row);
         }
-        tbKH.setModel(model);
+        tbCourse.setModel(model);
     }
 
-    public void LoadDSKH() throws Exception {
+    public void LoadDSCourse() throws Exception {
         CourseBLL csBUS = new CourseBLL();
         Vector header = new Vector();
         header.add("CourseID ");
@@ -305,36 +305,36 @@ public class JPFormCourse extends javax.swing.JDialog {
             model = new DefaultTableModel(header, 0);
         }
         if (csBUS.getListCourse() == null) {
-            csBUS.loadDSCourse();
+            csBUS.loadDSCourse();// lấy dữ liệu các khoá học
         }
-        ArrayList<CourseDTO> listCourse = new ArrayList<>();
+        ArrayList<Course> listCourse = new ArrayList<>();
         listCourse = csBUS.getListCourse();
-        outModel(model, listCourse);
+        outModel(model, listCourse);// truyền data vào table
     }
 
     /**
      * **********************lấy mã cs****************************************
      */
-    public String maKH() {
-        int i = tbKH.getSelectedRow();
+    public String maCourse() {
+        int i = tbCourse.getSelectedRow();
         String macs = txCourseID.getText();
         return macs;
     }
 
     public void Click() {
-        int i = tbKH.getSelectedRow();
-        txCourseID.setText(tbKH.getModel().getValueAt(i, 0).toString());
+        int i = tbCourse.getSelectedRow();
+        txCourseID.setText(tbCourse.getModel().getValueAt(i, 0).toString());
     }
 //tìm***********************************************************************
 
     public void Tim() {
         CourseBLL cs = new CourseBLL();
         String a = cbbTim.getSelectedItem().toString();
-        ArrayList<CourseDTO> DSKH = new ArrayList<>();
-        ArrayList<CourseDTO> cs1 = new ArrayList<>();
-        DSKH = cs.getListCourse();
+        ArrayList<Course> DSCourse = new ArrayList<>();
+        ArrayList<Course> cs1 = new ArrayList<>();
+        DSCourse = cs.getListCourse();
         if ((a.equals("CourseID") || a.equals("Title") || a.equals("DepartmentID")) && txTim.getText().isEmpty()) {
-            outModel(model, DSKH);
+            outModel(model, DSCourse);
         } else if (a.equals("CourseID")) {
             cs1 = cs.searchCourseWithID(Integer.parseInt(txTim.getText()));
             outModel(model, cs1);
@@ -357,7 +357,7 @@ public class JPFormCourse extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbKH;
+    private javax.swing.JTable tbCourse;
     private javax.swing.JTextField txCourseID;
     private javax.swing.JTextField txTim;
     // End of variables declaration//GEN-END:variables
