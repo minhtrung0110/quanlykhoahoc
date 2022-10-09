@@ -33,13 +33,6 @@ public class CourseOnlineDAL extends MyDatabaseManager {
             
 
     }
-//    public static void main(String[] args) {
-//        try {
-//            new CourseOnlineDAO().readCourseOnline();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+
     
 }

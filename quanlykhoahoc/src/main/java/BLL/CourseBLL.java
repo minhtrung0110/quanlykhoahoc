@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author trankimphu0609
+ * @author nguyenducminhtrung
  */
 public class CourseBLL {
       static ArrayList<Course> listCourse;
@@ -32,11 +32,13 @@ public class CourseBLL {
         if(listCourse==null) listCourse = new ArrayList<Course>();
         listCourse=data.loadDatabase();// gọi Layer DAL hàm đọc data từ CSDL
     }
-    
+    public void addCourse(){
+         if(listCourse==null) listCourse = new ArrayList<Course>();
+        //listCourse=data.loadDatabase();// gọi Layer DAL hàm đọc data từ CSDL
+    }
      public ArrayList<Course> searchCourseWithID(int courseID)
     {
         ArrayList<Course> search = new ArrayList<>();
-        //courseID=courseID.isEmpty()?courseID="":courseID;
 
         for(Course ps : listCourse)
         {

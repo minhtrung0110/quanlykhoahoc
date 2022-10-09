@@ -6,20 +6,45 @@ package DTO;
 
 /**
  *
- * @author trankimphu0609
+ * @author nguyenducminhtrung
  */
-public class CourseOnlineDTO {
+public class CourseOnline extends Course {
     public int CourseID;
     public String url;
 
-    public CourseOnlineDTO() {
+    public CourseOnline() {
+        super();
     }
-    public CourseOnlineDTO(int CourseID, String url) {
-
+    public CourseOnline(int CourseID, String url) {
+        super();
         this.CourseID = CourseID;
         this.url = url;
     }
 
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String Title) {
+        this.Title = Title;
+    }
+
+    public int getCredits() {
+        return Credits;
+    }
+
+    public void setCredits(int Credits) {
+        this.Credits = Credits;
+    }
+
+    public int getDepartmentID() {
+        return DepartmentID;
+    }
+
+    public void setDepartmentID(int DepartmentID) {
+        this.DepartmentID = DepartmentID;
+    }
+    
     public int getCourseID() {
         return CourseID;
     }

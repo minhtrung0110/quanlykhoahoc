@@ -149,7 +149,7 @@ public class ManageCourses extends JFrame implements MouseListener{
         {
             case 0: // Course
                 main.removeAll();
-                main.add(new QuanLyKhoaHoc());
+                main.add(new QuanLyKhoaHocV1());
                 main.repaint();
                 main.revalidate();
             break;
