@@ -87,4 +87,22 @@ public class KhoaHocDALImpl implements KhoaHocDAL {
         return 0;
     }
 
+    @Override
+    public int delete(Course khoaHoc) {
+        try {
+            Connection cons = MyDatabaseManager.getConnection();
+            PreparedStatement st = cons.prepareStatement("DELETE FROM course WHERE CourseID = ?");
+            st.setString(1,String.valueOf(khoaHoc.CourseID));
+            st.executeUpdate();
+            st.close();
+            cons.close();
+            return 1;
+        } catch (Exception ex) {
+                        System.out.print("loi ham delete");
+                        return -1;
+
+        }
+       
+    }
+    
 }

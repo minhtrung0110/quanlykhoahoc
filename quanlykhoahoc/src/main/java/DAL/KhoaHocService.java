@@ -16,5 +16,8 @@ import java.util.List;
 public interface KhoaHocService {
     public List<Course> getList();
     
+
     public int createOrUpdate(Course khoaHoc);
+
+    public int delete(Course khoaHoc);
 }

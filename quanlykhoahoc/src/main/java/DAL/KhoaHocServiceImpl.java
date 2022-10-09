@@ -29,4 +29,8 @@ public class KhoaHocServiceImpl implements KhoaHocService {
     public int createOrUpdate(Course khoahoc) {
         return khoaHocnDAO.createOrUpdate(khoahoc);
     }
+    @Override
+    public int delete(Course khoahoc) {
+        return khoaHocnDAO.delete(khoahoc);
+    }
 }

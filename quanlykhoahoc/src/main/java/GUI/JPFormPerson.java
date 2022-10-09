@@ -358,11 +358,12 @@ public class JPFormPerson extends javax.swing.JDialog {
     public void Tim() {
         PersonBLL ps = new PersonBLL();
         String a = cbbTim.getSelectedItem().toString();
-        ArrayList<Person> DSPerson = new ArrayList<>();
+       
         ArrayList<Person> ps1 = new ArrayList<>();
-        DSPerson = ps.getListPerson();
-        if ((a.equals("PersonID") || a.equals("FirstName") || a.equals("LastName")) && txTim.getText().isEmpty()) {
-            outModel(model, DSPerson);
+        ps1= ps.getListPerson();
+        if (((a.equals("PersonID") && txTim.getText().isEmpty()) || (a.equals("FirstName") && txTim.getText().isEmpty()) 
+                || (a.equals("LastName")) && txTim.getText().isEmpty())) {
+            outModel(model, ps1);
         } else if (a.equals("PersonID")) {
             ps1 = ps.searchPersonWithID(Integer.parseInt(txTim.getText()));
             outModel(model, ps1);

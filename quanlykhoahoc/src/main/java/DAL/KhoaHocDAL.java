@@ -17,4 +17,6 @@ public interface KhoaHocDAL {
     public List<Course> getList();
     
     public int createOrUpdate(Course khoaHoc);
+     public int delete(Course khoaHoc);
+
 }
