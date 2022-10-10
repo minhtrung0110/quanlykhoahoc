@@ -20,23 +20,23 @@ public class CourseBLL {
     public CourseBLL() {
     }
 
-    public  ArrayList<Course> getListCourse() {
+    public static  ArrayList<Course> getListCourse() {
         return listCourse;
     }
     
-    public void setListCourse(ArrayList<Course> listCourse) {
+    public static void setListCourse(ArrayList<Course> listCourse) {
         CourseBLL.listCourse = listCourse;
     }
     
     
-    public void  loadDSCourse() throws Exception{
+    public void  loadDSCourse(String orderby) throws Exception{
         
         if(listCourse==null) listCourse = new ArrayList<Course>();
-        listCourse=data.loadDatabase();// gọi Layer DAL hàm đọc data từ CSDL
+        listCourse=data.loadDatabase(orderby);// gọi Layer DAL hàm đọc data từ CSDL
     }
     public void addCourse(Course cs,String type) throws Exception {
          if(listCourse==null) listCourse = new ArrayList<Course>();
-         data.addCourse(cs, type);// gọi Layer DAL hàm đọc data từ CSDL
+         data.addCourse(cs);// gọi Layer DAL hàm đọc data từ CSDL
     }
     public void deleteCourse(int courseID) throws Exception{
         for(Course csin : listCourse)

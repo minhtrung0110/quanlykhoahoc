@@ -37,9 +37,10 @@ public class MyConnectUnit  {
     public ResultSet Select(String tableName) throws Exception {
        return this.Select(tableName, null);
     } 
-    public ResultSet SelectCustom(String tableName,String Custom, String condition,String GroupBy,String Oderby) throws Exception {
+    public ResultSet SelectCustom(String tableName,String Custom, String condition,String Join,String GroupBy,String Oderby) throws Exception {
         StringBuilder query = new StringBuilder("SELECT "+Custom+" FROM "+tableName);
         this.AddCondition(query,condition);
+        this.AddJoin(query, Join);
          this.AddGroupby(query, GroupBy);
         this.AddOderby(query,Oderby); 
         query.append(";");
@@ -47,22 +48,25 @@ public class MyConnectUnit  {
         return connect.excuteQuery(query.toString());
     }
     public ResultSet SelectCustom(String tableName,String Custom, String condition,String Groupby) throws Exception {
-        return SelectCustom(tableName,Custom,condition,Groupby,null);
+        return SelectCustom(tableName,Custom,condition,null,Groupby,null);
+    }
+    public ResultSet SelectCustomJoin(String tableName,String Custom,String Join,String Orderby) throws Exception {
+        return SelectCustom(tableName,Custom,null,Join,null,Orderby);
     }
     public ResultSet SelectCustomGroupBy(String tableName,String Custom,String Groupby) throws Exception {
-        return SelectCustom(tableName,Custom,null,Groupby,null);
+        return SelectCustom(tableName,Custom,null,null,Groupby,null);
     }
     public ResultSet SelectCustomGroupByOderby(String tableName,String Custom,String Groupby,String Oderby) throws Exception {
-        return SelectCustom(tableName,Custom,null,Groupby,Oderby);
+        return SelectCustom(tableName,Custom,null,null,Groupby,Oderby);
     }
     public ResultSet SelectCustom(String tableName,String Custom, String condition) throws Exception {
-        return SelectCustom(tableName,Custom,condition,null,null);
+        return SelectCustom(tableName,Custom,condition,null,null,null);
     }
      public ResultSet SelectCustomOrderby(String tableName,String Custom, String condition,String orderby) throws Exception {
-        return SelectCustom(tableName,Custom,condition,null,orderby);
+        return SelectCustom(tableName,Custom,condition,null,null,orderby);
     }
     public ResultSet SelectCustom(String tableName,String Custom) throws Exception {
-        return SelectCustom(tableName,Custom,null,null,null);
+        return SelectCustom(tableName,Custom,null,null,null,null);
     }
     
     public boolean Insert(String tableName,HashMap<String,Object> columnValue) throws Exception {
@@ -139,6 +143,9 @@ public class MyConnectUnit  {
     }
     private void AddGroupby (StringBuilder query,String Groupby){
         if(Groupby!=null) query.append(" GROUP BY "+Groupby);
+    }
+    private void AddJoin (StringBuilder query,String Join){
+        if(Join!=null) query.append("  "+Join);
     }
     public void Close()throws SQLException{
         connect.Close();

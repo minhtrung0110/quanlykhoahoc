@@ -108,7 +108,7 @@ public class QuanLyKetQuaKhoaHoc extends javax.swing.JPanel {
 
     private void loadComboBoxCourse(JComboBox cmb) throws Exception {
         if (courseBUS.getListCourse() == null) {
-            courseBUS.loadDSCourse();
+            courseBUS.loadDSCourse("DESC");
         }
         ArrayList<Course> cs = courseBUS.getListCourse();
         for (Course a : cs) {

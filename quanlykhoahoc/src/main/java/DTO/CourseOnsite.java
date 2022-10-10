@@ -4,7 +4,7 @@
  */
 package DTO;
 
-import java.util.Date;
+
 
 /**
  *
@@ -12,14 +12,21 @@ import java.util.Date;
  */
 public class CourseOnsite extends Course {
     public int CourseID;
-    public String Location;
-    public Date Days, Time;
+    public String Location, Days, Time;
 
     public CourseOnsite() {
         super();
     }
-
-    public CourseOnsite(int CourseID, String Location, Date Days, Date Time) {
+    public CourseOnsite(int CourseID, String title, int Credits, int DepartmentID,String Location, String Days, String Time) {
+        this.CourseID = CourseID;
+        this.Title = title;
+        this.Credits = Credits;
+        this.DepartmentID = DepartmentID;
+        this.Location = Location;
+        this.Days = Days;
+        this.Time = Time;
+    }
+    public CourseOnsite(int CourseID, String Location, String Days, String Time) {
         super();
         this.CourseID = CourseID;
         this.Location = Location;
@@ -67,19 +74,19 @@ public class CourseOnsite extends Course {
         this.Location = Location;
     }
 
-    public Date getDays() {
+    public String getDays() {
         return Days;
     }
 
-    public void setDays(Date Days) {
+    public void setDays(String Days) {
         this.Days = Days;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return Time;
     }
 
-    public void setTime(Date Time) {
+    public void setTime(String Time) {
         this.Time = Time;
     }
 

@@ -25,17 +25,57 @@ public class CourseDAL extends MyConnectUnit {
 
     }
 
-    public ArrayList<Course> loadDatabase() throws Exception {
+    public ArrayList<Course> loadDatabase(String orderby) throws Exception {
         ArrayList<Course> listCourse = new ArrayList<>();
         try {
-            ResultSet rs = this.Select("course");
+            //SELECT cs.CourseID,cs.Title,cs.Credits,cs.DepartmentID, cson.url,cssite.Location, cssite.Days,cssite.Time
+//FROM course as cs
+//LEFT OUTER JOIN onsitecourse as cssite ON cs.CourseID=cssite.CourseID
+//LEFT OUTER JOIN onlinecourse as cson ON cs.CourseID=cson.CourseID
+            ResultSet rs = this.SelectCustomJoin("course as cs",
+                    "cs.CourseID,cs.Title,cs.Credits,cs.DepartmentID, cson.url,cssite.Location, cssite.Days,cssite.Time" ,
+                    "LEFT OUTER JOIN onsitecourse as cssite ON cs.CourseID=cssite.CourseID LEFT OUTER JOIN onlinecourse as cson ON cs.CourseID=cson.CourseID",
+                    "cs.CourseID "+orderby
+                    );
             while (rs.next()) {
-                Course csin = new Course(
+               if(rs.getString("url")==null){
+                      Course cssite=new CourseOnsite(
+                  rs.getInt("CourseID"), rs.getString("Title"),
+                        rs.getInt("Credits"), rs.getInt("DepartmentID"),
+                        rs.getString("Location"),rs.getString("Days"),rs.getString("Time")
+                );
+                      listCourse.add((Course) cssite);
+               }
+               else{
+                    Course cson=new CourseOnline( 
                         rs.getInt("CourseID"), rs.getString("Title"),
-                        rs.getInt("Credits"), rs.getInt("DepartmentID"));
-                listCourse.add(csin);
+                        rs.getInt("Credits"), rs.getInt("DepartmentID"),
+                        rs.getString("url")
+                );
+                    listCourse.add((Course) cson);
+               }
             }
             rs.close();
+            this.Close();//dong ket noi;
+
+        } catch (SQLException ex) {
+            System.out.println("Khong the load database Course");
+        }
+        return listCourse;
+    }
+     public ArrayList<Course> loadDatabaseV2() throws Exception {
+        ArrayList<Course> listCourse = new ArrayList<>();
+        try {
+            ResultSet rsOnline = this.Select("onlinecourse");
+            while (rsOnline.next()) {
+                Course csin = new Course(
+                        rsOnline.getInt("CourseID"), rsOnline.getString("Title"),
+                        rsOnline.getInt("Credits"), rsOnline.getInt("DepartmentID")
+                        
+                );
+                listCourse.add(csin);
+            }
+            rsOnline.close();
             this.Close();//dong ket noi;
 
         } catch (SQLException ex) {
@@ -92,9 +132,9 @@ public class CourseDAL extends MyConnectUnit {
         }
     }
 
-    public void addCourse(Course cs, String type) throws Exception {
+    public void addCourse(Course cs) throws Exception {
         try {
-            if (Objects.equals(type, "online")) {
+            if (cs instanceof CourseOnline) {
                 this.addCourseOnline((CourseOnline) cs);
             } else {
                 this.addCourseOnSite((CourseOnsite) cs);

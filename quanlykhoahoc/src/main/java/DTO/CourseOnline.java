@@ -9,18 +9,24 @@ package DTO;
  * @author nguyenducminhtrung
  */
 public class CourseOnline extends Course {
-    public int CourseID;
     public String url;
 
     public CourseOnline() {
         super();
     }
-    public CourseOnline(int CourseID, String url) {
+
+    public CourseOnline(String url) {
         super();
-        this.CourseID = CourseID;
         this.url = url;
     }
-
+    
+     public CourseOnline(int CourseID, String title, int Credits, int DepartmentID,String url) {
+        this.CourseID = CourseID;
+        this.Title = title;
+        this.Credits = Credits;
+        this.DepartmentID = DepartmentID;
+        this.url = url;
+    }
     public String getTitle() {
         return Title;
     }
