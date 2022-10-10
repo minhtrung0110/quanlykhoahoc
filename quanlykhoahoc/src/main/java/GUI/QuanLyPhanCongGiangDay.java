@@ -63,6 +63,17 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
         }
 
     }
+    private void RefreshDataBase(String orderby) throws Exception {
+        try {
+            bll.loadDSCourseInstructor(orderby);
+            insertHeader();
+            outModel(model, CourseInstructorBLL.getListCourseInstructor());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không Thể Load Database ",
+                    "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 
   
     private void insertHeader() {
@@ -512,7 +523,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
             csin.setPersonID((int) Integer.parseInt(txTeacher.getText()));
             bll.addCourseInstructor(csin);// gọi Layer Bll Thêm phân công
             clearInput();
-            ShowDataBase("DESC");
+           RefreshDataBase("DESC");
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Không thể tạo phân công giảng dạy ",
@@ -532,7 +543,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
             // gọi Layer BLL cập nhật phân công
             bll.updateCourseInstructor(id, csin);
             clearInput();
-            ShowDataBase("DESC");
+            RefreshDataBase("DESC");
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Không thể cập nhật CourseInstructor ",
@@ -620,7 +631,7 @@ public class QuanLyPhanCongGiangDay extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnRefeshActionPerformed
-         ShowDataBase("ASC");
+         RefreshDataBase("ASC");
     }//GEN-LAST:event_btnRefeshActionPerformed
 
     private void txTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTeacherActionPerformed

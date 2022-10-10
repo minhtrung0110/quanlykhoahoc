@@ -36,7 +36,7 @@ public class CourseBLL {
     }
     public void addCourse(Course cs,String type) throws Exception {
          if(listCourse==null) listCourse = new ArrayList<Course>();
-         data.addCourse(cs, type);// gọi Layer DAL hàm đọc data từ CSDL
+         data.addCourse(cs);// gọi Layer DAL hàm đọc data từ CSDL
     }
     public void deleteCourse(int courseID) throws Exception{
         for(Course csin : listCourse)
