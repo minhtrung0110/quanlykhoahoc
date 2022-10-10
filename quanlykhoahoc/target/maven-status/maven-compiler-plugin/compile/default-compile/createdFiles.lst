@@ -13,7 +13,6 @@ GUI\JPFormPerson$3.class
 BLL\KhoaHocController$2.class
 GUI\QuanLyGiaoVien$9.class
 GUI\JPFormStudent$5.class
-GUI\QuanLyKhoaHoc$2.class
 GUI\ManageCourses$2.class
 GUI\QuanLyPhanCongGiangDay$4.class
 GUI\QuanLyPhanCongGiangDay$7.class
@@ -34,11 +33,11 @@ BLL\QuanLyKhoaHocController$1.class
 DAL\KhoaHocDALImpl.class
 GUI\QuanLyKetQuaKhoaHoc$1.class
 GUI\QuanLyHocVien$11.class
-DTO\CourseOnlineDTO.class
 DTO\OfficeAssignmentDTO.class
 GUI\ManageCourses$3.class
 GUI\QuanLyPhanCongGiangDay$8.class
 GUI\JPFormPerson$4.class
+GUI\QuanLyKhoaHocV1$3.class
 GUI\QuanLyGiaoVien$3.class
 GUI\model\navItem.class
 GUI\QuanLyKetQuaKhoaHoc$3.class
@@ -52,6 +51,7 @@ GUI\QuanLyKetQuaKhoaHoc$2.class
 GUI\QuanLyPhanCongGiangDay$9.class
 GUI\QuanLyKetQuaKhoaHoc$9.class
 BLL\GradeBLL.class
+GUI\QuanLyKhoaHocV1.class
 GUI\QuanLyPhanCongGiangDay$2.class
 GUI\JPFormCourse$1.class
 GUI\QuanLyGiaoVien$4.class
@@ -63,10 +63,10 @@ DTO\GradeDTO.class
 GUI\JPFormCourse$7.class
 GUI\QuanLyHocVien$10.class
 GUI\QuanLyHocVien$8.class
+DTO\CourseOnline.class
 GUI\KhoaHocJF$1.class
 GUI\QuanLyKetQuaKhoaHoc$10.class
 GUI\QuanLyGiaoVien$10.class
-GUI\QuanLyKhoaHoc$3.class
 GUI\QuanLyKetQuaKhoaHoc$8.class
 GUI\JPFormCourse$2.class
 DAL\DepartmentDAL.class
@@ -86,6 +86,7 @@ DTO\Person.class
 GUI\JPFormCourse$7$1.class
 GUI\JPFormPerson$5.class
 GUI\QuanLyGiaoVien$2.class
+GUI\QuanLyKhoaHocV1$2.class
 DAL\KhoaHocService.class
 GUI\model\header.class
 BLL\QuanLyKhoaHocController.class
@@ -94,7 +95,6 @@ GUI\JPFormPerson.class
 DAL\MySQLConnect.class
 DAL\CourseDAL.class
 GUI\QuanLyKhoaHoc.class
-DTO\CourseOnsiteDTO.class
 GUI\QuanLyPhanCongGiangDay$10.class
 GUI\JPFormStudent.class
 GUI\QuanLyHocVien$3.class
@@ -106,6 +106,7 @@ GUI\ManageCourses.class
 BLL\QuanLyKhoaHocController$2.class
 BLL\CourseInstructorBLL.class
 GUI\QuanLyGiaoVien$7.class
+DTO\CourseOnsite.class
 GUI\KhoaHocJF_delete$1.class
 GUI\QuanLyPhanCongGiangDay$5.class
 GUI\JPFormCourse$3.class
@@ -123,8 +124,8 @@ GUI\ManageCourses$1.class
 BLL\KhoaHocController$1.class
 DAL\CourseInstructorDAL.class
 GUI\JPFormPerson$1.class
+GUI\QuanLyKhoaHocV1$1.class
 GUI\QuanLyHocVien.class
 GUI\QuanLyKetQuaKhoaHoc$6.class
 DAL\CourseOnlineDAL.class
-GUI\QuanLyKhoaHoc$1.class
 DAL\CourseOnsiteDAL.class

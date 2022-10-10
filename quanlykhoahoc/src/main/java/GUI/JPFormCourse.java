@@ -314,7 +314,7 @@ public class JPFormCourse extends javax.swing.JDialog {
             model = new DefaultTableModel(header, 0);
         }
         if (csBUS.getListCourse() == null) {
-            csBUS.loadDSCourse();// lấy dữ liệu các khoá học
+            csBUS.loadDSCourse("DESC");// lấy dữ liệu các khoá học
         }
         ArrayList<Course> listCourse = new ArrayList<>();
         listCourse = csBUS.getListCourse();
