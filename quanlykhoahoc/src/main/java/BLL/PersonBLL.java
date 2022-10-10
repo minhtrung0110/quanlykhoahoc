@@ -30,7 +30,6 @@ public class PersonBLL {
     }
 
     public void loadDSPerson() throws Exception {
-        PersonDAL data = new PersonDAL();
         if (listPerson == null) {
             listPerson = new ArrayList<Person>();
         }
