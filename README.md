@@ -31,11 +31,8 @@ jcalendar-1.4
 
 ## Hướng dẫn cài đặt
 
-Phần mềm chạy tốt trên nền tảng java version 8 với jdk version 1. 8 với độ phân giải màn hình chuẩn của máy là > 1280x900 ( FullHD )
+Phần mềm chạy tốt trên nền tảng java version 18 với jdk version 18. với độ phân giải màn hình chuẩn của máy là > 1280x900 ( FullHD )
 
-## Hướng dẫn cài đặt
-
-Phần mềm chạy tốt trên nền tảng java version 8 với jdk version 1.8 và độ phân giải màn hình chuẩn của máy là > 1280x900 ( FullHD )
 
 ```
 1. Tạo database "school2" và import file school2.sql vào phpadmin trên XAMPP .
