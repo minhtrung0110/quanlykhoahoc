@@ -93,7 +93,7 @@ public class CourseBLL {
 
         for (Course ps : listCourse) {
 
-            if (ps.getTitle().contains(title)) {
+            if (ps.getTitle().trim().toLowerCase().contains(title.trim().toLowerCase())) {
 
                 search.add(ps);
             }
@@ -111,5 +111,17 @@ public class CourseBLL {
             }
         }
         return search;
+    }
+    
+    public String remindMaKH() {
+        int max = 0;
+        String s = "";
+        for (Course hd : listCourse) {
+            int id = hd.getCourseID();
+            if (id > max) {
+                max = id;
+            }
+        }
+        return s + (max + 1);
     }
 }
