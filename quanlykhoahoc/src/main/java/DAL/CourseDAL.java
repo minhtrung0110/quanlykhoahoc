@@ -33,27 +33,26 @@ public class CourseDAL extends MyConnectUnit {
 //LEFT OUTER JOIN onsitecourse as cssite ON cs.CourseID=cssite.CourseID
 //LEFT OUTER JOIN onlinecourse as cson ON cs.CourseID=cson.CourseID
             ResultSet rs = this.SelectCustomJoin("course as cs",
-                    "cs.CourseID,cs.Title,cs.Credits,cs.DepartmentID, cson.url,cssite.Location, cssite.Days,cssite.Time" ,
+                    "cs.CourseID,cs.Title,cs.Credits,cs.DepartmentID, cson.url,cssite.Location, cssite.Days,cssite.Time",
                     "LEFT OUTER JOIN onsitecourse as cssite ON cs.CourseID=cssite.CourseID LEFT OUTER JOIN onlinecourse as cson ON cs.CourseID=cson.CourseID",
-                    "cs.CourseID "+orderby
-                    );
+                    "cs.CourseID " + orderby
+            );
             while (rs.next()) {
-               if(rs.getString("url")==null){
-                      Course cssite=new CourseOnsite(
-                  rs.getInt("CourseID"), rs.getString("Title"),
-                        rs.getInt("Credits"), rs.getInt("DepartmentID"),
-                        rs.getString("Location"),rs.getString("Days"),rs.getString("Time")
-                );
-                      listCourse.add((Course) cssite);
-               }
-               else{
-                    Course cson=new CourseOnline( 
-                        rs.getInt("CourseID"), rs.getString("Title"),
-                        rs.getInt("Credits"), rs.getInt("DepartmentID"),
-                        rs.getString("url")
-                );
+                if (rs.getString("url") == null) {
+                    Course cssite = new CourseOnsite(
+                            rs.getInt("CourseID"), rs.getString("Title"),
+                            rs.getInt("Credits"), rs.getInt("DepartmentID"),
+                            rs.getString("Location"), rs.getString("Days"), rs.getString("Time")
+                    );
+                    listCourse.add((Course) cssite);
+                } else {
+                    Course cson = new CourseOnline(
+                            rs.getInt("CourseID"), rs.getString("Title"),
+                            rs.getInt("Credits"), rs.getInt("DepartmentID"),
+                            rs.getString("url")
+                    );
                     listCourse.add((Course) cson);
-               }
+                }
             }
             rs.close();
             this.Close();//dong ket noi;
@@ -63,7 +62,8 @@ public class CourseDAL extends MyConnectUnit {
         }
         return listCourse;
     }
-     public ArrayList<Course> loadDatabaseV2() throws Exception {
+
+    public ArrayList<Course> loadDatabaseV2() throws Exception {
         ArrayList<Course> listCourse = new ArrayList<>();
         try {
             ResultSet rsOnline = this.Select("onlinecourse");
@@ -71,7 +71,6 @@ public class CourseDAL extends MyConnectUnit {
                 Course csin = new Course(
                         rsOnline.getInt("CourseID"), rsOnline.getString("Title"),
                         rsOnline.getInt("Credits"), rsOnline.getInt("DepartmentID")
-                        
                 );
                 listCourse.add(csin);
             }
@@ -158,13 +157,14 @@ public class CourseDAL extends MyConnectUnit {
     private void updateCourseOnline(int id, CourseOnline cs) throws Exception {
 
         HashMap<String, Object> UpdatevaluesCourseOnline = new HashMap<String, Object>();
-                UpdatevaluesCourseOnline.put("url", cs.getUrl());
+        UpdatevaluesCourseOnline.put("url", cs.getUrl());
         try {
             this.Update("onlinecourse", UpdatevaluesCourseOnline, "CourseID ='" + id + "'");
         } catch (SQLException ex) {
             System.out.println("Khong the cap nhat CourseOnline !!!");
         }
     }
+
     private void updateCourseOnsite(int id, CourseOnsite cs) throws Exception {
 
         HashMap<String, Object> UpdatevaluesCourseOnsite = new HashMap<String, Object>();
@@ -178,6 +178,7 @@ public class CourseDAL extends MyConnectUnit {
             System.out.println("Khong the cap nhat CourseOnline !!!");
         }
     }
+
     public void updateCourse(int id, Course cs) throws Exception {
         HashMap<String, Object> UpdatevaluesCourse = new HashMap<String, Object>();
         UpdatevaluesCourse.put("CourseID", cs.getCourseID());
@@ -185,17 +186,14 @@ public class CourseDAL extends MyConnectUnit {
         UpdatevaluesCourse.put("Credits", cs.getCredits());
         UpdatevaluesCourse.put("DepartmentID", cs.getDepartmentID());
         try {
-            this.Update("course", UpdatevaluesCourse, "CourseID ='" + id + "'");//update Course
-           // ResultSet rs=  this.Select("onlinecourse","CourseID ='" + id + "'");
-           // int check=-1;
-           // while (rs.next()) {
-           // check=rs.getInt("CourseID");
-           // }
-          //  System.out.println("Check = " + check);
-            if (cs instanceof CourseOnsite)
-                this.updateCourseOnsite(id, (CourseOnsite) cs);
-            else  this.updateCourseOnline(id, (CourseOnline) cs);
 
+            this.Update("course", UpdatevaluesCourse, "CourseID ='" + id + "'");
+            ResultSet rs = this.Select("onlinecourse", "CourseID ='" + id + "'");
+            if (cs instanceof CourseOnsite) {
+                this.updateCourseOnsite(id, (CourseOnsite) cs);
+            } else {
+                this.updateCourseOnline(id, (CourseOnline) cs);
+            }
 
         } catch (SQLException ex) {
             System.out.println("Khong the Cap nhat Course vao database !!!");
@@ -204,39 +202,33 @@ public class CourseDAL extends MyConnectUnit {
 
     public void deleteCourse(int courseID) {
         try {
+            this.Delete("onlinecourse", "CourseID ='" + courseID + "'");
+            this.Delete("onsitecourse", "CourseID ='" + courseID + "'");
             this.Delete("course", "CourseID ='" + courseID + "'");
-            ResultSet rs=  this.Select("onlinecourse","CourseID ='" + courseID + "'");
-            int check=-1;
-            while (rs.next()) {
-                check=rs.getInt("CourseID");
-            }
-            System.out.println("Check = " + check);
-            if (check == -1)
-                this.Delete("onsitecourse", "CourseID ='" + courseID + "'");
-            else   this.Delete("onlinecourse", "CourseID ='" + courseID + "'");
+
         } catch (Exception e) {
-            System.out.println("Lỗi không thể xóa courseinstructor item !!");
+            System.out.println("Lỗi không thể xóa course item !!");
         }
     }
 
     public static void main(String[] args) throws Exception {
         CourseDAL data = new CourseDAL();
         CourseOnline cson = new CourseOnline();
-      //  cson.setCourseID(0);
+        //  cson.setCourseID(0);
         cson.setTitle("Da Update");
         cson.setCredits(250000);
         cson.setDepartmentID(2);
         cson.setUrl("htttp://ggmet-cucu-akkl-uoiy");
         CourseOnsite cssite = new CourseOnsite();
-      //  cssite.setCourseID(0);
+        //  cssite.setCourseID(0);
         cssite.setTitle("A");
         cssite.setCredits(250000);
         cssite.setDepartmentID(2);
         cssite.setLocation("C.E403");
-       cssite.setDays("FWM");
-       cssite.setTime("20:35:56");
-       data.addCourse(cssite);
+        // cssite.setDays(new Date("2022-10-10"));
+        //   cssite.setTime(new Date("2022-10-10"));
+        // data.addCourseOnSite(cssite);
         //data.addCourseOnline(cson);
-      //  data.update(4068,cson);
+        //  data.update(4068,cson);
     }
 }
