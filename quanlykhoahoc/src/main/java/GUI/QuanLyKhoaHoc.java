@@ -547,6 +547,8 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        tbCourse.setAutoCreateRowSorter(true);
+        tbCourse.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         tbCourse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -558,6 +560,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbCourse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tbCourse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbCourseMouseClicked(evt);
@@ -664,7 +667,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         String Time = txtTime.getText();
 
         try {
-            if (txtUrl.getText() != null) {
+            if (!txtUrl.getText().isEmpty()) {
                 Course courseOnline = new CourseOnline(CourseID, Title, Credits, DepartmentID, Url);
 
                 bll.updateCourse(CourseID, courseOnline);
