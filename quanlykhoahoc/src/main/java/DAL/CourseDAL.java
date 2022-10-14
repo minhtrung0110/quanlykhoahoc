@@ -177,21 +177,12 @@ public class CourseDAL extends MyConnectUnit {
         try {
             this.Update("course", UpdatevaluesCourse, "CourseID ='" + id + "'");
             ResultSet rs = this.Select("onlinecourse", "CourseID ='" + id + "'");
-//            int check = -1;
-//            while (rs.next()) {
-//                check = rs.getInt("CourseID");
-//            }
-//            System.out.println("Check = " + check);
-//            if (check == -1) {
-//                this.updateCourseOnsite(id, (CourseOnsite) cs);
-//            } else {
-//                this.updateCourseOnline(id, (CourseOnline) cs);
-//            }
-        if(cs instanceof CourseOnsite)
-            this.updateCourseOnsite(id, (CourseOnsite) cs);
-        else
-            this.updateCourseOnline(id, (CourseOnline) cs);
-        
+            if (cs instanceof CourseOnsite) {
+                this.updateCourseOnsite(id, (CourseOnsite) cs);
+            } else {
+                this.updateCourseOnline(id, (CourseOnline) cs);
+            }
+
         } catch (SQLException ex) {
             System.out.println("Khong the Cap nhat Course vao database !!!");
         }
@@ -199,20 +190,12 @@ public class CourseDAL extends MyConnectUnit {
 
     public void deleteCourse(int courseID) {
         try {
+            this.Delete("onlinecourse", "CourseID ='" + courseID + "'");
+            this.Delete("onsitecourse", "CourseID ='" + courseID + "'");
             this.Delete("course", "CourseID ='" + courseID + "'");
-            ResultSet rs = this.Select("onlinecourse", "CourseID ='" + courseID + "'");
-            int check = -1;
-            while (rs.next()) {
-                check = rs.getInt("CourseID");
-            }
-            System.out.println("Check = " + check);
-            if (check == -1) {
-                this.Delete("onsitecourse", "CourseID ='" + courseID + "'");
-            } else {
-                this.Delete("onlinecourse", "CourseID ='" + courseID + "'");
-            }
+
         } catch (Exception e) {
-            System.out.println("Lỗi không thể xóa courseinstructor item !!");
+            System.out.println("Lỗi không thể xóa course item !!");
         }
     }
 

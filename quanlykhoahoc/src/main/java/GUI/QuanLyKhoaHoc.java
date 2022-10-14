@@ -10,6 +10,7 @@ import DTO.Course;
 import DTO.CourseOnline;
 import DTO.CourseOnsite;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +44,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     }
 
     private void clearInput() {
-        txtCourseId.setText("");
+        txtCourseId.setText(bll.remindMaKH());
         txtTitle.setText("");
         txtCredits.setText("");
         txtDepartment.setText("");
@@ -187,7 +188,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         txtCourseId = new javax.swing.JTextField();
         txtCredits = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
@@ -195,9 +195,10 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         txtTime = new javax.swing.JTextField();
         txtDepartment = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        txtLocation = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         txtUrl = new javax.swing.JTextField();
+        txtLocation = new javax.swing.JTextField();
+        txtDate = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnRefesh = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -228,6 +229,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setText("MÃ KHÓA HỌC");
 
+        txtCourseId.setEditable(false);
         txtCourseId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCourseId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,14 +247,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         jLabel19.setBackground(new java.awt.Color(255, 255, 255));
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setText("NGÀY");
-
-        txtDate.setEditable(false);
-        txtDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDateActionPerformed(evt);
-            }
-        });
 
         jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -275,6 +269,8 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
 
         txtTime.setEditable(false);
         txtTime.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTime.setText("00:00:00");
+        txtTime.setName(""); // NOI18N
         txtTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimeActionPerformed(evt);
@@ -292,14 +288,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setText("ĐỊA ĐIỂM");
 
-        txtLocation.setEditable(false);
-        txtLocation.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLocationActionPerformed(evt);
-            }
-        });
-
         jLabel24.setBackground(new java.awt.Color(255, 255, 255));
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setText("URL");
@@ -312,30 +300,46 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
             }
         });
 
+        txtLocation.setEditable(false);
+        txtLocation.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLocationActionPerformed(evt);
+            }
+        });
+
+        txtDate.setEditable(false);
+        txtDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDate.setText("MTWThF");
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pInput4Layout = new javax.swing.GroupLayout(pInput4);
         pInput4.setLayout(pInput4Layout);
         pInput4Layout.setHorizontalGroup(
             pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pInput4Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pInput4Layout.createSequentialGroup()
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pInput4Layout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pInput4Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCourseId, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pInput4Layout.createSequentialGroup()
+                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pInput4Layout.createSequentialGroup()
-                            .addComponent(jLabel16)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtCourseId, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCredits, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pInput4Layout.createSequentialGroup()
@@ -376,17 +380,16 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22)
-                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel24)
-                        .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel23)
-                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLocation))
+                    .addComponent(jLabel23))
                 .addGap(31, 31, 31))
         );
 
@@ -644,6 +647,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
         try {
             RefreshDataBase("ASC");
+            clearInput();
         } catch (Exception ex) {
             Logger.getLogger(QuanLyKhoaHoc.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -658,7 +662,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         String Location = txtLocation.getText();
         String Days = txtDate.getText();
         String Time = txtTime.getText();
-        
+
         try {
             if (txtUrl.getText() != null) {
                 Course courseOnline = new CourseOnline(CourseID, Title, Credits, DepartmentID, Url);
@@ -669,7 +673,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
 
                 bll.updateCourse(CourseID, courseOnsite);// gọi Layer Bll Thêm khóa học
             }
-            
+
             clearInput();
             RefreshDataBase("DESC");
 
@@ -687,11 +691,11 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         String Title = txtTitle.getText();
         String Url = txtUrl.getText();
         String Location = txtLocation.getText();
-        String Days = txtDate.getText();
+        String Days = txtDate.getText().toString();
         String Time = txtTime.getText();
 
         try {
-            if (txtUrl.getText() != null) {
+            if (!txtUrl.getText().isEmpty()) {
                 Course courseOnline = new CourseOnline(CourseID, Title, Credits, DepartmentID, Url);
 
                 bll.addCourse(courseOnline);
@@ -716,7 +720,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         if (confirm == 0)
         try {
             int courseID = Integer.parseInt(txtCourseId.getText());
-            bll.deleteCourse(courseID);//gọi Layer BLL xoá phân công
+            bll.deleteCourse(courseID);//gọi Layer BLL xoá 
             insertHeader();// chèn header cho table
             outModel(model, CourseBLL.getListCourse());// đổ data vào table
             clearInput();
@@ -735,10 +739,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTitleActionPerformed
-
-    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDateActionPerformed
 
     private void txtCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCreditsActionPerformed
         // TODO add your handling code here:
@@ -776,7 +776,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                         search = bll.searchCourseWithTitle(inputSearch);
                         break;
                     case "Số Phòng":
-                        search = bll.searchCourseWithID(Integer.parseInt(inputSearch));
+                        search = bll.searchCourseWithDepartmentID(Integer.parseInt(inputSearch));
                         break;
                     default:
                         break;
@@ -812,32 +812,32 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
 
     private void tbCourseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCourseMouseClicked
         int i = tbCourse.getSelectedRow();
+        clearInput();
         if (i >= 0) {
             if (tbCourse.getRowSorter() != null) {
                 i = tbCourse.getRowSorter().convertRowIndexToModel(i);
             }
+
             txtCourseId.setText(tbCourse.getModel().getValueAt(i, 0).toString());
             txtTitle.setText(tbCourse.getModel().getValueAt(i, 1).toString());
             txtCredits.setText(tbCourse.getModel().getValueAt(i, 2).toString());
             txtDepartment.setText(tbCourse.getModel().getValueAt(i, 3).toString());
-            txtUrl.setText(tbCourse.getModel().getValueAt(i, 4).toString());
-            txtLocation.setText(tbCourse.getModel().getValueAt(i, 5).toString());
-            txtDate.setText(tbCourse.getModel().getValueAt(i, 6).toString());
-            txtTime.setText(tbCourse.getModel().getValueAt(i, 7).toString());
-            txtCredits.setText(tbCourse.getModel().getValueAt(i, 2).toString());
-
+            if (tbCourse.getModel().getValueAt(i, 4).toString().isEmpty()) {
+                txtLocation.setText(tbCourse.getModel().getValueAt(i, 5).toString());
+                txtDate.setText(tbCourse.getModel().getValueAt(i, 6).toString());
+                txtTime.setText(tbCourse.getModel().getValueAt(i, 7).toString());
+            } else {
+                txtUrl.setText(tbCourse.getModel().getValueAt(i, 4).toString());
+            }
         }
     }//GEN-LAST:event_tbCourseMouseClicked
-
-    private void txtLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLocationActionPerformed
 
     private void txtUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUrlActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUrlActionPerformed
 
     private void btnOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOnlineActionPerformed
+        clearInput();
         txtDate.setEditable(false);
         txtTime.setEditable(false);
         txtLocation.setEditable(false);
@@ -845,11 +845,20 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     }//GEN-LAST:event_btnOnlineActionPerformed
 
     private void btnOnsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOnsiteActionPerformed
+        clearInput();
         txtDate.setEditable(true);
         txtTime.setEditable(true);
         txtLocation.setEditable(true);
         txtUrl.setEditable(false);
     }//GEN-LAST:event_btnOnsiteActionPerformed
+
+    private void txtLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLocationActionPerformed
+
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
