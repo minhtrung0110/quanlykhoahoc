@@ -720,7 +720,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         if (confirm == 0)
         try {
             int courseID = Integer.parseInt(txtCourseId.getText());
-            bll.deleteCourse(courseID);//gọi Layer BLL xoá phân công
+            bll.deleteCourse(courseID);//gọi Layer BLL xoá 
             insertHeader();// chèn header cho table
             outModel(model, CourseBLL.getListCourse());// đổ data vào table
             clearInput();
