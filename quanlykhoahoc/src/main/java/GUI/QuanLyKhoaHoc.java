@@ -6,14 +6,17 @@ package GUI;
 
 import BLL.CourseBLL;
 import BLL.CourseInstructorBLL;
+import BLL.DepartmentBLL;
 import DTO.Course;
 import DTO.CourseOnline;
 import DTO.CourseOnsite;
+import DTO.Department;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +29,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private int DEFALUT_WIDTH;
     private DefaultTableModel model;
     CourseBLL bll = new CourseBLL();
+    DepartmentBLL dll = new DepartmentBLL();
 
     public QuanLyKhoaHoc() {
         this.setSize(1090, 750);
@@ -41,13 +45,14 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
 
     private void init() throws Exception {
         ShowDataBase("ASC");
+        loadDepartmentID(cbDepartment);
     }
 
     private void clearInput() {
         txtCourseId.setText(bll.remindMaKH());
         txtTitle.setText("");
         txtCredits.setText("");
-        txtDepartment.setText("");
+        cbDepartment.setSelectedItem("");
         txtDate.setText("");
         txtTime.setText("");
         txtLocation.setText("");
@@ -82,6 +87,16 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                     "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    public void loadDepartmentID(JComboBox cb) throws Exception {
+        if (dll.getListDepartment() == null) {
+            dll.loadDepartment();
+        }
+        ArrayList<Department> departmentList = dll.getListDepartment();
+        for (Department d : departmentList) {
+            cb.addItem(d.getDepartmentID());
+        }
     }
 
     private void RefreshDataBase(String orderby) throws Exception {
@@ -193,12 +208,12 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         txtTitle = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
-        txtDepartment = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         txtUrl = new javax.swing.JTextField();
         txtLocation = new javax.swing.JTextField();
         txtDate = new javax.swing.JTextField();
+        cbDepartment = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnRefesh = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -277,13 +292,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
             }
         });
 
-        txtDepartment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtDepartment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDepartmentActionPerformed(evt);
-            }
-        });
-
         jLabel23.setBackground(new java.awt.Color(255, 255, 255));
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setText("ĐỊA ĐIỂM");
@@ -342,54 +350,57 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                             .addComponent(txtDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pInput4Layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pInput4Layout.createSequentialGroup()
-                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(34, 34, 34))
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtUrl)
+                        .addComponent(txtTime)
+                        .addComponent(cbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28))
         );
         pInput4Layout.setVerticalGroup(
             pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pInput4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInput4Layout.createSequentialGroup()
+                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pInput4Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
+                        .addContainerGap()
+                        .addComponent(txtTitle)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbDepartment)
+                        .addGap(22, 22, 22)
+                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pInput4Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pInput4Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCourseId)))
+                            .addComponent(jLabel21))
+                        .addGap(18, 18, 18)
                         .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCourseId)))
-                    .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel21)
-                        .addComponent(txtTitle)))
-                .addGap(18, 18, 18)
-                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(txtCredits)
-                    .addComponent(jLabel20)
-                    .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel22)
-                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel24)
-                        .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtLocation))
-                    .addComponent(jLabel23))
+                            .addComponent(jLabel15)
+                            .addComponent(txtCredits)
+                            .addComponent(jLabel20))
+                        .addGap(23, 23, 23)
+                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel22)
+                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pInput4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel24)
+                                .addComponent(txtLocation))
+                            .addComponent(jLabel23))))
                 .addGap(31, 31, 31))
         );
 
@@ -547,6 +558,8 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        tbCourse.setAutoCreateRowSorter(true);
+        tbCourse.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         tbCourse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -558,6 +571,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbCourse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tbCourse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbCourseMouseClicked(evt);
@@ -655,7 +669,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int CourseID = Integer.parseInt(txtCourseId.getText());
-        int DepartmentID = Integer.parseInt(txtDepartment.getText());
+        int DepartmentID = Integer.parseInt(cbDepartment.getSelectedItem().toString());
         int Credits = Integer.parseInt(txtCredits.getText());
         String Title = txtTitle.getText();
         String Url = txtUrl.getText();
@@ -664,7 +678,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
         String Time = txtTime.getText();
 
         try {
-            if (txtUrl.getText() != null) {
+            if (!txtUrl.getText().isEmpty()) {
                 Course courseOnline = new CourseOnline(CourseID, Title, Credits, DepartmentID, Url);
 
                 bll.updateCourse(CourseID, courseOnline);
@@ -686,7 +700,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
         int CourseID = Integer.parseInt(txtCourseId.getText());
-        int DepartmentID = Integer.parseInt(txtDepartment.getText());
+        int DepartmentID = Integer.parseInt(cbDepartment.getSelectedItem().toString());
         int Credits = Integer.parseInt(txtCredits.getText());
         String Title = txtTitle.getText();
         String Url = txtUrl.getText();
@@ -747,10 +761,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private void txtCourseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCourseIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCourseIdActionPerformed
-
-    private void txtDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDepartmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDepartmentActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         DefaultTableModel temp = new DefaultTableModel();
@@ -821,8 +831,8 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
             txtCourseId.setText(tbCourse.getModel().getValueAt(i, 0).toString());
             txtTitle.setText(tbCourse.getModel().getValueAt(i, 1).toString());
             txtCredits.setText(tbCourse.getModel().getValueAt(i, 2).toString());
-            txtDepartment.setText(tbCourse.getModel().getValueAt(i, 3).toString());
-            if (tbCourse.getModel().getValueAt(i, 4)==null) {
+            cbDepartment.setSelectedItem(tbCourse.getModel().getValueAt(i, 3));
+            if (tbCourse.getModel().getValueAt(i, 4) == null) {
                 txtLocation.setText(tbCourse.getModel().getValueAt(i, 5).toString());
                 txtDate.setText(tbCourse.getModel().getValueAt(i, 6).toString());
                 txtTime.setText(tbCourse.getModel().getValueAt(i, 7).toString());
@@ -869,6 +879,7 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private javax.swing.JButton btnOnsite;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<String> cbDepartment;
     private javax.swing.JComboBox<String> cbSelectSearch;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -890,7 +901,6 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private javax.swing.JTextField txtCourseId;
     private javax.swing.JTextField txtCredits;
     private javax.swing.JTextField txtDate;
-    private javax.swing.JTextField txtDepartment;
     private javax.swing.JTextField txtLocation;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtTime;

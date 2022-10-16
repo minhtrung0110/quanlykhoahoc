@@ -10,18 +10,18 @@ import java.util.Date;
  *
  * @author trankimphu0609
  */
-public class DepartmentDTO {
+public class Department {
     
     public int DepartmentID;
     public String Name;
-    public int Budget;
+    public Double Budget;
     public Date StartDate;
     public int Administrator;
 
-    public DepartmentDTO() {
+    public Department() {
     }
 
-    public DepartmentDTO(int DepartmentID, String Name, int Budget, Date StartDate, int Administrator) {
+    public Department(int DepartmentID, String Name, Double Budget, Date StartDate, int Administrator) {
         this.DepartmentID = DepartmentID;
         this.Name = Name;
         this.Budget = Budget;
@@ -45,11 +45,11 @@ public class DepartmentDTO {
         this.Name = Name;
     }
 
-    public int getBudget() {
+    public Double getBudget() {
         return Budget;
     }
 
-    public void setBudget(int Budget) {
+    public void setBudget(Double Budget) {
         this.Budget = Budget;
     }
 
