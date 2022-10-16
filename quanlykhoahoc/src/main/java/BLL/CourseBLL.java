@@ -57,7 +57,6 @@ public class CourseBLL {
                 return;
             }
         }
-
     }
 
     public void updateCourse(int id, Course cs) throws Exception {
@@ -123,5 +122,12 @@ public class CourseBLL {
             }
         }
         return s + (max + 1);
+    }
+    public static void main(String[] args) throws Exception {
+        CourseBLL bll = new CourseBLL();
+        bll.loadDSCourse("ASC");
+        ArrayList<Course> ar = new ArrayList<>();
+        ar = bll.searchCourseWithID(4061);
+        getListCourse().forEach(s-> System.out.println(s));
     }
 }

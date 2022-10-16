@@ -63,7 +63,7 @@ public class GradeBLL {
             }
         }
     }
-    
+
     public ArrayList<GradeDTO> searchGrade(int courseID, int studentID) {
         ArrayList<GradeDTO> search = new ArrayList<>();
 
@@ -74,7 +74,6 @@ public class GradeBLL {
         }
         return search;
     }
-
 
     public ArrayList<GradeDTO> searchGradeWithCourseID(int courseID) {
         ArrayList<GradeDTO> search = new ArrayList<>();
@@ -106,4 +105,11 @@ public class GradeBLL {
         return listGrade;
     }
 
+    public static void main(String[] args) throws Exception {
+        GradeBLL bll = new GradeBLL();
+        bll.loadDSGrade();
+        ArrayList<GradeDTO> ar = new ArrayList<>();
+        ar = bll.searchGradeWithCourseID(4061);
+        ar.forEach(s-> System.out.println(s));
+    }
 }

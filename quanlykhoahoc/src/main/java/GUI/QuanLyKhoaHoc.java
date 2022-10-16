@@ -7,10 +7,13 @@ package GUI;
 import BLL.CourseBLL;
 import BLL.CourseInstructorBLL;
 import BLL.DepartmentBLL;
+import BLL.GradeBLL;
 import DTO.Course;
 import DTO.CourseOnline;
 import DTO.CourseOnsite;
 import DTO.Department;
+import DTO.GradeDTO;
+import DTO.CourseInstructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -30,6 +33,8 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     private DefaultTableModel model;
     CourseBLL bll = new CourseBLL();
     DepartmentBLL dll = new DepartmentBLL();
+    GradeBLL gll = new GradeBLL();
+    CourseInstructorBLL cill = new CourseInstructorBLL();
 
     public QuanLyKhoaHoc() {
         this.setSize(1090, 750);
@@ -729,12 +734,28 @@ public class QuanLyKhoaHoc extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        ArrayList<GradeDTO> gradeList = new ArrayList<>();
+        ArrayList<CourseInstructor> courseIntructorList = new ArrayList<>();
+
         int confirm = JOptionPane.showConfirmDialog(null, "Bạn Thực Sự Muốn Xóa Khóa Học Này ?",
                 "Thông Báo", JOptionPane.YES_NO_OPTION);
         if (confirm == 0)
         try {
             int courseID = Integer.parseInt(txtCourseId.getText());
-            bll.deleteCourse(courseID);//gọi Layer BLL xoá 
+
+
+            gll.loadDSGrade();
+            cill.loadDSCourseInstructor("ASC");
+            gradeList = gll.searchGradeWithCourseID(courseID);
+            courseIntructorList = cill.searchCourseID(courseID);
+
+            if (!gradeList.isEmpty() || !courseIntructorList.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Khóa Học này đang có lịch học hoặc đang được phân công",
+                        "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            } else {
+                bll.deleteCourse(courseID);//gọi Layer BLL xoá 
+            }
+
             insertHeader();// chèn header cho table
             outModel(model, CourseBLL.getListCourse());// đổ data vào table
             clearInput();

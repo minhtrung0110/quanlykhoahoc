@@ -30,4 +30,10 @@ public class DepartmentBLL {
         }
         listDepartment = data.loadDepartment();
     }
+    
+    public static void main(String[] args) throws Exception {
+        DepartmentBLL dll = new DepartmentBLL();
+        dll.loadDepartment();
+        getListDepartment().forEach(s->System.out.println(s));
+    }
 }

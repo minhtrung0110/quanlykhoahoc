@@ -79,7 +79,6 @@ public class CourseDAL extends MyConnectUnit {
         return listCourse;
     }
 
-
     private void addCourseOnline(CourseOnline cs) throws Exception {
         HashMap<String, Object> InsertvaluesCourse = new HashMap<String, Object>();
         HashMap<String, Object> InsertvaluesCourseOnline = new HashMap<String, Object>();
@@ -103,14 +102,16 @@ public class CourseDAL extends MyConnectUnit {
             System.out.println("Khong the them CourseOnline vao database !!!");
         }
     }
-    private  int getCourseIDNearly() throws Exception{
+
+    private int getCourseIDNearly() throws Exception {
         ResultSet rs = this.SelectCustomOrderby("course", "CourseID", null, "CourseID DESC limit 1");
-            while (rs.next()) {
-                
-                return rs.getInt("CourseID");
-            }
-            return -1;
+        while (rs.next()) {
+
+            return rs.getInt("CourseID");
+        }
+        return -1;
     }
+
     private void addCourseOnSite(CourseOnsite cs) throws Exception {
         HashMap<String, Object> InsertvaluesCourse = new HashMap<String, Object>();
         HashMap<String, Object> InsertvaluesCourseOnsite = new HashMap<String, Object>();
@@ -124,15 +125,15 @@ public class CourseDAL extends MyConnectUnit {
         InsertvaluesCourseOnsite.put("Time", cs.getTime());
         try {
             this.Insert("course", InsertvaluesCourse);
-          //  ResultSet rs = this.SelectCustomOrderby("course", "CourseID", null, "CourseID DESC limit 1");
-          //  while (rs.next()) {
-                
+            //  ResultSet rs = this.SelectCustomOrderby("course", "CourseID", null, "CourseID DESC limit 1");
+            //  while (rs.next()) {
+
             InsertvaluesCourseOnsite.put("CourseID", this.getCourseIDNearly());
-           // }
-             // System.out.println(InsertvaluesCourseOnsite);
-               // InsertvaluesCourseOnsite.forEach(action);
+            // }
+            // System.out.println(InsertvaluesCourseOnsite);
+            // InsertvaluesCourseOnsite.forEach(action);
             this.Insert("onsitecourse", InsertvaluesCourseOnsite);
-          
+
         } catch (Exception ex) {
             System.out.println("Khong the them CourseOnsite vao database !!!");
         }
@@ -143,7 +144,7 @@ public class CourseDAL extends MyConnectUnit {
             if (cs instanceof CourseOnline) {
                 this.addCourseOnline((CourseOnline) cs);
             } else {
-                
+
                 this.addCourseOnSite((CourseOnsite) cs);
             }
         } catch (Exception ex) {
@@ -198,18 +199,30 @@ public class CourseDAL extends MyConnectUnit {
     }
 
     public void deleteCourse(int courseID) {
-        try {
-            this.Delete("onlinecourse", "CourseID ='" + courseID + "'");
-            this.Delete("onsitecourse", "CourseID ='" + courseID + "'");
-            this.Delete("course", "CourseID ='" + courseID + "'");
 
+        try {
+            ResultSet rs = this.Select("onlinecourse", "CourseID ='" + courseID + "'");
+            int check = -1;
+            while (rs.next()) {
+                check = rs.getInt("CourseID");
+            }
+            System.out.println("check: " + check);
+            if (check == -1) {
+                this.Delete("onsitecourse", "CourseID ='" + courseID + "'");
+                this.Delete("course", "CourseID ='" + courseID + "'");
+            } else {
+                this.Delete("onlinecourse", "CourseID ='" + courseID + "'");
+                this.Delete("course", "CourseID ='" + courseID + "'");
+            }
         } catch (Exception e) {
             System.out.println("Lỗi không thể xóa course item !!");
         }
     }
 
     public static void main(String[] args) throws Exception {
-//        CourseDAL data = new CourseDAL();
+        CourseDAL data = new CourseDAL();
+        data.deleteCourse(4061);
+//        System.out.println("delte: " + data.deleteCourse(4061));
 //        CourseOnline cson = new CourseOnline();
 //        //  cson.setCourseID(0);
 //        cson.setTitle("Da Update");
@@ -227,6 +240,6 @@ public class CourseDAL extends MyConnectUnit {
         // data.addCourseOnSite(cssite);
         //data.addCourseOnline(cson);
         //  data.update(4068,cson);
-        
+
     }
 }
