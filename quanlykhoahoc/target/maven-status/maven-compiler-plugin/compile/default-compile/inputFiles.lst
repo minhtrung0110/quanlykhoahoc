@@ -1,46 +1,46 @@
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\JPFormCourse.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\KhoaHocJF.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyGiaoVien.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\Item.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\Page404.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\DepartmentDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\navItem.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\QuanLyKhoaHocController.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseInstructorDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\JPFormPerson.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\ManageCourses.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\PersonBLL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\DepartmentDTO.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyKetQuaKhoaHoc.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\CourseInstructorBLL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\GradeDTO.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\CourseBLL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyPhanCongGiangDay.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyKhoaHoc.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseOnlineDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\OfficeAssignmentDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\CourseOnline.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\header.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyKhoaHocV1.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyHocVien.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\PersonDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\CourseOnsite.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\Person.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\MyConnectUnit.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseOnsiteDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\ClassTableModel_KhoaHoc.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\GradeBLL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\Course.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocServiceImpl.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\MySQLConnect.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\CourseInstructor.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\OfficeAssignmentDTO.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\GradeDAL.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\MyDatabaseManager.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocDALImpl.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocService.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\JPFormStudent.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\KhoaHocJF_delete.java
-D:\OneDrive\Learning Data Important Private\Learning\LastYear\HKI\XDPM_PhanLop\3Layer\QuanLyKhoaHoc\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\KhoaHocController.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseOnlineDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\ManageCourses.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyKhoaHoc.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\GradeBLL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocService.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseInstructorDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\CourseOnsite.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\header.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\MySQLConnect.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\Person.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\ClassTableModel_KhoaHoc.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\navItem.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyPhanCongGiangDay.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyHocVien.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyKhoaHocV1.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\JPFormCourse.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocDALImpl.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\Item.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\GradeDTO.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\DepartmentDTO.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\MyConnectUnit.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\CourseBLL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\OfficeAssignmentDTO.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyKetQuaKhoaHoc.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\KhoaHocServiceImpl.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\QuanLyKhoaHocController.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\Course.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\PersonBLL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\CourseInstructorBLL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\DepartmentDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\PersonDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\QuanLyGiaoVien.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\GradeDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\KhoaHocJF.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\model\Page404.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\BLL\KhoaHocController.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\CourseOnline.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\JPFormPerson.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\JPFormStudent.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\OfficeAssignmentDAL.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DTO\CourseInstructor.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\GUI\KhoaHocJF_delete.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\MyDatabaseManager.java
+C:\Users\vonhu\Desktop\PhanLop\quanlykhoahoc\quanlykhoahoc\src\main\java\DAL\CourseOnsiteDAL.java
