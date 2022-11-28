@@ -33,7 +33,6 @@ jcalendar-1.4
 
 Phần mềm chạy tốt trên nền tảng java version 18 với jdk version 18. với độ phân giải màn hình chuẩn của máy là > 1280x900 ( FullHD )
 
-
 ```
 1. Tạo database "school2" và import file school2.sql vào phpadmin trên XAMPP .
 ```
@@ -55,3 +54,5 @@ Phần mềm chạy tốt trên nền tảng java version 18 với jdk version 1
 <h3 align="center">Giao diện chính</h3><br>
 
 ![Alt text](imgReadme/main.png?raw=true "Màn hình chính")
+
+## XỊn
